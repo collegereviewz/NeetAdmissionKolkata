@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-college-primary: #0096FF;
+  --color-college-dark: #002D62;
+  --color-college-light: #5CE1FF;
+  --color-college-bg: #F3F4F6;
+}
+
+body {
+  background-color: var(--color-college-bg);
+  font-family: 'Inter', sans-serif;
+}
