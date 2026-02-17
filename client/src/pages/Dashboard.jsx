@@ -2,6 +2,7 @@ import React from 'react';
 import { Play, MessageCircle, Send, Phone, Mail, FileDown, AlertTriangle, Pin, Home, Plus, X, Search } from 'lucide-react';
 import { useState } from 'react';
 import logo from '../assets/logo6.png';
+import { counselingOptions } from '../data/counselingData';
 
 const Dashboard = () => {
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
@@ -11,53 +12,16 @@ const Dashboard = () => {
     'Assam - PG Medical'
   ]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [itemToDelete, setItemToDelete] = useState(null);
 
-  const counselingOptions = [
-    'All India Counseling - PG Medical',
-    'Andaman & Nicobar Islands - PG Medical',
-    'Andhra Pradesh Government Quota - PG Medical',
-    'Andhra Pradesh Management Quota - PG Medical',
-    'Armed Forces Medical Services - AFMS (through MCC) - PG Medical',
-    'Arunachal Pradesh - PG Medical',
-    'Assam - PG Medical',
-    'Bihar - PG Medical',
-    'Chandigarh - PG Medical',
-    'Chhattisgarh - PG Medical',
-    'Dadra and Nagar Haveli - PG Medical',
-    'Delhi - PG Medical',
-    'DNB - Inservice Seats - PG Medical',
-    'DNB - PDCET - PG Medical',
-    'DNB Sponsored - PG Medical (Govt or PSU Inservice Candidates)',
-    'Goa - PG Medical',
-    'Gujarat - PG Medical',
-    'Haryana - PG Medical',
-    'Himachal Pradesh - PG Medical',
-    'Jammu and Kashmir - PG Medical',
-    'Jharkhand - PG Medical',
-    'Karnataka - PG Medical',
-    'Kerala - PG Medical',
-    'Madhya Pradesh - PG Medical',
-    'Maharashtra - PG Medical',
-    'Manipur-JNIMS - PG Medical',
-    'Manipur-RIMS - PG Medical',
-    'Mizoram - PG Medical',
-    'NEIGRIHMS - PG Medical',
-    'Odisha - PG Medical',
-    'Open States (Private Institute seats available for all candidates)',
-    'Pondicherry - PG Medical',
-    'Punjab - PG Medical',
-    'Rajasthan - PG Medical',
-    'Sikkim - PG Medical',
-    'Tamil Nadu DNB Inservice - PG Medical',
-    'Tamil Nadu Government Quota - PG Medical',
-    'Tamil Nadu Management Quota - PG Medical',
-    'Telangana Government Quota - PG Medical',
-    'Telangana Management Quota - PG Medical',
-    'Tripura - PG Medical',
-    'Uttarakhand - PG Medical',
-    'Uttar Pradesh - PG Medical',
-    'West Bengal - PG Medical'
-  ];
+  const confirmDelete = () => {
+    if (itemToDelete) {
+      if (pinnedItems.includes(itemToDelete)) {
+        setPinnedItems(pinnedItems.filter(i => i !== itemToDelete));
+      }
+      setItemToDelete(null);
+    }
+  };
 
   const togglePin = (item) => {
     if (pinnedItems.includes(item)) {
@@ -82,13 +46,24 @@ const Dashboard = () => {
         </button>
         
         {pinnedItems.map((item) => (
-           <button 
+           <div 
              key={item}
-             className="flex items-center px-3 py-1.5 bg-transparent text-gray-600 hover:bg-white hover:shadow-sm rounded-full text-sm font-medium transition-all whitespace-nowrap group"
+             className="relative group flex items-center px-3 py-1.5 bg-white border border-gray-200 text-gray-600 rounded-full text-sm font-medium transition-all whitespace-nowrap hover:shadow-sm hover:border-red-200 hover:bg-red-50 cursor-default"
            >
-              <Pin size={14} className="mr-1.5 fill-gray-600 group-hover:fill-gray-800" /> 
-              {item}
-           </button>
+              <Pin size={14} className="mr-1.5 fill-gray-600 group-hover:hidden" /> 
+              
+              <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setItemToDelete(item);
+                }}
+                className="hidden group-hover:flex mr-1.5 w-3.5 h-3.5 items-center justify-center bg-red-100 text-red-500 rounded-full hover:bg-red-200 transition-colors cursor-pointer"
+              >
+                <X size={10} strokeWidth={3} />
+              </button>
+
+              <span className="group-hover:text-red-600 transition-colors">{item}</span>
+           </div>
         ))}
 
          <button 
@@ -98,6 +73,36 @@ const Dashboard = () => {
            <Plus size={16} />
         </button>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {itemToDelete && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 backdrop-blur-[2px] p-4">
+            <div className="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100 w-full max-w-sm transform scale-100 animate-in fade-in zoom-in duration-200">
+                <div className="flex flex-col items-center text-center">
+                    <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-3">
+                        <AlertTriangle size={24} />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">Are you sure to delete?</h3>
+                    <p className="text-sm text-gray-500 mb-6">This action will unpin <span className="font-semibold text-gray-800">"{itemToDelete}"</span> from your dashboard.</p>
+                    
+                    <div className="flex gap-3 w-full">
+                        <button
+                            onClick={() => setItemToDelete(null)}
+                            className="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-colors"
+                        >
+                            No
+                        </button>
+                        <button
+                            onClick={confirmDelete}
+                            className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-red-500/20"
+                        >
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      )}
 
       {/* Pin Counselling Modal */}
       {isPinModalOpen && (

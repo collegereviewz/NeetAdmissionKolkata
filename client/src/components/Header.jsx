@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
 
-const Header = () => {
+const Header = ({ onOpenChoiceList }) => {
   const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState('NEET PG');
   const dropdownRef = useRef(null);
@@ -38,14 +37,16 @@ const Header = () => {
   return (
     <header className="bg-white px-6 py-3 flex items-center justify-between shadow-sm border-b border-gray-100 sticky top-0 z-20">
       {/* Left Section: Breadcrumbs / Actions */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-3">
+        {/* Dropdown */}
         <div className="relative" ref={dropdownRef}>
             <div 
-                className="flex items-center bg-blue-50 text-college-primary px-3 py-1.5 rounded-lg border border-blue-100 cursor-pointer hover:bg-blue-100 transition-colors"
+                className="flex items-center bg-[#E5F7FF] text-[#002D62] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#D6F0FF] transition-colors border border-transparent"
                 onClick={() => setIsCourseDropdownOpen(!isCourseDropdownOpen)}
             >
-                <span className="font-semibold text-sm">{selectedCourse}</span>
-                <ChevronDown size={16} className={`ml-1 transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} />
+                <svg className="w-4 h-4 mr-1.5 text-[#0096FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                <span className="font-bold text-xs tracking-wide">{selectedCourse}</span>
+                <ChevronDown size={14} className={`ml-1.5 text-[#0096FF] transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} strokeWidth={2.5} />
             </div>
 
             {/* Course Dropdown */}
@@ -86,9 +87,13 @@ const Header = () => {
             )}
         </div>
         
-        <div className="hidden md:flex items-center text-gray-500 hover:text-college-primary cursor-pointer transition-colors px-2 py-1 rounded-md hover:bg-gray-50">
-            <svg className="w-4 h-4 mr-1.5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"></path></svg>
-            <span className="text-sm font-medium">My Choice Lists</span>
+        {/* My Choice Lists */}
+        <div 
+            onClick={onOpenChoiceList}
+            className="flex items-center bg-[#FFF1F2] text-[#FF3E55] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#FFD1D6] transition-colors border border-transparent"
+        >
+            <svg className="w-4 h-4 mr-1.5 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span className="font-bold text-xs tracking-wide">My Choice Lists</span>
         </div>
       </div>
 
@@ -121,15 +126,13 @@ const Header = () => {
           <div className="absolute -top-3 -right-2 px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full border border-white shadow-sm">New</div>
         </button>
 
-        <a href="#" className="hidden lg:block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Refer & Earn</a>
+        <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Blogs & News</a>
+
+        <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Refer & Earn</a>
         
-        <a href="#" className="hidden lg:block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Packages</a>
+        <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Packages</a>
 
-        <div className="h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition-colors text-gray-600 relative">
-            <Menu size={18} />
-        </div>
-
-        <div className="h-9 w-9 bg-college-dark rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:bg-opacity-90 transition-colors ring-2 ring-blue-100">
+        <div className="h-9 w-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:bg-opacity-90 transition-colors ring-2 ring-purple-100">
           A
         </div>
       </div>
