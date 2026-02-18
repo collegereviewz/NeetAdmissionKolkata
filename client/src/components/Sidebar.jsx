@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import logo from '../assets/logo6.png';
 import {
   LayoutDashboard,
@@ -22,6 +23,8 @@ import {
   Search,
   TrendingUp
 } from 'lucide-react';
+
+const bouncy = { type: 'spring', stiffness: 500, damping: 15, mass: 0.8 };
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -84,10 +87,13 @@ const Sidebar = () => {
       </div>
 
       {/* Menu Items - Scrollable */}
-      <div className="flex-1 w-full overflow-y-auto no-scrollbar flex flex-col space-y-3 px-2 pb-6">
+      <div className="flex-1 w-full overflow-y-auto no-scrollbar flex flex-col space-y-1 px-2 pb-6">
         {menuItems.map((item) => (
           <React.Fragment key={item.name}>
-            <div
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={bouncy}
               className={`flex flex-col items-center cursor-pointer group relative ${activeItem === item.name ? 'text-college-primary' : 'text-gray-600 hover:text-gray-900'}`}
               onClick={() => {
                 setActiveItem(item.name);
@@ -99,7 +105,7 @@ const Sidebar = () => {
                 <item.icon size={24} strokeWidth={activeItem === item.name ? 2.5 : 2} />
               </div>
 
-              <div className="flex items-center mt-1">
+              <div className="flex items-center mt-0">
                 <span className={`text-xs font-medium ${activeItem === item.name ? 'font-bold' : ''}`}>
                   {item.name}
                 </span>
@@ -112,14 +118,17 @@ const Sidebar = () => {
               {activeItem === item.name && !expandedItem && (
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-college-primary rounded-r-full md:hidden"></div>
               )}
-            </div>
+            </motion.div>
 
             {/* Sub-items */}
             {item.hasDropdown && expandedItem === item.name && item.subItems && (
-              <div className="flex flex-col items-center w-full bg-gray-50 py-2 space-y-2 border-y border-gray-100 animate-in slide-in-from-top-2 duration-300">
+              <div className="flex flex-col items-center w-full bg-gray-50 py-1 space-y-1 border-y border-gray-100 animate-in slide-in-from-top-2 duration-300">
                 {item.subItems.map((subItem) => (
-                  <div
+                  <motion.div
                     key={subItem.name}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={bouncy}
                     className="flex flex-col items-center cursor-pointer text-center px-1 group/sub"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -130,10 +139,10 @@ const Sidebar = () => {
                     <div className={`p-2 rounded-full transition-all ${subItem.highlight ? 'bg-transparent text-college-primary group-hover/sub:bg-college-primary group-hover/sub:text-white group-hover/sub:shadow-md' : 'text-gray-500 group-hover/sub:text-college-primary'}`}>
                       <subItem.icon size={20} strokeWidth={2} />
                     </div>
-                    <span className={`text-[10px] font-medium mt-1 leading-tight ${subItem.highlight ? 'text-college-primary font-bold' : 'text-gray-500 group-hover/sub:text-college-primary'}`}>
+                    <span className={`text-[10px] font-medium mt-0 leading-tight ${subItem.highlight ? 'text-college-primary font-bold' : 'text-gray-500 group-hover/sub:text-college-primary'}`}>
                       {subItem.name}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             )}

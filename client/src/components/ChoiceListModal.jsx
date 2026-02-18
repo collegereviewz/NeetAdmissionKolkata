@@ -1,18 +1,8 @@
 import React from 'react';
-import { X, Search, Trash2, AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
+import { X, Search } from 'lucide-react';
 
-const ChoiceListModal = ({ isOpen, onClose, choiceLists, onCreateList, onDeleteList }) => {
-  const [listToDelete, setListToDelete] = useState(null);
-
+const ChoiceListModal = ({ isOpen, onClose, pinnedItems, onCreateList }) => {
   if (!isOpen) return null;
-
-  const confirmDelete = () => {
-    if (listToDelete) {
-        onDeleteList(listToDelete);
-        setListToDelete(null);
-    }
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
@@ -38,44 +28,32 @@ const ChoiceListModal = ({ isOpen, onClose, choiceLists, onCreateList, onDeleteL
             <input 
               type="text" 
               placeholder="Search your Choice Lists" 
-              className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-100 focus:border-orange-300 transition-all"
+              className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 transition-all"
             />
           </div>
 
           {/* List Items */}
           <div className="space-y-3">
-             {choiceLists.length > 0 ? (
-                choiceLists.map((list, index) => (
+             {pinnedItems.length > 0 ? (
+                pinnedItems.map((item, index) => (
                     <div key={index} className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
                         <div className="p-4 flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                {/* Icon Container - similar to screenshot style if possible, or just the emoji */}
+                                {/* Icon Container */}
                                 <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-xl">
                                     🧙‍♂️
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-gray-800 text-sm line-clamp-1">{list}</h3>
+                                    <h3 className="font-semibold text-gray-800 text-sm line-clamp-1">{item}</h3>
                                     <p className="text-xs text-gray-500">0 choice lists</p>
                                 </div>
-                            </div>
-                            
-                            <div className="flex items-center gap-2">
-                                <button 
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setListToDelete(list);
-                                    }}
-                                    className="w-8 h-8 flex items-center justify-center bg-[#FFF1F2] text-[#FF3E55] rounded-lg hover:bg-[#FFD1D6] transition-colors"
-                                >
-                                    <Trash2 size={16} />
-                                </button>
                             </div>
                         </div>
                     </div>
                 ))
              ) : (
                 <div className="text-center py-8 text-gray-400 text-sm">
-                    No choice lists created yet.
+                    No pinned counselling yet.
                 </div>
              )}
           </div>
@@ -86,41 +64,11 @@ const ChoiceListModal = ({ isOpen, onClose, choiceLists, onCreateList, onDeleteL
         <div className="p-4 pt-2 flex-shrink-0 bg-white border-t border-gray-50">
             <button 
                 onClick={onCreateList}
-                className="w-full py-3 bg-[#FF6B35] hover:bg-[#E55A2B] text-white rounded-xl font-semibold shadow-lg shadow-orange-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                className="w-full py-3 bg-college-primary hover:bg-blue-600 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
             >
                 <span className="text-xl leading-none">+</span> Create Choice List
             </button>
         </div>
-
-        {/* Delete Confirmation Modal Overlay */}
-        {listToDelete && (
-            <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/20 backdrop-blur-[2px] p-4 rounded-2xl">
-                <div className="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100 w-full max-w-sm transform scale-100 animate-in fade-in zoom-in duration-200">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-3">
-                            <AlertTriangle size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-1">Are you sure to delete?</h3>
-                        <p className="text-sm text-gray-500 mb-6">This action will delete <span className="font-semibold text-gray-800">"{listToDelete}"</span> permanently.</p>
-                        
-                        <div className="flex gap-3 w-full">
-                            <button
-                                onClick={() => setListToDelete(null)}
-                                className="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-colors"
-                            >
-                                No
-                            </button>
-                            <button
-                                onClick={confirmDelete}
-                                className="flex-1 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-red-500/20"
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )}
 
       </div>
     </div>

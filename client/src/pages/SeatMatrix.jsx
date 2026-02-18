@@ -105,53 +105,58 @@ const SeatMatrix = () => {
     const paginationRange = getPaginationRange();
 
     return (
-        <div className="p-4 md:p-6 h-[calc(100vh-80px)] flex flex-col box-border font-sans bg-gray-50">
+        <div className="p-3 md:p-4 h-[calc(100vh-64px)] flex flex-col box-border font-sans bg-gray-50 overflow-hidden">
             {/* Header Section */}
-            <div className="flex-none flex flex-col gap-4 mb-4">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div className="flex items-center gap-4">
-                        <h1 className="text-2xl font-bold text-gray-900">Seat Matrix</h1>
-                        <a href="#" className="text-sm text-blue-600 hover:underline">What's this?</a>
+            <div className="flex-none flex flex-col gap-2 mb-2">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-xl font-bold text-gray-900">Seat Matrix</h1>
+                        <a href="#" className="text-xs text-blue-600 hover:underline">What's this?</a>
                     </div>
 
-                    <div className="flex flex-col items-end gap-2">
-                        <div className="bg-yellow-100 border border-yellow-200 text-yellow-800 px-3 py-1.5 rounded-md text-xs flex items-center gap-2">
-                            <Info size={14} />
+                    <div className="flex items-center gap-3">
+                        <div className="bg-yellow-100 border border-yellow-200 text-yellow-800 px-2 py-1 rounded-md text-[10px] flex items-center gap-1.5 font-medium">
+                            <Info size={12} />
                             Read this before looking at the Seat Matrix
                         </div>
-                        <a href="#" className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1">
-                            <AlertTriangle size={12} />
-                            Spotted an error? Let us know
+                        <a href="#" className="text-[10px] text-gray-400 hover:text-gray-600 flex items-center gap-1">
+                            <AlertTriangle size={10} />
+                            Spotted an error?
                         </a>
                     </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3">
-                    <div className="relative group">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-md text-sm text-orange-500 font-medium hover:bg-gray-50">
-                            All India Counseling - PG Medical
-                            <ChevronDown size={16} className='text-gray-400' />
-                        </button>
-                    </div>
-                    <a href="#" className="flex items-center gap-1 px-4 py-2 bg-white border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50">
+                <div className="flex flex-wrap items-center gap-2">
+                    <motion.button 
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-orange-500 font-medium hover:bg-gray-50 shadow-sm"
+                    >
+                        All India Counseling - PG Medical
+                        <ChevronDown size={14} className='text-gray-400' />
+                    </motion.button>
+                    <motion.a 
+                        href="#" 
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50 shadow-sm"
+                    >
                         Go to counselling
-                        <ExternalLink size={14} />
-                    </a>
+                        <ExternalLink size={12} />
+                    </motion.a>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                    <p className="text-sm text-gray-600">
-                        Click on the record for detailed information and factors. <br />
-                        (*) Indicates additional remarks available in Details & Factors. <br />
-                        Click on Ranks to view the allotment list.
+                <div className="flex flex-col gap-1">
+                    <p className="text-[11px] text-gray-500 leading-tight">
+                        Click on the record for detailed information and factors. (*) Indicates additional remarks available in Details & Factors. Click on Ranks to view the allotment list.
                     </p>
                 </div>
 
 
                 {/* Filter and Controls Toolbar */}
-                <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4 mt-2">
-                    <div className="text-sm font-semibold text-gray-700">
-                        {Math.min(((pagination.page - 1) * pagination.limit) + 1, pagination.total)} - {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} Records in 2025 session
+                <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-3 mt-1">
+                    <div className="text-xs font-semibold text-gray-500">
+                        {Math.min(((pagination.page - 1) * pagination.limit) + 1, pagination.total)} - {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} Records
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
@@ -165,86 +170,104 @@ const SeatMatrix = () => {
                         </div>
 
                         <div className="flex items-center bg-white border border-orange-200 rounded-full px-1 py-0.5">
-                            <button className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-orange-500 border-r border-orange-200">
+                            <motion.button 
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-orange-500 border-r border-orange-200"
+                            >
                                 <Heart size={12} fill="currentColor" />
                                 Choice List
-                            </button>
-                            <button className="px-3 py-1 text-xs font-medium text-gray-500">
+                            </motion.button>
+                            <motion.button 
+                                whileTap={{ scale: 0.95 }}
+                                className="px-3 py-1 text-xs font-medium text-gray-500"
+                            >
                                 Ask every time
-                            </button>
+                            </motion.button>
                         </div>
 
-                        <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">
-                            <ArrowUpDown size={14} />
+                        <motion.button 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-xs text-gray-700 hover:bg-gray-50 shadow-sm"
+                        >
+                            <ArrowUpDown size={12} />
                             Sort
-                        </button>
-                        <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">
-                            <Filter size={14} />
+                        </motion.button>
+                        <motion.button 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-xs text-gray-700 hover:bg-gray-50 shadow-sm"
+                        >
+                            <Filter size={12} />
                             Filter
-                        </button>
+                        </motion.button>
 
                         {/* Pagination Controls (Compact) */}
-                        <div className="flex items-center gap-1 ml-2 bg-white border border-gray-300 rounded-md p-0.5">
-                            <button
+                        <div className="flex items-center gap-1 ml-2 bg-white border border-gray-300 rounded-md p-0.5 shadow-sm">
+                            <motion.button
+                                whileTap={{ scale: 0.9 }}
                                 onClick={() => handlePageChange(pagination.page - 1)}
                                 disabled={pagination.page === 1}
                                 className="p-1 rounded hover:bg-gray-100 disabled:opacity-30 text-gray-600"
                             >
-                                <ChevronLeft size={16} />
-                            </button>
+                                <ChevronLeft size={14} />
+                            </motion.button>
                             {paginationRange && paginationRange.map((pageNum, idx) => {
-                                // Show fewer pages in this compact view if needed, but for now exact same logic
                                 if (pageNum === "...") {
-                                    return <span key={idx} className="text-gray-400 px-1 text-xs">...</span>;
+                                    return <span key={idx} className="text-gray-400 px-1 text-[10px]">...</span>;
                                 }
-                                // Only show first, last, current, and adjacent in compact view if strictly following design,
-                                // but standard pagination is fine.
                                 return (
-                                    <button
+                                    <motion.button
                                         key={idx}
+                                        whileTap={{ scale: 0.9 }}
                                         onClick={() => handlePageChange(pageNum)}
-                                        className={`min-w-[24px] h-6 flex items-center justify-center text-xs font-medium rounded ${pagination.page === pageNum
-                                            ? 'bg-gray-100 text-black font-bold'
-                                            : 'text-gray-600 hover:bg-gray-50'
+                                        className={`min-w-[20px] h-5 flex items-center justify-center text-[10px] font-medium rounded ${pagination.page === pageNum
+                                            ? 'bg-blue-50 text-blue-600 font-bold'
+                                            : 'text-gray-500 hover:bg-gray-50'
                                             }`}
                                     >
                                         {pageNum}
-                                    </button>
+                                    </motion.button>
                                 );
                             })}
-                            <button
+                            <motion.button
+                                whileTap={{ scale: 0.9 }}
                                 onClick={() => handlePageChange(pagination.page + 1)}
                                 disabled={pagination.page === pagination.pages}
                                 className="p-1 rounded hover:bg-gray-100 disabled:opacity-30 text-gray-600"
                             >
-                                <ChevronRight size={16} />
-                            </button>
-                            <button className="p-1 rounded hover:bg-gray-100 text-gray-600">
-                                <RotateCcw size={14} />
-                            </button>
+                                <ChevronRight size={14} />
+                            </motion.button>
+                            <motion.button 
+                                whileTap={{ scale: 0.9, rotate: -180 }}
+                                className="p-1 rounded hover:bg-gray-100 text-gray-400"
+                            >
+                                <RotateCcw size={12} />
+                            </motion.button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 overflow-auto relative">
-                <table className="min-w-full divide-y divide-gray-200 text-xs text-left">
+            <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 overflow-auto relative custom-scrollbar">
+                <table className="min-w-full divide-y divide-gray-200 text-[11px] text-left">
                     <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm border-b border-gray-200">
                         <tr>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Round</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Quota</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Category</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">State</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Institute</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Course</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Seats</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Fee</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Stipend Year 1</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Bond Years</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Bond Penalty</th>
-                            <th className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Beds</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">#</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Round</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Quota</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Category</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">State</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Institute</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Course</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Seats</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Fee</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Stipend Year 1</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Bond Years</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Bond Penalty</th>
+                            <th className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">Beds</th>
                             {closingRankHeaders.map(header => (
-                                <th key={header} className="px-4 py-3 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">
+                                <th key={header} className="px-3 py-2 font-bold text-gray-800 uppercase tracking-wider whitespace-nowrap bg-gray-100 sticky top-0">
                                     {header}
                                 </th>
                             ))}
@@ -261,29 +284,32 @@ const SeatMatrix = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.2, delay: index * 0.02 }}
-                                        className="hover:bg-gray-50 transition-colors cursor-pointer group"
+                                        transition={{ duration: 0.2, delay: index * 0.01 }}
+                                        className="hover:bg-blue-50/30 transition-colors cursor-pointer group border-b border-gray-100"
                                         onClick={() => handleRowClick(item)}
                                     >
-                                        <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900 group-hover:text-blue-600">{item.round}</td>
-                                        <td className="px-4 py-3 whitespace-nowrap text-gray-700 font-medium">{item.quota}</td>
-                                        <td className="px-4 py-3 whitespace-nowrap text-gray-700 font-medium">{item.category}</td>
-                                        <td className="px-4 py-3 whitespace-nowrap text-gray-700">{item.state}</td>
-                                        <td className="px-4 py-3 font-medium text-blue-600 hover:underline" onClick={(e) => { e.stopPropagation(); handleRowClick(item); }}>{item.institute}</td>
-                                        <td className="px-4 py-3 text-gray-700 uppercase font-medium">{item.course}</td>
-                                        <td className="px-4 py-3 text-gray-700">{item.seats}</td>
-                                        <td className="px-4 py-3 text-gray-700">{item.fee}</td>
-                                        <td className="px-4 py-3 text-gray-700">{item.stipendYear1 || '-'}</td>
-                                        <td className="px-4 py-3 text-gray-700">{item.bondYears || '-'}</td>
-                                        <td className="px-4 py-3 text-gray-700">{item.bondPenalty || '-'}</td>
-                                        <td className="px-4 py-3 text-gray-700">{item.beds || '-'}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap text-gray-400 font-medium">
+                                            {((pagination.page - 1) * pagination.limit) + index + 1}
+                                        </td>
+                                        <td className="px-3 py-2 whitespace-nowrap font-medium text-gray-900 group-hover:text-blue-600">{item.round}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap text-gray-700 font-medium">{item.quota}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap text-gray-700 font-medium">{item.category}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap text-gray-700">{item.state}</td>
+                                        <td className="px-3 py-2 font-medium text-blue-600 hover:underline" onClick={(e) => { e.stopPropagation(); handleRowClick(item); }}>{item.institute}</td>
+                                        <td className="px-3 py-2 text-gray-700 uppercase font-medium">{item.course}</td>
+                                        <td className="px-3 py-2 text-gray-700">{item.seats}</td>
+                                        <td className="px-3 py-2 text-gray-700">{item.fee}</td>
+                                        <td className="px-3 py-2 text-gray-700">{item.stipendYear1 || '-'}</td>
+                                        <td className="px-3 py-2 text-gray-700">{item.bondYears || '-'}</td>
+                                        <td className="px-3 py-2 text-gray-700">{item.bondPenalty || '-'}</td>
+                                        <td className="px-3 py-2 text-gray-700">{item.beds || '-'}</td>
                                         {closingRankHeaders.map(header => {
                                             const match = header.match(/CR (\d+) (\d+)/);
                                             if (!match) return <td key={header} className="px-4 py-3 text-center text-gray-400">-</td>;
                                             const [_, year, round] = match;
                                             const rankData = item.closingRanks?.find(cr => cr.year === year && cr.round === round);
                                             return (
-                                                <td key={header} className="px-4 py-3 whitespace-nowrap text-blue-600 font-medium hover:underline text-center">
+                                                <td key={header} className="px-3 py-2 whitespace-nowrap text-blue-600 font-medium hover:underline text-center">
                                                     {rankData ? rankData.value : '-'}
                                                 </td>
                                             );
