@@ -26,7 +26,7 @@ const seedData = async () => {
     await SeatMatrix.deleteMany({});
     console.log("Data cleared.");
 
-    const dataDir = path.join(process.cwd(), "src/data");
+    const dataDir = path.join(process.cwd(), "src/data/seatmatrix");
     const files = fs.readdirSync(dataDir).filter(file => file.startsWith("seatmatrix_page") && file.endsWith(".csv"));
 
     console.log(`Found ${files.length} CSV files to process.`);

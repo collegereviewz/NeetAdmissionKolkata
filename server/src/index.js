@@ -3,6 +3,14 @@ import dotenv from "dotenv"
 import cors from "cors"
 import connectDB from "./db/db.js"
 import seatMatrixRouter from './route/seatMatrix.route.js'
+import closingRankRouter from './route/closingRank.route.js'
+import allotmentRouter from "./route/allotment.route.js";
+import feeStipendBondRouter from "./route/feeStipendBond.route.js";
+import seatIncreaseRouter from "./route/seatIncrease.route.js";
+import courseRouter from "./route/course.route.js";
+import counsellingRouter from "./route/counselling.route.js";
+import universityRouter from "./route/university.route.js";
+import instituteRouter from "./route/institute.route.js";
 
 dotenv.config({
     path: './.env'
@@ -19,6 +27,14 @@ app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 
 app.use("/api/v1/seat-matrix", seatMatrixRouter)
+app.use("/api/v1/closing-rank", closingRankRouter)
+app.use("/api/v1/allotment", allotmentRouter);
+app.use("/api/v1/fee-stipend-bond", feeStipendBondRouter);
+app.use("/api/v1/seat-increase", seatIncreaseRouter);
+app.use("/api/v1/courses", courseRouter);
+app.use("/api/v1/counselling", counsellingRouter);
+app.use("/api/v1/universities", universityRouter);
+app.use("/api/v1/institutes", instituteRouter);
 
 connectDB()
     .then(() => {

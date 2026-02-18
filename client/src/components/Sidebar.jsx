@@ -51,6 +51,7 @@ const Sidebar = () => {
         { name: 'Closing Ranks', icon: Award },
         { name: 'Seat Matrix', icon: Grid3x3 },
         { name: 'Fee, Stipend and Bond', icon: ReceiptIndianRupee },
+        { name: 'Seat Increase', icon: TrendingUp },
       ]
     },
     {
@@ -71,7 +72,7 @@ const Sidebar = () => {
         { name: 'Institutes', icon: Building2 },
         { name: 'Universities', icon: Landmark },
         { name: 'Counsellings', icon: Users },
-        { name: 'Courses', icon: GraduationCap },
+        { name: 'Courses', icon: GraduationCap, highlight: true },
       ]
     },
     { name: 'Resources', icon: FileText, hasDropdown: false },
@@ -133,6 +134,14 @@ const Sidebar = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       if (subItem.name === 'Seat Matrix') navigate('/seat-matrix');
+                      if (subItem.name === 'Closing Ranks') navigate('/closing-ranks');
+                      if (subItem.name === 'Allotments') navigate('/allotments');
+                      if (subItem.name === 'Fee, Stipend and Bond') navigate('/fee-stipend-bond');
+                      if (subItem.name === 'Seat Increase') navigate('/seat-increase');
+                      if (subItem.name === 'Courses') navigate('/courses');
+                      if (subItem.name === 'Counsellings') navigate('/counsellings');
+                      if (subItem.name === 'Universities') navigate('/universities');
+                      if (subItem.name === 'Institutes') navigate('/institutes');
                       // Add other navigations here
                     }}
                   >
