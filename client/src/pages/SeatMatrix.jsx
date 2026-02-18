@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { ChevronLeft, ChevronRight, Filter, ArrowUpDown, Info, AlertTriangle, ExternalLink, ChevronDown, Heart, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,8 +18,8 @@ const SeatMatrix = () => {
     const fetchData = async (page = 1) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/v1/seat-matrix?page=${page}&limit=${pagination.limit}`);
-            const result = await response.json();
+            const response = await axios.get(`/seat-matrix?page=${page}&limit=${pagination.limit}`);
+            const result = response.data;
             if (result.success) {
                 setData(result.data);
                 setPagination(result.pagination);
