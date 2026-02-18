@@ -11,3 +11,18 @@ body {
   background-color: var(--color-college-bg);
   font-family: 'Inter', sans-serif;
 }
+
+/* Hide scrollbar for a cleaner UI */
+.no-scrollbar::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar,
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}

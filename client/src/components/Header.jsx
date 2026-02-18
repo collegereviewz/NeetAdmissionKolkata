@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle } from 'lucide-react';
+import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle, Package, MessageSquare, LogOut } from 'lucide-react';
 
 const Header = ({ onOpenChoiceList }) => {
   const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState('NEET PG');
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
 
   const courseCategories = [
     {
@@ -25,6 +27,9 @@ const Header = ({ onOpenChoiceList }) => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsCourseDropdownOpen(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setIsProfileDropdownOpen(false);
       }
     };
 
@@ -132,8 +137,36 @@ const Header = ({ onOpenChoiceList }) => {
         
         <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Packages</a>
 
-        <div className="h-9 w-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:bg-opacity-90 transition-colors ring-2 ring-purple-100">
-          A
+        <div className="relative" ref={profileDropdownRef}>
+          <div 
+            onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+            className="h-9 w-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:bg-opacity-90 transition-colors ring-2 ring-purple-100"
+          >
+            A
+          </div>
+
+          {/* Profile Dropdown Menu */}
+          {isProfileDropdownOpen && (
+            <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 animate-in fade-in zoom-in-95 duration-100">
+              <button className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">
+                <User size={18} className="mr-3" />
+                Profile
+              </button>
+              <button className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">
+                <Package size={18} className="mr-3" />
+                My Packages
+              </button>
+              <button className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">
+                <MessageSquare size={18} className="mr-3" />
+                Feedback
+              </button>
+              <div className="h-px bg-gray-100 my-1 mx-4"></div>
+              <button className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">
+                <LogOut size={18} className="mr-3" />
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
