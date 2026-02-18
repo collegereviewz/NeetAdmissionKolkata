@@ -1,0 +1,51 @@
+Round,AI Rank,State,Institute,Course,Quota,Category,Fee,Stipend Year 1,Bond Years,Bond Penalty,Beds,
+,1,104,Uttar Pradesh,"SGPGI, Lucknow",RADIO DIAGNOSIS,AIQ,GEN,"₹35,000*","₹1,15,506",2*,"₹40,00,000*",1609
+,1,105,Delhi,"MAMC, Delhi",GENERAL MEDICINE,DU,GEN,"₹16,200*","₹1,32,336*",1,"₹20,00,000",2800
+,1,107,Chandigarh,"GMC, Chandigarh",GENERAL MEDICINE,AIQ,GEN,"₹34,500*","₹1,09,926*",0,₹0,967
+,1,108,Delhi,"Lady Hardinge, Delhi",RADIO DIAGNOSIS,AIQ,GEN,"₹16,200*","₹1,26,927*",1,"₹20,00,000",877
+,1,109,Tamil Nadu,"Madras Med Coll, Chennai",GENERAL MEDICINE,AIQ,GEN,"₹50,000*","₹54,025*",2*,"₹40,00,000*",7285
+,1,110,Delhi,"MAMC, Delhi",GENERAL SURGERY,AIQ,GEN,"₹16,200*","₹1,32,336*",1,"₹20,00,000",2800
+,1,112,Delhi,"ABVIMS (Dr RML Hosp), Delhi",GENERAL MEDICINE,AIQ,OBC,"₹51,000","₹1,36,008",1,"₹20,00,000",1626
+,1,113,Uttar Pradesh,"JNMC (AMU), Aligarh",RADIO DIAGNOSIS,AIQ,GEN,"₹54,700*","₹1,14,975*",0,₹0,1269
+,1,114,Kerala,"Govt Med Coll, Thrissur",GENERAL MEDICINE,AIQ,GEN,"₹69,470*","₹57,876",1*,"₹50,00,000*",1400
+,1,115,Delhi,"MAMC, Delhi",GENERAL MEDICINE,DU,GEN,"₹16,200*","₹1,32,336*",1,"₹20,00,000",2800
+,1,116,Delhi,"UCMS, Delhi",RADIO DIAGNOSIS,AIQ,GEN,"₹47,220*","₹1,32,336*",1,"₹20,00,000",1000
+,1,117,Tamil Nadu,"Madras Med Coll, Chennai",PAEDIATRICS,AIQ,GEN,"₹50,000*","₹54,025*",2*,"₹40,00,000*",7285
+,1,118,Kerala,"Medical College, Trivandrum",RADIO DIAGNOSIS,AIQ,GEN,"₹69,470*","₹57,876",1*,"₹50,00,000*",2126
+,1,119,Maharashtra,"Lokmanya Tilak, Sion, Mumbai",GENERAL MEDICINE,AIQ,GEN,"₹1,57,100*","₹93,559",1,"₹50,00,000",1462
+,1,120,Uttar Pradesh,"IMS(BHU), Varanasi",RADIO DIAGNOSIS,AIQ,GEN,"₹48,226*","₹1,12,054*",0,₹0,2424
+,1,121,Delhi,"Lady Hardinge, Delhi",PAEDIATRICS,AIQ,GEN,"₹16,200*","₹1,26,927*",1,"₹20,00,000",877
+,1,122,Maharashtra,"Grant Med Coll, Mumbai",RADIO DIAGNOSIS,AIQ,GEN,"₹1,57,100*","₹93,559",1,"₹50,00,000",2844
+,1,123,Delhi,"MAMC, Delhi",GENERAL SURGERY,AIQ,GEN,"₹16,200*","₹1,32,336*",1,"₹20,00,000",2800
+,1,124,Uttar Pradesh,"IMS(BHU), Varanasi",GENERAL MEDICINE,AIQ,GEN,"₹48,226*","₹1,12,054*",0,₹0,2424
+,1,125,Maharashtra,"Seth GS, Mumbai",GENERAL MEDICINE,AIQ,GEN,"₹1,57,100*","₹93,559",1,"₹50,00,000",2250
+,1,126,Delhi,"MAMC, Delhi",GENERAL MEDICINE,DU,GEN,"₹16,200*","₹1,32,336*",1,"₹20,00,000",2800
+,1,127,Kerala,"Govt Med Coll, Kozhikode",RADIO DIAGNOSIS,AIQ,EWS,"₹69,470*","₹57,876",1*,"₹50,00,000*",3025
+,1,129,Kerala,"Govt Med Coll, Kozhikode",GENERAL MEDICINE,AIQ,GEN,"₹69,470*","₹57,876",1*,"₹50,00,000*",3025
+,1,131,Telangana,"NIMS, Hyderabad",RADIO DIAGNOSIS,AIQ,OBC,"₹72,000*","₹1,16,844",1,"₹20,00,000",1498
+,1,132,Kerala,"Govt Med Coll, Kozhikode",GENERAL MEDICINE,AIQ,OBC,"₹69,470*","₹57,876",1*,"₹50,00,000*",3025
+,1,133,Maharashtra,"Seth GS, Mumbai",RADIO DIAGNOSIS,AIQ,OBC,"₹1,57,100*","₹93,559",1,"₹50,00,000",2250
+,1,134,Rajasthan,"SMS, Jaipur",GENERAL MEDICINE,AIQ,GEN,"₹14,093*","₹87,216*",2,"₹1,50,00,000",5702
+,1,135,Rajasthan,"SMS, Jaipur",RADIO DIAGNOSIS,AIQ,GEN,"₹14,093*","₹87,216*",2,"₹1,50,00,000",5702
+,1,136,Andhra Pradesh,"Andhra Med Coll, Vizag",GENERAL MEDICINE,AIQ,GEN,"₹30,000*","₹60,823",0*,₹0*,1030
+,1,137,Maharashtra,"Lokmanya Tilak, Sion, Mumbai",RADIO DIAGNOSIS,AIQ,GEN,"₹1,57,100*","₹93,559",1,"₹50,00,000",1462
+,1,138,Kerala,"Govt Med Coll, Kozhikode",GENERAL MEDICINE,AIQ,OBC,"₹69,470*","₹57,876",1*,"₹50,00,000*",3025
+,1,139,Delhi,"Sir Ganga Ram Hospital, Delhi",DNBGENERAL MEDICINE,DNB Post MBBS,GEN,"₹1,25,000","₹92,000",0,₹0,737
+,1,140,Gujarat,"BJMC, Ahmedabad",RADIO DIAGNOSIS,AIQ,GEN,"₹30,000*","₹1,00,800",1*,"₹40,00,000*",1557
+,1,141,Delhi,"MAMC, Delhi",GENERAL MEDICINE,DU,GEN,"₹16,200*","₹1,32,336*",1,"₹20,00,000",2800
+,1,142,Delhi,"VMMC, Delhi",DERMATOLOGY,AIQ,GEN,"₹15,000*","₹1,20,965*",1,"₹20,00,000",1550
+,1,143,Maharashtra,"Grant Med Coll, Mumbai",RADIO DIAGNOSIS,AIQ,GEN,"₹1,57,100*","₹93,559",1,"₹50,00,000",2844
+,1,144,Tamil Nadu,"Madras Med Coll, Chennai",RADIO DIAGNOSIS,AIQ,GEN,"₹50,000*","₹54,025*",2*,"₹40,00,000*",7285
+,1,145,Maharashtra,"Grant Med Coll, Mumbai",RADIO DIAGNOSIS,AIQ,GEN,"₹1,57,100*","₹93,559",1,"₹50,00,000",2844
+,1,146,Telangana,"Osmania Med Coll, Hyderabad",GENERAL MEDICINE,AIQ,GEN,"₹15,000*","₹67,032",1,"₹20,00,000",4800
+,1,147,Delhi,"Lady Hardinge, Delhi",GENERAL MEDICINE,DU,GEN,"₹16,200*","₹1,26,927*",1,"₹20,00,000",877
+,1,148,Delhi,"ABVIMS (Dr RML Hosp), Delhi",GENERAL MEDICINE,IP,GEN,"₹51,000","₹1,36,008",1,"₹20,00,000",1626
+,1,149,Delhi,"ABVIMS (Dr RML Hosp), Delhi",RADIO DIAGNOSIS,AIQ,OBC,"₹51,000","₹1,36,008",1,"₹20,00,000",1626
+,1,150,Uttar Pradesh,"IMS(BHU), Varanasi",GENERAL MEDICINE,AIQ,GEN,"₹48,226*","₹1,12,054*",0,₹0,2424
+,1,151,Telangana,"NIMS, Hyderabad",GENERAL MEDICINE,AIQ,OBC,"₹72,000*","₹1,16,844",1,"₹20,00,000",1498
+,1,152,Telangana,"Osmania Med Coll, Hyderabad",RADIO DIAGNOSIS,AIQ,GEN,"₹15,000*","₹67,032",1,"₹20,00,000",4800
+,1,153,Tamil Nadu,"Madras Med Coll, Chennai",RADIO DIAGNOSIS,AIQ,GEN,"₹50,000*","₹54,025*",2*,"₹40,00,000*",7285
+,1,154,Uttar Pradesh,"IMS(BHU), Varanasi",GENERAL MEDICINE,AIQ,GEN,"₹48,226*","₹1,12,054*",0,₹0,2424
+,1,155,West Bengal,"IPGMER, Kolkata",RADIO DIAGNOSIS,AIQ,GEN,"₹12,000*","₹61,634",3*,"₹30,00,000*",2300
+,1,156,Tamil Nadu,"Madras Med Coll, Chennai",RADIO DIAGNOSIS,AIQ,GEN,"₹50,000*","₹54,025*",2*,"₹40,00,000*",7285
+,1,157,Telangana,"NIMS, Hyderabad",GENERAL MEDICINE,AIQ,SC,"₹72,000*","₹1,16,844",1,"₹20,00,000",1498
