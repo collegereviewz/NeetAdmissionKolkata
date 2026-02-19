@@ -30,6 +30,10 @@ import Institutes from './pages/Institutes';
 import InstituteDetails from './pages/InstituteDetails';
 
 
+// Configure axios defaults
+axios.defaults.baseURL = 'http://localhost:5000/api/v1';
+axios.defaults.withCredentials = true;
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -115,6 +119,7 @@ function App() {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-college-bg">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-blue"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-primary"></div>
       </div>
     );
   }

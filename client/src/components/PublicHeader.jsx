@@ -10,6 +10,8 @@ const PublicHeader = ({ onLogin }) => {
         <div className="flex items-center space-x-2 cursor-pointer">
           <img src={logo} alt="ZyNerd" className="h-8 w-auto" />
           <span className="text-2xl font-bold text-college-dark">ZyNerd</span>
+          <img src={logo} alt="CRZ Counselling" className="h-8 w-auto" />
+          <span className="text-2xl font-bold text-college-dark">CRZ Counselling</span>
         </div>
 
         {/* Desktop Navigation */}
@@ -19,6 +21,7 @@ const PublicHeader = ({ onLogin }) => {
                 <span className="bg-blue-600 text-white text-[8px] px-1 rounded absolute -top-2 right-0">New</span>
                 <Smartphone size={14} />
                 <span>ZyTales</span>
+                <span>CRZTales</span>
              </button>
           </div>
           
@@ -51,6 +54,7 @@ const PublicHeader = ({ onLogin }) => {
           <div>
             <p className="text-[10px] text-gray-500 font-medium">Talk to our experts</p>
             <p className="text-sm font-bold text-gray-800">080-690-36000</p>
+            <p className="text-sm font-bold text-gray-800">+91 97179 87058</p>
           </div>
         </div>
 
@@ -63,6 +67,7 @@ const PublicHeader = ({ onLogin }) => {
         <button 
           onClick={onLogin}
           className="bg-orange-500 text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-500/20 active:scale-95"
+          className="bg-college-primary text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-college-dark transition-all shadow-lg hover:shadow-college-primary/20 active:scale-95"
         >
           Login
         </button>

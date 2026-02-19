@@ -7,6 +7,8 @@ import seatMatrixRouter from './route/seatMatrix.route.js'
 
 import userRouter from './route/user.route.js'
 
+import userRouter from './route/user.route.js'
+import userRouter from './route/user.route.js'
 import closingRankRouter from './route/closingRank.route.js'
 import allotmentRouter from "./route/allotment.route.js";
 import feeStipendBondRouter from "./route/feeStipendBond.route.js";
@@ -37,6 +39,8 @@ app.use("/api/v1/seat-matrix", seatMatrixRouter)
 
 app.use("/api/v1/users", userRouter)
 
+app.use("/api/v1/users", userRouter)
+app.use("/api/v1/users", userRouter)
 app.use("/api/v1/closing-rank", closingRankRouter)
 app.use("/api/v1/allotment", allotmentRouter);
 app.use("/api/v1/fee-stipend-bond", feeStipendBondRouter);
