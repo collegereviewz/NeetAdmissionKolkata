@@ -4,16 +4,17 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import SeatMatrix from './pages/SeatMatrix';
-<<<<<<< HEAD
+
 import ChoiceListModal from './components/ChoiceListModal';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import axios from 'axios';
 
+
 // Configure axios defaults
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 axios.defaults.withCredentials = true;
-=======
+
 import ClosingRanks from './pages/ClosingRanks';
 import ClosingRankDetails from './pages/ClosingRankDetails';
 import Allotments from './pages/Allotments';
@@ -26,7 +27,8 @@ import Courses from './pages/Courses';
 import Counsellings from './pages/Counsellings';
 import Universities from './pages/Universities';
 import Institutes from './pages/Institutes';
->>>>>>> 3dff37dd23b3e0c25ca6a5a5280f8267820db3e2
+import InstituteDetails from './pages/InstituteDetails';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -156,6 +158,7 @@ function App() {
             <Route path="/counsellings" element={<Counsellings />} />
             <Route path="/universities" element={<Universities />} />
             <Route path="/institutes" element={<Institutes />} />
+            <Route path="/institutes/:id" element={<InstituteDetails />} />
           </Routes>
         </main>
       </div>

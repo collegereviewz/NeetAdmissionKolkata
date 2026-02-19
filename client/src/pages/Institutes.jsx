@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Search, Building2, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useNavigate } from 'react-router-dom';
+
 const Institutes = () => {
+    const navigate = useNavigate();
     const [institutes, setInstitutes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState({
@@ -173,6 +176,7 @@ const Institutes = () => {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.2, delay: index * 0.02 }}
+                                    onClick={() => navigate(`/institutes/${institute._id}`)}
                                     className="bg-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-all cursor-pointer group flex flex-col gap-3"
                                 >
                                     <div className="flex items-start gap-3">
