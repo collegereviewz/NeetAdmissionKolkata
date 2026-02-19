@@ -1,0 +1,85 @@
+[
+  {
+    "instituteName": "Rangaraya Medical College, Kakinada",
+    "university": "NTR University of Health Sciences, VijayWada",
+    "state": "Andhra Pradesh",
+    "type": "Government Institute",
+    "management": "State Authority",
+    "beds": "1450",
+    "location": "Kakinada, Andhra Pradesh",
+    "estBondDetails": "Available",
+    "totalCourses": 15,
+    "courses": [
+      {
+        "courseName": "MD General Medicine",
+        "type": "Clinical",
+        "degree": "Degree",
+        "duration": "3 years",
+        "quota": "All India",
+        "category": "Open",
+        "closingRankTrends": {
+          "2023": {
+            "round1": 1500,
+            "round2": 2100,
+            "round3": 2500
+          },
+          "2024": {
+            "round1": 1400,
+            "round2": 1900,
+            "round3": 2200
+          },
+          "2025": {
+            "round1": 1350,
+            "round2": 1850,
+            "round3": 2150
+          }
+        },
+        "feeDetails": {
+          "tuitionFee": "₹30,000",
+          "hostelFee": "N/A",
+          "remarks": "Mode of Payment : DD / Online. Annual fees : ₹30,000 (Includes Tuition fee + Library fees + Faculty Management fees + University development fund + Other fees). Additional Security Money might apply."
+        },
+        "bondDetails": {
+            "bondYears": "1",
+            "bondPenalty": "₹5,00,000",
+            "remarks": "-"
+        },
+        "stipendDetails": {
+            "year1": "₹45,000",
+            "year2": "₹47,000",
+            "year3": "₹50,000",
+            "remarks": "Includes HRA. Tax deduction applicable."
+        }
+      },
+      {
+        "courseName": "MD Paediatrics",
+        "type": "Clinical",
+        "degree": "Degree",
+        "duration": "3 years",
+        "quota": "All India",
+        "category": "OBC",
+        "closingRankTrends": {
+          "2023": { "round1": 2500, "round2": 3100, "round3": 3500 },
+          "2024": { "round1": 2400, "round2": 2900, "round3": 3200 },
+          "2025": { "round1": 2350, "round2": 2850, "round3": 3150 }
+        },
+        "feeDetails": {
+          "tuitionFee": "₹30,000",
+          "hostelFee": "N/A",
+          "remarks": "Same as General Medicine"
+        },
+         "bondDetails": {
+            "bondYears": "1",
+            "bondPenalty": "₹5,00,000",
+            "remarks": "-"
+        },
+        "stipendDetails": {
+            "year1": "₹45,000",
+            "year2": "₹47,000",
+            "year3": "₹50,000",
+            "remarks": "Includes HRA."
+        }
+      }
+    ]
+  }
+]

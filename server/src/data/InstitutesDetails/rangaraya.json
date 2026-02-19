@@ -1,0 +1,399 @@
+[
+    {
+        "instituteName": "Rangaraya Medical College, Kakinada",
+        "university": "NTR University of Health Sciences, VijayWada",
+        "state": "Andhra Pradesh",
+        "type": "Government Institute",
+        "management": "State Authority",
+        "beds": "1450",
+        "location": "Kakinada, Andhra Pradesh",
+        "estBondDetails": "Available",
+        "totalCourses": 22,
+        "courses": [
+            {
+                "courseName": "MD Anaesthesiology",
+                "type": "Clinical",
+                "degree": "Degree",
+                "duration": "3 years",
+                "quota": "All India",
+                "category": "Open",
+                "closingRankTrends": {
+                    "2023": {
+                        "round1": 14200,
+                        "round2": 15800,
+                        "round3": 15800
+                    },
+                    "2024": {
+                        "round1": 16200,
+                        "round2": 20000,
+                        "round3": 21800
+                    },
+                    "2025": {
+                        "round1": 16800,
+                        "round2": 21000,
+                        "round3": 21000
+                    }
+                },
+                "feeDetails": {
+                    "tuitionFee": "₹30,000",
+                    "hostelFee": "N/A",
+                    "remarks": "See General Medicine"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0",
+                    "remarks": "-"
+                },
+                "stipendDetails": {
+                    "year1": "₹45,000",
+                    "year2": "₹47,000",
+                    "year3": "₹50,000",
+                    "remarks": ""
+                }
+            },
+            {
+                "courseName": "MD General Medicine",
+                "type": "Clinical",
+                "degree": "Degree",
+                "duration": "3 years",
+                "quota": "All India",
+                "category": "Open",
+                "closingRankTrends": {
+                    "2023": {
+                        "round1": 1750,
+                        "round2": 2100,
+                        "round3": 2300,
+                        "round4": 2800
+                    },
+                    "2024": {
+                        "round1": 2500,
+                        "round2": 2550,
+                        "round3": 3000
+                    },
+                    "2025": {
+                        "round1": 2150,
+                        "round2": 2200,
+                        "round3": 2200
+                    }
+                },
+                "feeDetails": {
+                    "tuitionFee": "₹30,000",
+                    "hostelFee": "N/A",
+                    "remarks": "See General Medicine"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0",
+                    "remarks": "-"
+                },
+                "stipendDetails": {
+                    "year1": "₹45,000",
+                    "year2": "₹47,000",
+                    "year3": "₹50,000",
+                    "remarks": ""
+                }
+            },
+            {
+                "courseName": "MD Hospital Administration",
+                "type": "Non-Clinical",
+                "degree": "Degree",
+                "duration": "3 years",
+                "quota": "All India",
+                "category": "Open",
+                "closingRankTrends": {
+                    "2023": {
+                        "round1": 28000,
+                        "round2": 54000,
+                        "round3": 56000
+                    },
+                    "2024": {
+                        "round1": 34000,
+                        "round2": 32000,
+                        "round3": 65000,
+                        "round4": 66000
+                    }
+                },
+                "feeDetails": {
+                    "tuitionFee": "₹30,000",
+                    "hostelFee": "N/A",
+                    "remarks": "See General Medicine"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0",
+                    "remarks": "-"
+                },
+                "stipendDetails": {
+                    "year1": "₹45,000",
+                    "year2": "₹47,000",
+                    "year3": "₹50,000",
+                    "remarks": ""
+                }
+            },
+            {
+                "courseName": "MD Paediatrics",
+                "type": "Clinical",
+                "degree": "Degree",
+                "duration": "3 years",
+                "quota": "All India",
+                "category": "Open",
+                "closingRankTrends": {
+                    "2023": {
+                        "round1": 2500,
+                        "round2": 3100,
+                        "round3": 3500
+                    },
+                    "2024": {
+                        "round1": 2400,
+                        "round2": 2900,
+                        "round3": 3200
+                    },
+                    "2025": {
+                        "round1": 2350,
+                        "round2": 2850,
+                        "round3": 3150
+                    }
+                },
+                "feeDetails": {
+                    "tuitionFee": "₹30,000",
+                    "hostelFee": "N/A",
+                    "remarks": "See General Medicine"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0",
+                    "remarks": "-"
+                },
+                "stipendDetails": {
+                    "year1": "₹45,000",
+                    "year2": "₹47,000",
+                    "year3": "₹50,000",
+                    "remarks": ""
+                }
+            },
+            {
+                "courseName": "MD Pathology",
+                "type": "Para-Clinical",
+                "degree": "Degree",
+                "duration": "3 years",
+                "quota": "All India",
+                "category": "Open",
+                "closingRankTrends": {
+                    "2023": {
+                        "round1": 18000,
+                        "round2": 22000,
+                        "round3": 25000
+                    },
+                    "2024": {
+                        "round1": 19000,
+                        "round2": 23000,
+                        "round3": 26000
+                    }
+                },
+                "feeDetails": {
+                    "tuitionFee": "₹30,000",
+                    "hostelFee": "N/A",
+                    "remarks": ""
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0",
+                    "remarks": "-"
+                },
+                "stipendDetails": {
+                    "year1": "₹45,000",
+                    "year2": "₹47,000",
+                    "year3": "₹50,000",
+                    "remarks": ""
+                }
+            },
+            {
+                "courseName": "MD Anatomy",
+                "type": "Non-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Bio-Chemistry",
+                "type": "Non-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Dermatology, Venereology & Leprosy",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Forensic Medicine",
+                "type": "Para-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Microbiology",
+                "type": "Para-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Pharmacology",
+                "type": "Para-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Physiology",
+                "type": "Non-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Psychiatry",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Radiation Oncology",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Radio Diagnosis",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Social & Preventive Medicine",
+                "type": "Para-Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MD Tuberculosis & Respiratory Diseases",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MS ENT",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MS General Surgery",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MS Obstetrics & Gynaecology",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MS Ophthalmology",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            },
+            {
+                "courseName": "MS Orthopaedics",
+                "type": "Clinical",
+                "feeDetails": {
+                    "tuitionFee": "₹30,000"
+                },
+                "bondDetails": {
+                    "bondYears": "0",
+                    "bondPenalty": "0"
+                }
+            }
+        ]
+    }
+]

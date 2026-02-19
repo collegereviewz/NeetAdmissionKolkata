@@ -18,7 +18,6 @@ const LandingPage = ({ onGetStarted }) => {
   const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
   const features = [
-<<<<<<< HEAD
     { title: 'Allotments', desc: 'Track multi-year official allotments across rounds, states, and quotas, all in one structured view.', icon: <MapPin className="text-college-primary" /> },
     { title: 'Rank Scan', desc: 'Zoom into any rank and see what options candidates actually landed. A quick snapshot from all allotments across states.', icon: <Search className="text-college-primary" /> },
     { title: 'Closing Ranks', desc: 'Explore multi-year cut-off ranks for every round, course and institute, filtered by category, quota, and more.', icon: <BarChart3 className="text-college-primary" /> },
@@ -29,7 +28,6 @@ const LandingPage = ({ onGetStarted }) => {
     { title: 'Institutes', desc: 'Get verified information on 1000+ colleges, from beds in the hospital to facilities and clinical information.', icon: <Building2 className="text-college-primary" /> },
     { title: 'Allotment Mapping', desc: 'Track how candidates near your rank are moving across states and rounds, and spot better opportunities instantly.', icon: <Share2 className="text-college-primary" /> },
     { title: 'Courses', desc: 'Explore all available courses with duration, recognition, and clinical info.', icon: <PlayCircle className="text-college-primary" /> },
-=======
     { title: 'Allotments', desc: 'Track multi-year official allotments across rounds, states, and quotas, all in one structured view.', icon: <MapPin className="text-orange-500" /> },
     { title: 'Rank Scan', desc: 'Zoom into any rank and see what options candidates actually landed. A quick snapshot from all allotments across states.', icon: <Search className="text-orange-500" /> },
     { title: 'Closing Ranks', desc: 'Explore multi-year cut-off ranks for every round, course and institute, filtered by category, quota, and more.', icon: <BarChart3 className="text-orange-500" /> },
@@ -40,7 +38,6 @@ const LandingPage = ({ onGetStarted }) => {
     { title: 'Institutes', desc: 'Get verified information on 1000+ colleges, from beds in the hospital to facilities and clinical information.', icon: <Building2 className="text-orange-500" /> },
     { title: 'Allotment Mapping', desc: 'Track how candidates near your rank are moving across states and rounds, and spot better opportunities instantly.', icon: <Share2 className="text-orange-500" /> },
     { title: 'Courses', desc: 'Explore all available courses with duration, recognition, and clinical info.', icon: <PlayCircle className="text-orange-500" /> },
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
   ];
 
   return (
@@ -68,11 +65,8 @@ const LandingPage = ({ onGetStarted }) => {
             </motion.div>
 
             <motion.p variants={fadeIn} className="text-lg text-gray-600 mb-10 leading-relaxed max-w-2xl lg:mx-0 mx-auto">
-<<<<<<< HEAD
-              MD/MS Seat Planning Backed by Real Data, Not Guesswork. Choosing a specialization is a major step and CRZ Counselling helps you take it with clarity. We align your NEET PG rank with actual seat trends, category-wise eligibility, and college preferences. Explore your options before filling out your choice list. Access last-round cut-offs, seat allotment trends, and intelligent tools designed to keep you informed at every step. Stay ahead of deadlines. Lock in your preferences with purpose.
-=======
               MD/MS Seat Planning Backed by Real Data, Not Guesswork. Choosing a specialization is a major step and ZyNerd helps you take it with clarity. We align your NEET PG rank with actual seat trends, category-wise eligibility, and college preferences. Explore your options before filling out your choice list. Access last-round cut-offs, seat allotment trends, and intelligent tools designed to keep you informed at every step. Stay ahead of deadlines. Lock in your preferences with purpose.
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+              MD/MS Seat Planning Backed by Real Data, Not Guesswork. Choosing a specialization is a major step and CRZ Counselling helps you take it with clarity. We align your NEET PG rank with actual seat trends, category-wise eligibility, and college preferences. Explore your options before filling out your choice list. Access last-round cut-offs, seat allotment trends, and intelligent tools designed to keep you informed at every step. Stay ahead of deadlines. Lock in your preferences with purpose.
             </motion.p>
 
             <motion.button 
@@ -80,11 +74,8 @@ const LandingPage = ({ onGetStarted }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onGetStarted}
-<<<<<<< HEAD
-              className="group bg-college-primary hover:bg-college-dark text-white px-10 py-5 rounded-full text-xl font-black shadow-xl shadow-college-primary/20 transition-all flex items-center space-x-4 mx-auto lg:mx-0"
-=======
               className="group bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full text-xl font-black shadow-xl shadow-orange-500/20 transition-all flex items-center space-x-4 mx-auto lg:mx-0"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+              className="group bg-college-primary hover:bg-college-dark text-white px-10 py-5 rounded-full text-xl font-black shadow-xl shadow-college-primary/20 transition-all flex items-center space-x-4 mx-auto lg:mx-0"
             >
               <span>Get started</span>
               <div className="bg-white/20 p-1 rounded-full group-hover:translate-x-1 transition-transform">
@@ -99,11 +90,8 @@ const LandingPage = ({ onGetStarted }) => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-<<<<<<< HEAD
-            <div className="absolute inset-0 bg-college-light/20 rounded-[3rem] rotate-3 -z-10 transform scale-110"></div>
-=======
             <div className="absolute inset-0 bg-orange-100 rounded-[3rem] rotate-3 -z-10 transform scale-110"></div>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+            <div className="absolute inset-0 bg-college-light/20 rounded-[3rem] rotate-3 -z-10 transform scale-110"></div>
             <img 
               src="https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_23-2147818501.jpg?t=st=1710000000~exp=1710003600~hmac=..." 
               alt="Expert Doctor"
@@ -165,7 +153,6 @@ const LandingPage = ({ onGetStarted }) => {
         <p className="text-gray-500 mb-16 font-bold">Tailored plans for every aspirant! Choose the right package and take a step closer to your dream medical college.</p>
         
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-<<<<<<< HEAD
           <div className="bg-college-light/10 rounded-3xl p-8 border-2 border-college-light/30 relative">
              <div className="bg-white text-college-dark text-[10px] font-black px-3 py-1 rounded-full absolute top-4 left-1/2 -translate-x-1/2 border border-college-light/20">The Counselling Endgame Offer</div>
              <div className="mt-6 flex justify-between items-center text-left mb-8">
@@ -175,7 +162,6 @@ const LandingPage = ({ onGetStarted }) => {
                </div>
                <div className="text-right">
                   <div className="bg-college-dark text-white text-[10px] font-black px-3 py-1 rounded-full inline-block">All India & State Counsellings</div>
-=======
           <div className="bg-[#fff5f2] rounded-3xl p-8 border-2 border-orange-200 relative">
              <div className="bg-white text-orange-600 text-[10px] font-black px-3 py-1 rounded-full absolute top-4 left-1/2 -translate-x-1/2 border border-orange-100">The Counselling Endgame Offer</div>
              <div className="mt-6 flex justify-between items-center text-left mb-8">
@@ -185,7 +171,6 @@ const LandingPage = ({ onGetStarted }) => {
                </div>
                <div className="text-right">
                   <div className="bg-orange-600 text-white text-[10px] font-black px-3 py-1 rounded-full inline-block">All India & State Counsellings</div>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                </div>
              </div>
              <div className="text-left mb-8">
@@ -196,7 +181,6 @@ const LandingPage = ({ onGetStarted }) => {
                </div>
                <p className="text-xs text-gray-400 font-bold mt-2">Valid till Feb 28, 2026</p>
              </div>
-<<<<<<< HEAD
              <button className="w-full bg-college-primary text-white py-4 rounded-xl font-black shadow-lg shadow-college-primary/20 mb-8">Purchase now</button>
              <div className="border-t border-college-light/20 pt-6 text-left">
                <p className="text-[10px] text-college-dark font-black uppercase mb-4">Key Features</p>
@@ -207,7 +191,6 @@ const LandingPage = ({ onGetStarted }) => {
                  </div>
                  <div className="flex items-center space-x-3 text-sm font-bold text-gray-700">
                    <div className="w-8 h-8 rounded-full bg-college-light/20 flex items-center justify-center"><Play size={14} className="text-college-primary" /></div>
-=======
              <button className="w-full bg-orange-500 text-white py-4 rounded-xl font-black shadow-lg shadow-orange-500/20 mb-8">Purchase now</button>
              <div className="border-t border-orange-100 pt-6 text-left">
                <p className="text-[10px] text-orange-600 font-black uppercase mb-4">Key Features</p>
@@ -218,7 +201,6 @@ const LandingPage = ({ onGetStarted }) => {
                  </div>
                  <div className="flex items-center space-x-3 text-sm font-bold text-gray-700">
                    <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center"><Play size={14} className="text-orange-500" /></div>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                    <span>Latest Updates through Events and Announcements</span>
                  </div>
                </div>
@@ -312,11 +294,8 @@ const LandingPage = ({ onGetStarted }) => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-<<<<<<< HEAD
-            className="inline-flex items-center space-x-2 text-college-primary font-black border-2 border-college-primary px-8 py-3 rounded-full hover:bg-college-primary hover:text-white transition-all shadow-lg shadow-college-primary/10"
-=======
             className="inline-flex items-center space-x-2 text-orange-500 font-black border-2 border-orange-500 px-8 py-3 rounded-full hover:bg-orange-500 hover:text-white transition-all shadow-lg shadow-orange-500/10"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+            className="inline-flex items-center space-x-2 text-college-primary font-black border-2 border-college-primary px-8 py-3 rounded-full hover:bg-college-primary hover:text-white transition-all shadow-lg shadow-college-primary/10"
           >
             <span>Explore all videos</span>
             <ChevronRight size={20} />
@@ -328,24 +307,18 @@ const LandingPage = ({ onGetStarted }) => {
       <footer className="bg-gray-900 text-white py-12 px-4 md:px-12">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
            <div className="flex items-center space-x-2">
-<<<<<<< HEAD
-             <img src={logo} alt="CRZ Counselling" className="h-8 w-auto invert" />
-             <span className="text-2xl font-bold">CRZ Counselling</span>
-=======
              <img src={logo} alt="ZyNerd" className="h-8 w-auto invert" />
              <span className="text-2xl font-bold">ZyNerd</span>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+             <img src={logo} alt="CRZ Counselling" className="h-8 w-auto invert" />
+             <span className="text-2xl font-bold">CRZ Counselling</span>
            </div>
            <div className="flex space-x-8 text-sm font-bold text-gray-400">
              <a href="#" className="hover:text-white">Privacy Policy</a>
              <a href="#" className="hover:text-white">Terms of Service</a>
              <a href="#" className="hover:text-white">Contact Us</a>
            </div>
-<<<<<<< HEAD
-           <p className="text-gray-500 text-xs font-bold">© 2026 CRZ Counselling. All rights reserved.</p>
-=======
            <p className="text-gray-500 text-xs font-bold">© 2026 ZyNerd. All rights reserved.</p>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+           <p className="text-gray-500 text-xs font-bold">© 2026 CRZ Counselling. All rights reserved.</p>
         </div>
       </footer>
     </div>

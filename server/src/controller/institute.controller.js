@@ -1,5 +1,6 @@
 
 import { Institute } from "../models/institute.model.js";
+import rangarayaData from "../data/InstitutesDetails/rangaraya.json" with { type: "json" };
 import { University } from "../models/university.model.js";
 
 export const getInstitutes = async (req, res) => {
@@ -60,6 +61,39 @@ export const getInstituteFilters = async (req, res) => {
                 states: states.filter(Boolean).sort(),
                 universities: universities.filter(Boolean).sort()
             }
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        });
+    }
+};
+
+export const getInstituteById = async (req, res) => {
+    try {
+        let institute = await Institute.findById(req.params.id);
+        if (!institute) {
+            return res.status(404).json({
+                success: false,
+                message: "Institute not found"
+            });
+        }
+
+        // --- Manual Data Override for Rangaraya ---
+        if (institute.instituteName.includes("Rangaraya")) {
+            const manualDetails = rangarayaData.find(i => i.instituteName.includes("Rangaraya"));
+            if (manualDetails) {
+                // Merchant the DB _id with manual details to keep frontend working
+                institute = { ...institute.toObject(), ...manualDetails };
+            }
+        }
+        // ------------------------------------------
+
+        res.status(200).json({
+            success: true,
+            data: institute
         });
     } catch (error) {
         res.status(500).json({

@@ -4,13 +4,11 @@ import cors from "cors"
 import connectDB from "./db/db.js"
 import cookieParser from "cookie-parser"
 import seatMatrixRouter from './route/seatMatrix.route.js'
-<<<<<<< HEAD
+
 import userRouter from './route/user.route.js'
-=======
-<<<<<<< HEAD
+
 import userRouter from './route/user.route.js'
-=======
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+import userRouter from './route/user.route.js'
 import closingRankRouter from './route/closingRank.route.js'
 import allotmentRouter from "./route/allotment.route.js";
 import feeStipendBondRouter from "./route/feeStipendBond.route.js";
@@ -19,7 +17,7 @@ import courseRouter from "./route/course.route.js";
 import counsellingRouter from "./route/counselling.route.js";
 import universityRouter from "./route/university.route.js";
 import instituteRouter from "./route/institute.route.js";
->>>>>>> 3dff37dd23b3e0c25ca6a5a5280f8267820db3e2
+
 
 dotenv.config({
     path: './.env'
@@ -38,13 +36,11 @@ app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 
 app.use("/api/v1/seat-matrix", seatMatrixRouter)
-<<<<<<< HEAD
+
 app.use("/api/v1/users", userRouter)
-=======
-<<<<<<< HEAD
+
 app.use("/api/v1/users", userRouter)
-=======
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
+app.use("/api/v1/users", userRouter)
 app.use("/api/v1/closing-rank", closingRankRouter)
 app.use("/api/v1/allotment", allotmentRouter);
 app.use("/api/v1/fee-stipend-bond", feeStipendBondRouter);
@@ -53,7 +49,7 @@ app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/counselling", counsellingRouter);
 app.use("/api/v1/universities", universityRouter);
 app.use("/api/v1/institutes", instituteRouter);
->>>>>>> 3dff37dd23b3e0c25ca6a5a5280f8267820db3e2
+
 
 connectDB()
     .then(() => {
