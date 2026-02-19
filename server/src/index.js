@@ -6,9 +6,6 @@ import cookieParser from "cookie-parser"
 import seatMatrixRouter from './route/seatMatrix.route.js'
 
 import userRouter from './route/user.route.js'
-
-import userRouter from './route/user.route.js'
-import userRouter from './route/user.route.js'
 import closingRankRouter from './route/closingRank.route.js'
 import allotmentRouter from "./route/allotment.route.js";
 import feeStipendBondRouter from "./route/feeStipendBond.route.js";
@@ -25,8 +22,11 @@ dotenv.config({
 
 const app = express()
 
+// Fix CORS to handle multiple origins
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : "*";
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || "*",
+    origin: allowedOrigins,
     credentials: true
 }))
 
@@ -37,9 +37,6 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 
 app.use("/api/v1/seat-matrix", seatMatrixRouter)
 
-app.use("/api/v1/users", userRouter)
-
-app.use("/api/v1/users", userRouter)
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/closing-rank", closingRankRouter)
 app.use("/api/v1/allotment", allotmentRouter);

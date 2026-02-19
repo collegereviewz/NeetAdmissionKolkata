@@ -6,13 +6,19 @@ import twilio from 'twilio';
  */
 class SmsService {
     constructor() {
-        this.client = null;
+        this._client = null;
+    }
+
+    get client() {
+        if (this._client) return this._client;
+
         if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
-            this.client = twilio(
+            this._client = twilio(
                 process.env.TWILIO_ACCOUNT_SID,
                 process.env.TWILIO_AUTH_TOKEN
             );
         }
+        return this._client;
     }
 
     async sendSMS(to, body) {
@@ -30,6 +36,13 @@ class SmsService {
             });
             return true;
         } catch (error) {
+            // Handle unverified number error (Twilio Trial Account)
+            if (error.code === 21608) {
+                console.warn(`TWILIO RESTRICTION (Code 21608): Destination ${to} is not verified.`);
+                console.warn("Logging SMS to console instead to allow flow to continue.");
+                console.log(`[MOCKED SMS to ${to}]: ${body}`);
+                return true;
+            }
             console.error("Twilio SMS Error:", error);
             throw error;
         }

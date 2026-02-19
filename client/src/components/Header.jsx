@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle, Package, MessageSquare, LogOut, X } from 'lucide-react';
+import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle, Package, MessageSquare, LogOut, X, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = ({ onOpenChoiceList, onLogout }) => {
@@ -168,7 +168,7 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
                   setIsProfileDropdownOpen(false);
                   setIsLogoutModalOpen(true);
                 }}
-                className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors"
               >
                 <LogOut size={18} className="mr-3" />
                 Logout
@@ -190,44 +190,41 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
             <motion.div 
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              initial={{ scale: 0.9, opacity: 0, y: 10 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden"
+              exit={{ scale: 0.9, opacity: 0, y: 10 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 400 }}
+              className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-                <h3 className="text-xl font-black text-gray-900">Logout</h3>
-                <button 
-                  onClick={() => setIsLogoutModalOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-400 hover:text-gray-600"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              
-              <div className="px-6 py-12 text-center">
-                <p className="text-lg font-bold text-gray-700">Are you sure you want to logout?</p>
-              </div>
-              
-              <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50/50 border-t border-gray-100">
-                <button 
-                  onClick={() => setIsLogoutModalOpen(false)}
-                  className="px-6 py-2.5 text-sm font-bold text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all active:scale-95"
-                >
-                  Cancel
-                </button>
-                <button 
-                  onClick={() => {
-                    setIsLogoutModalOpen(false);
-                    onLogout();
-                  }}
-                  className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-[#E35422] rounded-lg hover:bg-[#D1481D] transition-all shadow-lg shadow-orange-500/20 active:scale-95"
-                  className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-college-primary rounded-lg hover:bg-college-dark transition-all shadow-lg shadow-college-primary/20 active:scale-95"
-                >
-                  <LogOut size={18} />
-                  Logout
-                </button>
+              <div className="p-8 text-center">
+                <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-50 mb-6">
+                  <AlertTriangle className="h-10 w-10 text-red-500" />
+                </div>
+                
+                <h3 className="text-2xl font-black text-gray-900 mb-2">Confirm Logout</h3>
+                <p className="text-gray-500 font-bold mb-8">
+                  Are you sure you want to sign out of your account?
+                </p>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <button 
+                    onClick={() => setIsLogoutModalOpen(false)}
+                    className="w-full py-4 text-base font-black text-gray-600 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-95"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    onClick={() => {
+                      setIsLogoutModalOpen(false);
+                      onLogout();
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-4 text-base font-black text-white bg-red-500 rounded-2xl hover:bg-red-600 transition-all shadow-xl shadow-red-500/20 active:scale-95"
+                  >
+                    <LogOut size={20} />
+                    Logout
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>
