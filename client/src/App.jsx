@@ -4,22 +4,10 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import SeatMatrix from './pages/SeatMatrix';
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
 import ChoiceListModal from './components/ChoiceListModal';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import axios from 'axios';
-<<<<<<< HEAD
-=======
-
-// Configure axios defaults
-axios.defaults.baseURL = 'http://localhost:5000/api/v1';
-axios.defaults.withCredentials = true;
-=======
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
 import ClosingRanks from './pages/ClosingRanks';
 import ClosingRankDetails from './pages/ClosingRankDetails';
 import Allotments from './pages/Allotments';
@@ -32,7 +20,6 @@ import Courses from './pages/Courses';
 import Counsellings from './pages/Counsellings';
 import Universities from './pages/Universities';
 import Institutes from './pages/Institutes';
->>>>>>> 3dff37dd23b3e0c25ca6a5a5280f8267820db3e2
 
 // Configure axios defaults
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
@@ -122,11 +109,7 @@ function App() {
   if (isLoading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-college-bg">
-<<<<<<< HEAD
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-primary"></div>
-=======
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-blue"></div>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
       </div>
     );
   }

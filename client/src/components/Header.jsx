@@ -222,11 +222,7 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
                     setIsLogoutModalOpen(false);
                     onLogout();
                   }}
-<<<<<<< HEAD
                   className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-college-primary rounded-lg hover:bg-college-dark transition-all shadow-lg shadow-college-primary/20 active:scale-95"
-=======
-                  className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-[#E35422] rounded-lg hover:bg-[#D1481D] transition-all shadow-lg shadow-orange-500/20 active:scale-95"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                 >
                   <LogOut size={18} />
                   Logout

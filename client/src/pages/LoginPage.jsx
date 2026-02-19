@@ -73,22 +73,14 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
   return (
     <div className="min-h-screen bg-white flex flex-col md:flex-row font-sans text-gray-900">
       {/* Left Panel: Illustration & Text */}
-<<<<<<< HEAD
       <div className="w-full md:w-1/2 bg-college-bg p-8 md:p-16 flex flex-col justify-center relative overflow-hidden">
-=======
-      <div className="w-full md:w-1/2 bg-[#FFF1ED] p-8 md:p-16 flex flex-col justify-center relative overflow-hidden">
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
         <div className="max-w-md mx-auto z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-<<<<<<< HEAD
             <h1 className="text-3xl md:text-4xl font-black text-college-primary leading-tight mb-6">
-=======
-            <h1 className="text-3xl md:text-4xl font-black text-[#E35422] leading-tight mb-6">
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
               Comprehensive Resources & Tools
             </h1>
             <p className="text-lg text-gray-700 font-medium leading-relaxed">
@@ -109,26 +101,16 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
              />
              {/* Carousel Dots */}
              <div className="flex justify-center space-x-2 mt-8">
-<<<<<<< HEAD
                <div className="w-6 h-2 bg-college-primary rounded-full"></div>
                <div className="w-2 h-2 bg-college-light rounded-full"></div>
                <div className="w-2 h-2 bg-college-light rounded-full"></div>
-=======
-               <div className="w-6 h-2 bg-[#E35422] rounded-full"></div>
-               <div className="w-2 h-2 bg-peach-300 rounded-full"></div>
-               <div className="w-2 h-2 bg-peach-300 rounded-full"></div>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
              </div>
           </motion.div>
         </div>
         
         {/* Background Decorative Shapes */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/30 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-<<<<<<< HEAD
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-college-light/30/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
-=======
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-200/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
       </div>
 
       {/* Right Panel: Auth Form */}
@@ -143,13 +125,8 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
         <div className="w-full max-w-sm">
           <div className="flex flex-col items-center mb-10">
             <div className="flex items-center space-x-2 mb-4">
-<<<<<<< HEAD
               <img src={logo} alt="CRZ Counselling" className="h-10 w-auto" />
               <span className="text-3xl font-black text-college-dark italic">CRZ Counselling</span>
-=======
-              <img src={logo} alt="ZyNerd" className="h-10 w-auto" />
-              <span className="text-3xl font-black text-college-dark italic">ZyNerd</span>
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
             </div>
             <h2 className="text-2xl font-black text-gray-900 text-center mb-1">
               Start your journey to success
@@ -187,11 +164,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
                      maxLength={10}
                      value={phoneNumber}
                      onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
-<<<<<<< HEAD
                      className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
-=======
-                     className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-[#E35422] focus:ring-4 focus:ring-orange-50 transition-all"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                    />
                 </div>
 
@@ -201,11 +174,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
                     whileTap={{ scale: 0.98 }}
                     disabled={phoneNumber.length < 10 || loading}
                     onClick={() => handleSendOtp('sms')}
-<<<<<<< HEAD
                     className="w-full bg-college-primary hover:bg-college-dark text-white py-4 rounded-2xl font-black shadow-xl shadow-college-primary/20 flex items-center justify-center space-x-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
-=======
-                    className="w-full bg-[#E35422] hover:bg-[#D1481D] text-white py-4 rounded-2xl font-black shadow-xl shadow-orange-500/20 flex items-center justify-center space-x-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                   >
                     {loading && otpMethod === 'sms' ? (
                       <RefreshCw size={20} className="animate-spin" />
@@ -257,11 +226,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
                           document.getElementById(`otp-${index - 1}`).focus();
                         }
                       }}
-<<<<<<< HEAD
                       className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-college-primary focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
-=======
-                      className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-[#E35422] focus:outline-none focus:border-[#E35422] focus:ring-4 focus:ring-orange-50 transition-all"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                     />
                   ))}
                 </div>
@@ -272,11 +237,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
                     whileTap={{ scale: 0.98 }}
                     onClick={handleVerifyOtp}
                     disabled={otp.join('').length < 6 || loading}
-<<<<<<< HEAD
                     className="w-full bg-college-primary hover:bg-college-dark text-white py-4 rounded-2xl font-black shadow-xl shadow-college-primary/20 flex items-center justify-center space-x-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
-=======
-                    className="w-full bg-[#E35422] hover:bg-[#D1481D] text-white py-4 rounded-2xl font-black shadow-xl shadow-orange-500/20 flex items-center justify-center space-x-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
->>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
                   >
                     {loading ? (
                       <RefreshCw size={20} className="animate-spin" />
