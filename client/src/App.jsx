@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
-import ChoiceListModal from './components/ChoiceListModal';
-
-import { Routes, Route } from 'react-router-dom';
 import SeatMatrix from './pages/SeatMatrix';
+import ChoiceListModal from './components/ChoiceListModal';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import axios from 'axios';
 import ClosingRanks from './pages/ClosingRanks';
 import ClosingRankDetails from './pages/ClosingRankDetails';
 import Allotments from './pages/Allotments';
@@ -19,7 +21,15 @@ import Counsellings from './pages/Counsellings';
 import Universities from './pages/Universities';
 import Institutes from './pages/Institutes';
 
+// Configure axios defaults
+axios.defaults.baseURL = 'http://localhost:5000/api/v1';
+axios.defaults.withCredentials = true;
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const [isChoiceListModalOpen, setIsChoiceListModalOpen] = useState(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
 
@@ -28,6 +38,30 @@ function App() {
     'West Bengal - PG Medical',
     'Assam - PG Medical'
   ]);
+
+  // Check login status on mount
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get('/users/me');
+        if (response.status === 200) {
+          setIsLoggedIn(true);
+          setUser(response.data.user || { username: 'Anish' });
+          localStorage.setItem('isLoggedIn', 'true');
+        } else {
+          setIsLoggedIn(false);
+          localStorage.removeItem('isLoggedIn');
+        }
+      } catch (error) {
+        console.error("Session check failed:", error);
+        localStorage.removeItem('isLoggedIn');
+        setIsLoggedIn(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkLoginStatus();
+  }, []);
 
   const openChoiceListModal = () => setIsChoiceListModalOpen(true);
   const closeChoiceListModal = () => setIsChoiceListModalOpen(false);
@@ -47,12 +81,53 @@ function App() {
     }
   };
 
+  const handleLoginClick = () => {
+    setShowLogin(true);
+  };
+
+  const handleLoginSuccess = (userData) => {
+    setIsLoggedIn(true);
+    setShowLogin(false);
+    setUser(userData || { username: 'Anish' });
+    localStorage.setItem('isLoggedIn', 'true');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('/users/logout');
+      setIsLoggedIn(false);
+      setUser(null);
+      localStorage.removeItem('isLoggedIn');
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Still log out locally
+      setIsLoggedIn(false);
+      localStorage.removeItem('isLoggedIn');
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-college-bg">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-primary"></div>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn && !showLogin) {
+    return <LandingPage onGetStarted={handleLoginClick} />;
+  }
+
+  if (!isLoggedIn && showLogin) {
+    return <LoginPage onLoginSuccess={handleLoginSuccess} onBack={() => setShowLogin(false)} />;
+  }
+
   return (
     <div className="flex h-screen bg-college-bg font-sans text-gray-900 overflow-hidden">
       <Sidebar />
 
       <div className="flex-1 flex flex-col ml-20 md:ml-24 transition-all duration-300 overflow-hidden">
-        <Header onOpenChoiceList={openChoiceListModal} />
+        <Header onOpenChoiceList={openChoiceListModal} onLogout={handleLogout} />
         <main className="flex-1 overflow-y-auto custom-scrollbar">
           <Routes>
             <Route

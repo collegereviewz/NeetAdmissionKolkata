@@ -2,7 +2,9 @@ import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import connectDB from "./db/db.js"
+import cookieParser from "cookie-parser"
 import seatMatrixRouter from './route/seatMatrix.route.js'
+import userRouter from './route/user.route.js'
 import closingRankRouter from './route/closingRank.route.js'
 import allotmentRouter from "./route/allotment.route.js";
 import feeStipendBondRouter from "./route/feeStipendBond.route.js";
@@ -23,10 +25,13 @@ app.use(cors({
     credentials: true
 }))
 
+app.use(cookieParser())
+
 app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 
 app.use("/api/v1/seat-matrix", seatMatrixRouter)
+app.use("/api/v1/users", userRouter)
 app.use("/api/v1/closing-rank", closingRankRouter)
 app.use("/api/v1/allotment", allotmentRouter);
 app.use("/api/v1/fee-stipend-bond", feeStipendBondRouter);

@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle, Package, MessageSquare, LogOut } from 'lucide-react';
+import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle, Package, MessageSquare, LogOut, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Header = ({ onOpenChoiceList }) => {
+const Header = ({ onOpenChoiceList, onLogout }) => {
   const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState('NEET PG');
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
 
@@ -25,11 +27,11 @@ const Header = ({ onOpenChoiceList }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsCourseDropdownOpen(false);
-      }
       if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
         setIsProfileDropdownOpen(false);
+      }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsCourseDropdownOpen(false);
       }
     };
 
@@ -161,7 +163,13 @@ const Header = ({ onOpenChoiceList }) => {
                 Feedback
               </button>
               <div className="h-px bg-gray-100 my-1 mx-4"></div>
-              <button className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">
+              <button 
+                onClick={() => {
+                  setIsProfileDropdownOpen(false);
+                  setIsLogoutModalOpen(true);
+                }}
+                className="w-full flex items-center px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors"
+              >
                 <LogOut size={18} className="mr-3" />
                 Logout
               </button>
@@ -169,6 +177,61 @@ const Header = ({ onOpenChoiceList }) => {
           )}
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <AnimatePresence>
+        {isLogoutModalOpen && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsLogoutModalOpen(false)}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            />
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+                <h3 className="text-xl font-black text-gray-900">Logout</h3>
+                <button 
+                  onClick={() => setIsLogoutModalOpen(false)}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-400 hover:text-gray-600"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="px-6 py-12 text-center">
+                <p className="text-lg font-bold text-gray-700">Are you sure you want to logout?</p>
+              </div>
+              
+              <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50/50 border-t border-gray-100">
+                <button 
+                  onClick={() => setIsLogoutModalOpen(false)}
+                  className="px-6 py-2.5 text-sm font-bold text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-all active:scale-95"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={() => {
+                    setIsLogoutModalOpen(false);
+                    onLogout();
+                  }}
+                  className="flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-college-primary rounded-lg hover:bg-college-dark transition-all shadow-lg shadow-college-primary/20 active:scale-95"
+                >
+                  <LogOut size={18} />
+                  Logout
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

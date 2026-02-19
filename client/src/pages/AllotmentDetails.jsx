@@ -134,7 +134,7 @@ const AllotmentDetails = () => {
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-orange-500 font-medium hover:bg-gray-50 shadow-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-college-primary font-medium hover:bg-gray-50 shadow-sm"
                     >
                         {title}
                         <ChevronDown size={14} className='text-gray-400' />
@@ -164,10 +164,10 @@ const AllotmentDetails = () => {
                             </div>
                         </div>
 
-                        <div className="flex items-center bg-white border border-orange-200 rounded-full px-1 py-0.5">
+                        <div className="flex items-center bg-white border border-college-light/30 rounded-full px-1 py-0.5">
                             <motion.button
                                 whileTap={{ scale: 0.95 }}
-                                className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-orange-500 border-r border-orange-200"
+                                className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-college-primary border-r border-college-light/30"
                             >
                                 <Heart size={12} fill="currentColor" />
                                 Choice List
@@ -323,10 +323,10 @@ const AllotmentDetails = () => {
                                 <div>
                                     <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18" /><path d="M5 21V7l8-4 8 4v14" /><path d="M8 21v-2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-                                        <span>Location: <span className="text-orange-500 font-medium">{selectedCollege.state}</span></span>
+                                        <span>Location: <span className="text-college-primary font-medium">{selectedCollege.state}</span></span>
                                         <span className="mx-1">|</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4v16" /><path d="M2 8h18a2 2 0 0 1 2 2v10" /><path d="M2 17h20" /><path d="M6 8v9" /></svg>
-                                        <span>Beds: <span className="text-orange-500 font-medium">{selectedCollege.beds || 'N/A'}</span></span>
+                                        <span>Beds: <span className="text-college-primary font-medium">{selectedCollege.beds || 'N/A'}</span></span>
                                     </div>
                                     <h2 className="text-2xl font-bold text-blue-600">{selectedCollege.institute}</h2>
                                     <p className="text-gray-500 text-sm mt-1">{selectedCollege.course}</p>
@@ -336,10 +336,10 @@ const AllotmentDetails = () => {
                                 </button>
                             </div>
 
-                            <div className="p-6 bg-orange-50/30">
+                            <div className="p-6 bg-college-primary/10/30">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                                    <div className="bg-white p-4 rounded border border-orange-100 flex items-start gap-3 shadow-sm">
-                                        <div className="bg-orange-100 p-2 rounded text-orange-500">
+                                    <div className="bg-white p-4 rounded border border-college-light/20 flex items-start gap-3 shadow-sm">
+                                        <div className="bg-college-light/20 p-2 rounded text-college-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></svg>
                                         </div>
                                         <div>
@@ -347,8 +347,8 @@ const AllotmentDetails = () => {
                                             <p className="text-gray-800 font-medium">{selectedCollege.course}</p>
                                         </div>
                                     </div>
-                                    <div className="bg-white p-4 rounded border border-orange-100 flex items-start gap-3 shadow-sm">
-                                        <div className="bg-orange-100 p-2 rounded text-orange-500">
+                                    <div className="bg-white p-4 rounded border border-college-light/20 flex items-start gap-3 shadow-sm">
+                                        <div className="bg-college-light/20 p-2 rounded text-college-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /><circle cx="12" cy="12" r="3" /></svg>
                                         </div>
                                         <div>
@@ -356,8 +356,8 @@ const AllotmentDetails = () => {
                                             <p className="text-gray-800 font-medium">{selectedCollege.quota}</p>
                                         </div>
                                     </div>
-                                    <div className="bg-white p-4 rounded border border-orange-100 flex items-start gap-3 shadow-sm">
-                                        <div className="bg-orange-100 p-2 rounded text-orange-500">
+                                    <div className="bg-white p-4 rounded border border-college-light/20 flex items-start gap-3 shadow-sm">
+                                        <div className="bg-college-light/20 p-2 rounded text-college-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M7 7h10" /><path d="M7 12h10" /><path d="M7 17h10" /></svg>
                                         </div>
                                         <div>

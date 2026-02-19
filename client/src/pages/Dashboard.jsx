@@ -782,7 +782,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                       </div>
                       <div>
                         <p className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">Talk to an expert</p>
-                        <p className="font-bold text-base">080-690-36000</p>
+                        <p className="font-bold text-base">+91 97179 87058</p>
                       </div>
                     </div>
                     <p className="text-[10px] text-gray-400 pl-10">We are available Monday through Saturday, between 10am and 4:30pm.</p>
@@ -795,7 +795,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                       </div>
                       <div>
                         <p className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">Email us</p>
-                        <p className="font-bold text-base">hello@collegereviewz.com</p>
+                        <p className="font-bold text-base">admin@collegereviewz.com</p>
                       </div>
                     </div>
                     <p className="text-[10px] text-gray-400 pl-10">Write to us, and we'll get back within 24 hours (Monday to Saturday).</p>
@@ -822,8 +822,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                         type: 'note',
                         date: 'Tue, 17 Feb',
                         category: 'All India Counseling - PG Medical',
-                        title: 'Smart Choice Filling with CRZ | Stray Rounds | All India Counselling | NEET PG - 2025',
-                        subtitle: 'CRZ Note',
+                        title: 'Smart Choice Filling with CRZ Counselling | Stray Rounds | All India Counselling | NEET PG - 2025',
+                        subtitle: 'CRZ Counselling Note',
                       },
                       {
                         type: 'alert',
@@ -838,7 +838,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                         date: 'Tue, 20 Jan',
                         category: 'All India Counseling - PG Medical',
                         title: 'Registration Unlocking In All India Counselling Round 3',
-                        subtitle: 'CRZ Note',
+                        subtitle: 'CRZ Counselling Note',
                       },
                       {
                         type: 'alert',
@@ -959,10 +959,10 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { color: 'orange', cat: 'Allotment', title: 'Telangana Management Quota - PG Medical', desc: 'Mop Up Round Allotment (Joining till 19.02.2026 (2 PM))' },
+                  { color: 'blue', cat: 'Allotment', title: 'Telangana Management Quota - PG Medical', desc: 'Mop Up Round Allotment (Joining till 19.02.2026 (2 PM))' },
                   { color: 'blue', cat: 'Web Options', title: 'Andhra Pradesh Government Quota - PG Medical', desc: 'DNB Phase 1 Web Options For Inservice Candidates (Web Options Starts from 18th Feb...)' },
-                  { color: 'orange', cat: 'Allotment', title: 'Tripura - PG Medical', desc: 'Round 3 Provisional Allotment, Round 3 Joining Starts from 17.02.2026 (05:00 PM)' },
-                  { color: 'orange', cat: 'Allotment', title: 'Haryana - PG Medical', desc: 'Round 3 Allotment' },
+                  { color: 'blue', cat: 'Allotment', title: 'Tripura - PG Medical', desc: 'Round 3 Provisional Allotment, Round 3 Joining Starts from 17.02.2026 (05:00 PM)' },
+                  { color: 'blue', cat: 'Allotment', title: 'Haryana - PG Medical', desc: 'Round 3 Allotment' },
                   { color: 'purple', cat: 'In-service DNB Seats', title: 'Karnataka - PG Medical', desc: 'Inservice Candidates currently serving in ESIC, BEMP' },
                   { color: 'red', cat: 'Result Delayed', title: 'Bihar - PG Medical', desc: 'Due to Unavoidable Reasons, the Round 3 Result has been Delayed' },
                   { color: 'green', cat: 'Document Verification', title: 'Haryana - PG Medical', desc: 'Round 3 Physical Document Verification Schedule, Fee Deposition is Extended till 19.02.2026 (8:00 PM)' },
@@ -1011,7 +1011,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
-                  { color: 'orange', date: 'FEB 06 — FEB 17', cat: 'Joining & Document Verification', title: 'Manipur-JNIMS - PG Medical' },
+                  { color: 'blue', date: 'FEB 06 — FEB 17', cat: 'Joining & Document Verification', title: 'Manipur-JNIMS - PG Medical' },
                   { color: 'blue', date: 'FEB 18 — FEB 19', cat: 'Reporting', title: 'Andhra Pradesh Government Quota - PG Medical' },
                   { color: 'green', date: 'FEB 18 — FEB 19', cat: 'Online Payment', title: 'Chhattisgarh - PG Medical' },
                   { color: 'red', date: 'FEB 19 — FEB 19', cat: 'Admission Cancelled', title: 'Maharashtra - PG Medical' },
@@ -1055,8 +1055,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   { title: 'Pointers for All India Stray Round Choice Filling | NEET PG - 2025', time: '6 hours ago' },
-                  { title: 'Smart Choice Filling with ZyNerd | Stray Rounds | NEET PG - 2025', time: '5 hours ago' },
-                  { title: 'Allotment Mapping & Rank Scan | ZyNerd Demo | NEET PG 2025', time: '2 months ago' },
+                  { title: 'Smart Choice Filling with CRZ Counselling | Stray Rounds | NEET PG - 2025', time: '5 hours ago' },
+                  { title: 'Allotment Mapping & Rank Scan | CRZ Counselling Demo | NEET PG 2025', time: '2 months ago' },
                   { title: 'Andhra Pradesh State Counselling Quota - How to apply | Online Application Demo', time: '2 months ago' },
                 ].map((video, idx) => (
                   <motion.div 
