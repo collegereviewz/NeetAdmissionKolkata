@@ -8,8 +8,13 @@ const PublicHeader = ({ onLogin }) => {
       <div className="flex items-center space-x-8">
         {/* Logo */}
         <div className="flex items-center space-x-2 cursor-pointer">
+<<<<<<< HEAD
           <img src={logo} alt="CRZ Counselling" className="h-8 w-auto" />
           <span className="text-2xl font-bold text-college-dark">CRZ Counselling</span>
+=======
+          <img src={logo} alt="ZyNerd" className="h-8 w-auto" />
+          <span className="text-2xl font-bold text-college-dark">ZyNerd</span>
+>>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
         </div>
 
         {/* Desktop Navigation */}
@@ -18,7 +23,11 @@ const PublicHeader = ({ onLogin }) => {
              <button className="flex items-center space-x-1 px-3 py-1 bg-blue-50 text-college-primary rounded-full text-xs font-bold border border-blue-200">
                 <span className="bg-blue-600 text-white text-[8px] px-1 rounded absolute -top-2 right-0">New</span>
                 <Smartphone size={14} />
+<<<<<<< HEAD
                 <span>CRZTales</span>
+=======
+                <span>ZyTales</span>
+>>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
              </button>
           </div>
           
@@ -50,7 +59,11 @@ const PublicHeader = ({ onLogin }) => {
           </div>
           <div>
             <p className="text-[10px] text-gray-500 font-medium">Talk to our experts</p>
+<<<<<<< HEAD
             <p className="text-sm font-bold text-gray-800">+91 97179 87058</p>
+=======
+            <p className="text-sm font-bold text-gray-800">080-690-36000</p>
+>>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
           </div>
         </div>
 
@@ -62,7 +75,11 @@ const PublicHeader = ({ onLogin }) => {
 
         <button 
           onClick={onLogin}
+<<<<<<< HEAD
           className="bg-college-primary text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-college-dark transition-all shadow-lg hover:shadow-college-primary/20 active:scale-95"
+=======
+          className="bg-orange-500 text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-500/20 active:scale-95"
+>>>>>>> 0cdf19f96ee3f402aabb304d3de5c2b97c63d624
         >
           Login
         </button>
