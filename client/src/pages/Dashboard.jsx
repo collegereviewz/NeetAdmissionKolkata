@@ -1,79 +1,45 @@
 import { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Play, MessageCircle, Send, Phone, Mail, FileDown, 
   AlertTriangle, Pin, Home, Plus, X, Search, 
   ExternalLink, Calendar, Globe, Users, FileText, 
   BookOpen, Bell, LayoutGrid, BarChart3, Grid3X3, 
-  Receipt, Heart, ChevronRight, ChevronLeft, CheckCircle2, Clock, Circle
+  Receipt, Heart, ChevronRight, ChevronLeft, CheckCircle2, Clock, Circle,
+  PlayCircle
 } from 'lucide-react';
 import logo from '../assets/logo6.png';
 import { counselingOptions } from '../data/counselingData';
+import { counsellingWebsites } from '../data/counselingWebsites';
+import VideosSection from '../components/VideosSection';
 
-const counsellingWebsites = {
-  'All India Counseling - PG Medical': 'https://mcc.nic.in/',
-  'Andaman & Nicobar Islands - PG Medical': 'https://mcc.nic.in/', // Through MCC
-  'Andhra Pradesh Government Quota - PG Medical': 'https://dme.ap.nic.in/',
-  'Andhra Pradesh Management Quota - PG Medical': 'https://dme.ap.nic.in/',
-  'Armed Forces Medical Services - AFMS (through MCC) - PG Medical': 'https://mcc.nic.in/',
-  'Arunachal Pradesh - PG Medical': 'https://dme.arunachal.gov.in/',
-  'Assam - PG Medical': 'https://dme.assam.gov.in/',
-  'Bihar - PG Medical': 'https://bceceboard.bihar.gov.in/',
-  'Chandigarh - PG Medical': 'https://gmch.gov.in/',
-  'Chhattisgarh - PG Medical': 'https://cgdme.in/',
-  'Dadra and Nagar Haveli - PG Medical': 'https://www.namomeriadmission.in/',
-  'Delhi - PG Medical': 'https://mcc.nic.in/', // IPU/DU through MCC
-  'DNB - Inservice Seats - PG Medical': 'https://natboard.edu.in/',
-  'DNB - PDCET - PG Medical': 'https://natboard.edu.in/',
-  'DNB Sponsored - PG Medical (Govt or PSU Inservice Candidates)': 'https://natboard.edu.in/',
-  'Goa - PG Medical': 'https://dte.goa.gov.in/',
-  'Gujarat - PG Medical': 'https://www.medadmgujarat.org/',
-  'Haryana - PG Medical': 'https://uhsrcounseling.com/',
-  'Himachal Pradesh - PG Medical': 'https://amruhp.ac.in/',
-  'Jammu and Kashmir - PG Medical': 'https://jkbopee.gov.in/',
-  'Jharkhand - PG Medical': 'https://jceceb.jharkhand.gov.in/',
-  'Karnataka - PG Medical': 'https://kea.kar.nic.in/',
-  'Kerala - PG Medical': 'https://cee.kerala.gov.in/',
-  'Madhya Pradesh - PG Medical': 'https://dme.mponline.gov.in/',
-  'Maharashtra - PG Medical': 'https://cetcell.mahacet.org/',
-  'Manipur-JNIMS - PG Medical': 'https://manipurhealthdirectorate.mn.gov.in/',
-  'Manipur-RIMS - PG Medical': 'https://manipurhealthdirectorate.mn.gov.in/',
-  'Mizoram - PG Medical': 'https://dhte.mizoram.gov.in/',
-  'NEIGRIHMS - PG Medical': 'https://www.neigrihms.gov.in/',
-  'Odisha - PG Medical': 'https://dmetodisha.gov.in/',
-  'Open States (Private Institute seats available for all candidates)': 'https://mcc.nic.in/',
-  'Pondicherry - PG Medical': 'https://centacpuducherry.in/',
-  'Punjab - PG Medical': 'https://bfuhs.ac.in/',
-  'Rajasthan - PG Medical': 'https://rajneetpg2024.org/',
-  'Sikkim - PG Medical': 'https://www.dtesikkim.nic.in/',
-  'Tamil Nadu DNB Inservice - PG Medical': 'https://tnmedicalselection.net/',
-  'Tamil Nadu Government Quota - PG Medical': 'https://tnmedicalselection.net/',
-  'Tamil Nadu Management Quota - PG Medical': 'https://tnmedicalselection.net/',
-  'Telangana Government Quota - PG Medical': 'https://knruhs.telangana.gov.in/',
-  'Telangana Management Quota - PG Medical': 'https://knruhs.telangana.gov.in/',
-  'Tripura - PG Medical': 'https://trmcc.admissions.nic.in/',
-  'Uttarakhand - PG Medical': 'https://hnbumu.ac.in/',
-  'Uttar Pradesh - PG Medical': 'https://upneet.gov.in/',
-  'West Bengal - PG Medical': 'https://wbmcc.nic.in/'
-};
 
-// Snappier Quick Proper Bouncy Transition
-const bouncy = { type: 'spring', stiffness: 500, damping: 15, mass: 0.8 };
-const gentleBounce = { type: 'spring', stiffness: 400, damping: 20, mass: 0.8 };
+// Sophisticated & Fluid Transitions (Reduced jitter)
+const fluidSpring = { type: 'spring', stiffness: 300, damping: 30, mass: 1 };
+const smoothSpring = { type: 'spring', stiffness: 200, damping: 25, mass: 1 };
+const bouncy = fluidSpring;
+const gentleBounce = smoothSpring;
 
 // Stagger children container
 const staggerContainer = { 
   hidden: { opacity: 0 }, 
   visible: { 
     opacity: 1,
-    transition: { staggerChildren: 0.07 } 
+    transition: { staggerChildren: 0.05, delayChildren: 0.05 } 
   } 
 };
-const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: gentleBounce } };
-const scaleIn = { hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1, transition: bouncy } };
+const fadeUp = { 
+  hidden: { opacity: 0, y: 15 }, 
+  visible: { opacity: 1, y: 0, transition: smoothSpring } 
+};
+const scaleIn = { 
+  hidden: { opacity: 0, scale: 0.95 }, 
+  visible: { opacity: 1, scale: 1, transition: bouncy } 
+};
 
 const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
   const [itemToDelete, setItemToDelete] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
   const [activeSubTab, setActiveSubTab] = useState('Website');
@@ -190,9 +156,6 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
     }
   };
 
-  const filteredOptions = counselingOptions.filter(option => 
-    option.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen p-4 md:p-6 pt-3 md:pt-4 space-y-4 relative pb-10 md:pb-6 overflow-x-hidden bg-[#fdfeff]" style={{
@@ -202,7 +165,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
         linear-gradient(to bottom, #fdfeff, #f8fafc)
       `
     }}>
-      {/* Educational Professional Grid (Graph Paper Style) */}
+      {/* Educational Professional Grid (Graph Paper Style) - STATIC (Immediate visibility) */}
       <div className="absolute inset-0 pointer-events-none" style={{ 
         backgroundImage: `
           linear-gradient(to right, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
@@ -211,7 +174,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
         backgroundSize: '40px 40px'
       }}></div>
       
-      {/* Secondary Fine Grid */}
+      {/* Secondary Fine Grid - STATIC */}
       <div className="absolute inset-0 pointer-events-none" style={{ 
         backgroundImage: `
           linear-gradient(to right, rgba(59, 130, 246, 0.015) 1px, transparent 1px),
@@ -219,8 +182,15 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
         `,
         backgroundSize: '10px 10px'
       }}></div>
-      
-      {/* Quick Navigation Tabs */}
+
+      {/* Content Animation (Only the UI elements fade in) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative z-0 space-y-4"
+      >
+        {/* Quick Navigation Tabs */}
       <div className="relative group/nav mb-6">
         {/* Scroll Buttons */}
         {showLeftArrow && (
@@ -384,88 +354,6 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
         </div>
       )}
 
-      {/* Pin Counselling Modal */}
-      {isPinModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            transition={bouncy}
-            className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[80vh] flex flex-col overflow-hidden"
-          >
-            
-            {/* Modal Header */}
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-gray-800">Pin Counselling</h2>
-              <motion.button 
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsPinModalOpen(false)}
-                className="p-1 rounded-full hover:bg-gray-100 text-gray-500 transition-colors cursor-pointer"
-              >
-                <X size={20} />
-              </motion.button>
-            </div>
-
-            {/* Modal Search */}
-            <div className="p-4 bg-white">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                <input 
-                  type="text" 
-                  placeholder="Search Counselling" 
-                  className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Modal List */}
-            <div className="flex-1 overflow-y-auto p-2 custom-scrollbar">
-              {filteredOptions.map((option) => (
-                <motion.div 
-                  key={option}
-                  whileHover={{ scale: 1.01, backgroundColor: '#f9fafb' }}
-                  whileTap={{ scale: 0.99 }}
-                  className="flex items-center justify-between p-3 rounded-lg cursor-pointer group transition-colors"
-                  onClick={() => togglePin(option)}
-                >
-                  <span className="text-sm font-medium text-gray-700">{option}</span>
-                  <div className="flex items-center space-x-2">
-                    <motion.button
-                      whileHover={{ scale: 1.1, backgroundColor: '#f3f4f6' }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const url = counsellingWebsites[option] || `https://www.google.com/search?q=${encodeURIComponent(option + ' official website')}`;
-                        window.open(url, '_blank', 'noopener,noreferrer');
-                      }}
-                      className="p-1.5 rounded-full text-gray-400 hover:text-college-primary transition-all cursor-pointer"
-                      title="Visit Official Website"
-                    >
-                      <Globe size={14} />
-                    </motion.button>
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`p-1.5 rounded-full transition-all ${pinnedItems.includes(option) ? 'bg-gray-800 text-white' : 'text-gray-300 group-hover:text-gray-400'}`}
-                    >
-                      <Pin size={14} className={pinnedItems.includes(option) ? 'fill-current' : ''} />
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
-              {filteredOptions.length === 0 && (
-                 <div className="p-8 text-center text-gray-400 text-sm">
-                    No counselling found matching "{searchQuery}"
-                 </div>
-              )}
-            </div>
-
-          </motion.div>
-        </div>
-      )}
 
       {/* Animate View Transitions */}
       <AnimatePresence mode="wait">
@@ -475,7 +363,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
             key={activeTab}
             initial="hidden"
             animate="visible"
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
             variants={staggerContainer}
             className="space-y-4"
           >
@@ -527,36 +415,78 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
               </div>
             </motion.div>
 
-            {/* Feature Cards Grid */}
-            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { title: 'Allotments', icon: <LayoutGrid size={24} className="text-college-primary" />, years: '2023, 2024, 2025' },
-                { title: 'Closing Ranks', icon: <BarChart3 size={24} className="text-college-primary" />, years: '2023, 2024, 2025' },
-                { title: 'Seat Matrix', icon: <Grid3X3 size={24} className="text-college-primary" />, years: '2023, 2024, 2025' },
-                { title: 'Fee, Stipend & Bond', icon: <Receipt size={24} className="text-college-primary" />, years: '2025, 2023, 2024' },
-              ].map((card) => (
-                <motion.div
-                  key={card.title}
-                  variants={scaleIn}
-                  whileHover={{ scale: 1.04, transition: bouncy }}
-                  whileTap={{ scale: 0.97 }}
-                  className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all cursor-pointer group"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <motion.div 
-                      whileHover={{ rotate: 360 }}
-                      transition={{ type: 'spring', stiffness: 200, damping: 10 }}
-                      className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center transition-colors"
+            {/* Sub-tab Content Switcher */}
+            <div className="mt-6">
+              <AnimatePresence mode="wait">
+                {activeSubTab === 'Website' && (
+                  <motion.div 
+                    key="website-view"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5, transition: { duration: 0.2 } }}
+                  >
+                    {/* Feature Cards Grid (Default view for Website tab) */}
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                      {[
+                        { title: 'Videos', icon: <PlayCircle size={24} className="text-college-primary" />, years: 'Latest Updates', path: '/videos' },
+                        { title: 'Allotments', icon: <LayoutGrid size={24} className="text-college-primary" />, years: '2023, 2024, 2025', path: '/allotments' },
+                        { title: 'Closing Ranks', icon: <BarChart3 size={24} className="text-college-primary" />, years: '2023, 2024, 2025', path: '/closing-ranks' },
+                        { title: 'Seat Matrix', icon: <Grid3X3 size={24} className="text-college-primary" />, years: '2023, 2024, 2025', path: '/seat-matrix' },
+                        { title: 'Fee, Stipend & Bond', icon: <Receipt size={24} className="text-college-primary" />, years: '2025, 2023, 2024', path: '/fee-stipend-bond' },
+                      ].map((card) => (
+                        <motion.div
+                          key={card.title}
+                          variants={scaleIn}
+                          whileHover={{ scale: 1.04, transition: bouncy }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => card.path && navigate(card.path)}
+                          className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all cursor-pointer group"
+                        >
+                          <div className="flex items-start justify-between mb-3">
+                            <motion.div 
+                              whileHover={{ rotate: 360 }}
+                              transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+                              className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center transition-colors"
+                            >
+                              {card.icon}
+                            </motion.div>
+                            <ChevronRight size={16} className="text-gray-300 group-hover:text-college-primary transition-colors" />
+                          </div>
+                          <h4 className="font-bold text-gray-800 text-sm mb-1">{card.title}</h4>
+                          <p className="text-xs text-college-primary font-medium">{card.years}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeSubTab !== 'Website' && (
+                  <motion.div 
+                    key="other-view"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5, transition: { duration: 0.2 } }}
+                    className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center"
+                  >
+                    <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Search size={32} className="text-college-primary opacity-50" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">{activeSubTab} Data Loading...</h3>
+                    <p className="text-sm text-gray-500 max-w-sm mx-auto">
+                      We are currently aggregating the latest {activeSubTab.toLowerCase()} data for {activeTab}. Check back in a few minutes!
+                    </p>
+                    <motion.button 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setActiveSubTab('Website')}
+                      className="mt-8 px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full text-sm font-bold transition-all"
                     >
-                      {card.icon}
-                    </motion.div>
-                    <ChevronRight size={16} className="text-gray-300 group-hover:text-college-primary transition-colors" />
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm mb-1">{card.title}</h4>
-                  <p className="text-xs text-college-primary font-medium">{card.years}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+                      Back to Dashboard
+                    </motion.button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Counselling Roadmap & Choice Lists */}
             <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -700,7 +630,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                   <motion.button 
                     whileHover={{ scale: 1.05, borderColor: '#dee2e6' }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center px-5 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:border-college-primary hover:text-college-primary transition-all shadow-sm cursor-pointer"
+                    onClick={() => setIsPinModalOpen(true)}
+                    className="flex items-center px-5 py-2.5 bg-white border border-gray-100 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:border-college-primary hover:text-college-primary transition-all shadow-sm cursor-pointer"
                   >
                     <Plus size={16} className="mr-2" />
                     Create New List
@@ -717,7 +648,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
             key="home"
             initial="hidden"
             animate="visible"
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
             variants={staggerContainer}
             className="space-y-4"
           >
@@ -782,10 +713,10 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                       </div>
                       <div>
                         <p className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">Talk to an expert</p>
-                        <p className="font-bold text-base">080-690-36000</p>
+                        <p className="font-bold text-base">+91 97179 87058</p>
                       </div>
                     </div>
-                    <p className="text-[10px] text-gray-400 pl-10">We are available Monday through Saturday, between 10am and 4:30pm.</p>
+                    <p className="text-[10px] text-gray-400 pl-10">We are available Monday through Saturday, between 10am and 7pm.</p>
                   </div>
 
                   <div className="bg-white p-3 rounded-xl border border-blue-100 shadow-sm flex flex-col space-y-1.5 hover:border-blue-300 transition-colors">
@@ -795,7 +726,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                       </div>
                       <div>
                         <p className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">Email us</p>
-                        <p className="font-bold text-base">hello@collegereviewz.com</p>
+                        <p className="font-bold text-base">admin@collegereviewz.com</p>
                       </div>
                     </div>
                     <p className="text-[10px] text-gray-400 pl-10">Write to us, and we'll get back within 24 hours (Monday to Saturday).</p>
@@ -1040,44 +971,11 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
             </motion.div>
 
             {/* Videos Section */}
-            <motion.div variants={fadeUp} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-gray-800">Videos</h3>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-1.5 bg-college-primary hover:bg-blue-600 text-white rounded-full text-sm font-semibold transition-colors cursor-pointer"
-                >
-                  View all
-                </motion.button>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                  { title: 'Pointers for All India Stray Round Choice Filling | NEET PG - 2025', time: '6 hours ago' },
-                  { title: 'Smart Choice Filling with ZyNerd | Stray Rounds | NEET PG - 2025', time: '5 hours ago' },
-                  { title: 'Allotment Mapping & Rank Scan | ZyNerd Demo | NEET PG 2025', time: '2 months ago' },
-                  { title: 'Andhra Pradesh State Counselling Quota - How to apply | Online Application Demo', time: '2 months ago' },
-                ].map((video, idx) => (
-                  <motion.div 
-                    key={idx}
-                    variants={scaleIn}
-                    whileHover={{ scale: 1.05 }}
-                    className="group cursor-pointer"
-                  >
-                    <div className="relative rounded-lg overflow-hidden mb-3 bg-gradient-to-br from-college-primary to-blue-700 aspect-video flex items-center justify-center">
-                      <div className="absolute inset-0 bg-black/30"></div>
-                      <Play size={48} className="text-white relative z-10 group-hover:scale-110 transition-transform" fill="white" />
-                      <img src={logo} alt="Video thumbnail" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-                    </div>
-                    <h4 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2 group-hover:text-college-primary transition-colors">
-                      {video.title}
-                    </h4>
-                    <p className="text-xs text-gray-500">{video.time}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+            <VideosSection 
+              id="videos-section" 
+              variant="dashboard"
+              containerClassName="bg-white rounded-xl shadow-sm border border-gray-100 p-5"
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -1239,6 +1137,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
           </motion.div>
         )}
       </AnimatePresence>
+      </motion.div>
     </div>
   );
 };
