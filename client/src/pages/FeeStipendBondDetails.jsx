@@ -134,7 +134,7 @@ const FeeStipendBondDetails = () => {
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-college-primary font-medium hover:bg-gray-50 shadow-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-orange-500 font-medium hover:bg-gray-50 shadow-sm"
                     >
                         {title}
                         <ChevronDown size={14} className='text-gray-400' />
@@ -330,16 +330,16 @@ const FeeStipendBondDetails = () => {
                                             <div className="flex items-center gap-4 text-sm text-gray-500">
                                                 <div className="flex items-center gap-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                                    Location: <span className="text-college-primary font-medium">{selectedCollege.state}</span>
+                                                    Location: <span className="text-orange-500 font-medium">{selectedCollege.state}</span>
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><path d="M2 4v16" /><path d="M2 8h18a2 2 0 0 1 2 2v10" /><path d="M2 17h20" /><path d="M6 8v9" /></svg>
-                                                    Beds: <span className="text-college-primary font-medium">{selectedCollege.beds || 'N/A'}</span>
+                                                    Beds: <span className="text-orange-500 font-medium">{selectedCollege.beds || 'N/A'}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="border border-college-light/30 text-college-primary px-3 py-1 rounded text-xs font-medium">
+                                    <div className="border border-orange-200 text-orange-500 px-3 py-1 rounded text-xs font-medium">
                                         Session 2025
                                     </div>
                                 </div>
@@ -347,7 +347,7 @@ const FeeStipendBondDetails = () => {
                                 {/* Course & Quota Cards */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                                     <div className="bg-white border border-red-100 rounded-lg p-4 flex items-center gap-4">
-                                        <div className="bg-red-50 p-2 rounded text-college-primary">
+                                        <div className="bg-red-50 p-2 rounded text-orange-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></svg>
                                         </div>
                                         <div>
@@ -356,7 +356,7 @@ const FeeStipendBondDetails = () => {
                                         </div>
                                     </div>
                                     <div className="bg-white border border-red-100 rounded-lg p-4 flex items-center gap-4">
-                                        <div className="bg-red-50 p-2 rounded text-college-primary">
+                                        <div className="bg-red-50 p-2 rounded text-orange-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0-.73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /><circle cx="12" cy="12" r="3" /></svg>
                                         </div>
                                         <div>

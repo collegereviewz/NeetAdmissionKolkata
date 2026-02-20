@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import SeatMatrix from './pages/SeatMatrix';
+
 import ChoiceListModal from './components/ChoiceListModal';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import axios from 'axios';
+
+// Configure axios defaults
+axios.defaults.baseURL = 'http://localhost:5000/api/v1';
+axios.defaults.withCredentials = true;
+
+
 import ClosingRanks from './pages/ClosingRanks';
 import ClosingRankDetails from './pages/ClosingRankDetails';
 import Allotments from './pages/Allotments';
@@ -22,9 +29,6 @@ import Universities from './pages/Universities';
 import Institutes from './pages/Institutes';
 import InstituteDetails from './pages/InstituteDetails';
 
-// Configure axios defaults
-axios.defaults.baseURL = 'http://localhost:5000/api/v1';
-axios.defaults.withCredentials = true;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,6 +37,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [isChoiceListModalOpen, setIsChoiceListModalOpen] = useState(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+  const [pendingPath, setPendingPath] = useState('/');
+  const navigate = useNavigate();
 
   const [pinnedItems, setPinnedItems] = useState([
     'All India Counseling - PG Medical',
@@ -52,11 +58,19 @@ function App() {
         } else {
           setIsLoggedIn(false);
           localStorage.removeItem('isLoggedIn');
+          // Check for mobile/tablet view (< 1024px)
+          if (window.innerWidth < 1024) {
+            setShowLogin(true);
+          }
         }
       } catch (error) {
         console.error("Session check failed:", error);
         localStorage.removeItem('isLoggedIn');
         setIsLoggedIn(false);
+        // Check for mobile/tablet view (< 1024px)
+        if (window.innerWidth < 1024) {
+          setShowLogin(true);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -83,6 +97,12 @@ function App() {
   };
 
   const handleLoginClick = () => {
+    setPendingPath('/');
+    setShowLogin(true);
+  };
+
+  const handleFeatureClick = (path) => {
+    setPendingPath(path || '/');
     setShowLogin(true);
   };
 
@@ -91,6 +111,7 @@ function App() {
     setShowLogin(false);
     setUser(userData || { username: 'Anish' });
     localStorage.setItem('isLoggedIn', 'true');
+    setTimeout(() => navigate(pendingPath), 50);
   };
 
   const handleLogout = async () => {
@@ -110,13 +131,14 @@ function App() {
   if (isLoading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-college-bg">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-primary"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-blue"></div>
+
       </div>
     );
   }
 
   if (!isLoggedIn && !showLogin) {
-    return <LandingPage onGetStarted={handleLoginClick} />;
+    return <LandingPage onGetStarted={handleLoginClick} onFeatureClick={handleFeatureClick} />;
   }
 
   if (!isLoggedIn && showLogin) {

@@ -71,7 +71,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col md:flex-row font-sans text-gray-900">
+    <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row font-sans text-gray-900">
       {/* Left Panel: Illustration & Text */}
       <div className="w-full md:w-1/2 bg-college-bg p-8 md:p-16 flex flex-col justify-center relative overflow-hidden">
         <div className="max-w-md mx-auto z-10">
@@ -110,7 +110,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
 
         {/* Background Decorative Shapes */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/30 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-college-light/30/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-college-light/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
       </div>
 
       {/* Right Panel: Auth Form */}
@@ -125,8 +125,11 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
         <div className="w-full max-w-sm">
           <div className="flex flex-col items-center mb-10">
             <div className="flex items-center space-x-2 mb-4">
-              <img src={logo} alt="CRZ Counselling" className="h-10 w-auto" />
-              <span className="text-3xl font-black text-college-dark italic">CRZ Counselling</span>
+              <img src={logo} alt="CRZGenie" className="h-10 w-auto" />
+              <span className="text-3xl font-black tracking-tight">
+                <span className="text-college-dark">CRZ</span>
+                <span className="text-college-gold">Genie</span>
+              </span>
             </div>
             <h2 className="text-2xl font-black text-gray-900 text-center mb-1">
               Start your journey to success

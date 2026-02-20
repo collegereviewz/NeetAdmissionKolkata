@@ -20,8 +20,11 @@ dotenv.config({
 
 const app = express()
 
+// Fix CORS to handle multiple origins
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : "*";
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || "*",
+    origin: allowedOrigins,
     credentials: true
 }))
 
@@ -40,6 +43,7 @@ app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/counselling", counsellingRouter);
 app.use("/api/v1/universities", universityRouter);
 app.use("/api/v1/institutes", instituteRouter);
+
 
 connectDB()
     .then(() => {

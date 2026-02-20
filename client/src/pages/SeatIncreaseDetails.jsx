@@ -134,7 +134,7 @@ const SeatIncreaseDetails = () => {
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-college-primary font-medium hover:bg-gray-50 shadow-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-orange-500 font-medium hover:bg-gray-50 shadow-sm"
                     >
                         {title}
                         <ChevronDown size={14} className='text-gray-400' />
@@ -322,12 +322,12 @@ const SeatIncreaseDetails = () => {
                                             <div className="flex items-center gap-4 text-sm text-gray-500">
                                                 <div className="flex items-center gap-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                                    Location: <span className="text-college-primary font-medium">{selectedCollege.state}</span>
+                                                    Location: <span className="text-orange-500 font-medium">{selectedCollege.state}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="border border-college-light/30 text-college-primary px-3 py-1 rounded text-xs font-medium">
+                                    <div className="border border-orange-200 text-orange-500 px-3 py-1 rounded text-xs font-medium">
                                         Session 2025
                                     </div>
                                 </div>
@@ -336,7 +336,7 @@ const SeatIncreaseDetails = () => {
                                 <div className="flex flex-col gap-6">
                                     {/* Grid Row 1: Course */}
                                     <div className="bg-white border border-red-100 rounded-lg p-4 flex items-center gap-4 w-full md:w-1/2">
-                                        <div className="bg-red-50 p-2 rounded text-college-primary">
+                                        <div className="bg-red-50 p-2 rounded text-orange-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /></svg>
                                         </div>
                                         <div>
@@ -348,7 +348,7 @@ const SeatIncreaseDetails = () => {
                                     {/* Grid Row 2: Stats */}
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         <div className="bg-white border border-red-100 rounded-lg p-5 flex items-center gap-4">
-                                            <div className="bg-red-50 p-2 rounded text-college-primary">
+                                            <div className="bg-red-50 p-2 rounded text-orange-500">
                                                 <div className="w-6 h-6 flex items-center justify-center relative">
                                                     {/* Armchair icon simplified */}
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" /><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z" /><path d="M5 18v2" /><path d="M19 18v2" /></svg>
@@ -361,7 +361,7 @@ const SeatIncreaseDetails = () => {
                                         </div>
 
                                         <div className="bg-white border border-red-100 rounded-lg p-5 flex items-center gap-4">
-                                            <div className="bg-red-50 p-2 rounded text-college-primary">
+                                            <div className="bg-red-50 p-2 rounded text-orange-500">
                                                 <div className="w-6 h-6 flex items-center justify-center relative">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" /><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z" /><path d="M5 18v2" /><path d="M19 18v2" /></svg>
                                                 </div>
@@ -373,7 +373,7 @@ const SeatIncreaseDetails = () => {
                                         </div>
 
                                         <div className="bg-white border border-red-100 rounded-lg p-5 flex items-center gap-4">
-                                            <div className="bg-red-50 p-2 rounded text-college-primary">
+                                            <div className="bg-red-50 p-2 rounded text-orange-500">
                                                 <TrendingUp size={24} />
                                             </div>
                                             <div>

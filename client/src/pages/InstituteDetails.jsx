@@ -10,6 +10,7 @@ const InstituteDetails = () => {
     const navigate = useNavigate();
     const [institute, setInstitute] = useState(null);
     const [loading, setLoading] = useState(true);
+    // Remove activeTab state, using refs for scroll
     const [closingRanks, setClosingRanks] = useState([]);
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [courseList, setCourseList] = useState([]);
@@ -27,6 +28,8 @@ const InstituteDetails = () => {
                 if (response.data.success) {
                     setInstitute(response.data.data);
                     // Fetch closing ranks for this institute
+                    // Note: This relies on exact name match. 
+                    // ideally we'd use ID if closingRank had instituteId, but schema uses name string.
                     fetchClosingRanks(response.data.data.instituteName);
                 }
             } catch (error) {
