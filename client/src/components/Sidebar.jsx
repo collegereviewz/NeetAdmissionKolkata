@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import logo from '../assets/logo6.png';
 import {
@@ -28,8 +28,21 @@ const bouncy = { type: 'spring', stiffness: 500, damping: 15, mass: 0.8 };
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [activeItem, setActiveItem] = useState('Dashboard');
+  const location = useLocation();
   const [expandedItem, setExpandedItem] = useState(null);
+
+  // Sync active item with current path
+  const getActiveItem = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Dashboard';
+    if (path === '/videos') return 'Videos';
+    if (['/allotments', '/closing-ranks', '/seat-matrix', '/fee-stipend-bond', '/seat-increase'].includes(path)) return 'Insights';
+    if (['/universities', '/institutes', '/counsellings', '/courses'].includes(path)) return 'Explore';
+    if (path === '/resources') return 'Resources';
+    return 'Dashboard';
+  };
+
+  const activeItem = getActiveItem();
 
   const toggleSubmenu = (itemName) => {
     if (expandedItem === itemName) {
@@ -97,9 +110,9 @@ const Sidebar = () => {
               transition={bouncy}
               className={`flex flex-col items-center cursor-pointer group relative ${activeItem === item.name ? 'text-college-primary' : 'text-gray-600 hover:text-gray-900'}`}
               onClick={() => {
-                setActiveItem(item.name);
                 if (item.hasDropdown) toggleSubmenu(item.name);
                 if (item.name === 'Dashboard') navigate('/');
+                if (item.name === 'Videos') navigate('/videos');
               }}
             >
               <div className={`p-3 rounded-xl transition-all duration-300 ${activeItem === item.name ? 'bg-blue-50 shadow-md' : 'hover:bg-gray-50'}`}>
