@@ -3,9 +3,11 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
+import Videos from './pages/Videos';
 import SeatMatrix from './pages/SeatMatrix';
 
 import ChoiceListModal from './components/ChoiceListModal';
+import PinModal from './components/PinModal';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import axios from 'axios';
@@ -58,19 +60,11 @@ function App() {
         } else {
           setIsLoggedIn(false);
           localStorage.removeItem('isLoggedIn');
-          // Check for mobile/tablet view (< 1024px)
-          if (window.innerWidth < 1024) {
-            setShowLogin(true);
-          }
         }
       } catch (error) {
         console.error("Session check failed:", error);
         localStorage.removeItem('isLoggedIn');
         setIsLoggedIn(false);
-        // Check for mobile/tablet view (< 1024px)
-        if (window.innerWidth < 1024) {
-          setShowLogin(true);
-        }
       } finally {
         setIsLoading(false);
       }
@@ -164,6 +158,7 @@ function App() {
                 />
               }
             />
+            <Route path="/videos" element={<Videos />} />
             <Route path="/seat-matrix" element={<SeatMatrix />} />
             <Route path="/closing-ranks" element={<ClosingRanks />} />
             <Route path="/closing-ranks/details/:type" element={<ClosingRankDetails />} />
@@ -186,6 +181,13 @@ function App() {
         onClose={closeChoiceListModal}
         pinnedItems={pinnedItems}
         onCreateList={openPinModal}
+      />
+
+      <PinModal 
+        isOpen={isPinModalOpen} 
+        onClose={closePinModal} 
+        pinnedItems={pinnedItems} 
+        togglePin={togglePin} 
       />
     </div>
   );

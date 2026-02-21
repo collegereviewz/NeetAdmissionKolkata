@@ -4,10 +4,11 @@ import {
   ArrowRight, Users, CheckCircle2, Play,
   MapPin, BarChart3, Grid3X3, Receipt,
   Share2, Search, TrendingUp, Building2,
-  ChevronRight, PlayCircle, Star, Phone
+  ChevronRight, PlayCircle, Star, Phone, ChevronDown, List
 } from 'lucide-react';
 import PublicHeader from '../components/PublicHeader';
 import logo from '../assets/logo6.png';
+import VideosSection from '../components/VideosSection';
 
 const LandingPage = ({ onGetStarted, onFeatureClick }) => {
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
@@ -391,49 +392,10 @@ const LandingPage = ({ onGetStarted, onFeatureClick }) => {
       </section >
 
       {/* Videos Section */}
-      < section className="py-24 px-4 md:px-12 bg-white" >
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-black mb-4">Top Videos for Smarter Counseling Decisions</h2>
-          <p className="text-gray-500 font-bold mb-12">Everything you need to know about NEET PG 2025 and how it impacts your medical career.</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {[1, 2, 3].map((v) => (
-              <div key={v} className="group cursor-pointer">
-                <div className="relative aspect-video rounded-3xl overflow-hidden mb-4 shadow-lg border-2 border-transparent group-hover:border-college-primary transition-all">
-                  <img src={
-                    [
-                      "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=600&auto=format&fit=crop",
-                      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600&auto=format&fit=crop",
-                      "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=600&auto=format&fit=crop"
-                    ][v - 1]
-                  } alt={`Video ${v}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <div className="bg-white/90 p-4 rounded-full text-college-primary transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <Play size={24} fill="currentColor" />
-                    </div>
-                  </div>
-                </div>
-                <h4 className="font-black text-gray-800 text-lg group-hover:text-college-primary transition-colors line-clamp-2 px-2 text-left leading-snug">
-                  Pointers for All India Stray Round Choice Filling | NEET PG - 2025
-                </h4>
-                <p className="text-gray-400 text-xs font-bold text-left px-2 mt-2">19 hours ago</p>
-              </div>
-            ))}
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center space-x-2 text-college-primary font-black border-2 border-college-primary px-8 py-3 rounded-full hover:bg-college-primary hover:text-white transition-all shadow-lg shadow-college-primary/10"
-          >
-            <span>Explore all videos</span>
-            <ChevronRight size={20} />
-          </motion.button>
-        </div>
-      </section >
+      <VideosSection containerClassName="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-100 relative overflow-hidden" />
 
       {/* Footer (Minimal) */}
-      < footer className="bg-gray-900 text-white py-8 px-4 md:px-12" >
+      <footer className="bg-gray-900 text-white py-8 px-4 md:px-12">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
             <img src={logo} alt="CRZGenie" className="h-6 w-auto invert" />
@@ -444,10 +406,10 @@ const LandingPage = ({ onGetStarted, onFeatureClick }) => {
             <a href="#" className="hover:text-white">Terms of Service</a>
             <a href="#" className="hover:text-white">Contact Us</a>
           </div>
-          <p className="text-gray-500 text-[10px] font-bold">© 2026 CRZGenie. All rights reserved.</p>
+          <p className="text-gray-500 text-[10px] font-bold">© 2026 CRZ Academic Review Pvt Ltd. All rights reserved.</p>
         </div>
-      </footer >
-    </div >
+      </footer>
+    </div>
   );
 };
 

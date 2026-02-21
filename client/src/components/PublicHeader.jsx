@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, Phone, Smartphone, Menu, X, MapPin, BarChart3, Package, Newspaper, Info } from 'lucide-react';
+import { ChevronDown, Phone, Smartphone, Menu, X, MapPin, BarChart3, Package, Newspaper, Info, PlayCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/logo6.png';
 
@@ -48,8 +48,9 @@ const PublicHeader = ({ onLogin }) => {
               <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
             </div>
 
+            <a href="#" onClick={(e) => { e.preventDefault(); document.getElementById('videos-section')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-sm font-bold text-gray-600 hover:text-college-primary transition-colors">Videos</a>
             <a href="#" className="text-sm font-bold text-gray-600 hover:text-college-primary transition-colors">Packages</a>
-            <a href="#" className="text-sm font-bold text-gray-600 hover:text-college-primary transition-colors">Blogs &amp; News</a>
+            <a href="#" className="text-sm font-bold text-gray-600 hover:text-college-primary transition-colors">Blogs & News</a>
 
             <div className="flex items-center space-x-0.5 text-sm font-bold text-gray-600 hover:text-college-primary cursor-pointer group transition-colors">
               <span>About</span>
@@ -110,6 +111,22 @@ const PublicHeader = ({ onLogin }) => {
                       <MapPin size={20} />
                     </div>
                     <span className="text-lg font-bold text-gray-800 group-hover:text-college-dark">Counsellings</span>
+                  </div>
+                  <ChevronDown size={18} className="text-gray-400 group-hover:text-college-primary" />
+                </div>
+
+                <div
+                  onClick={() => {
+                    document.getElementById('videos-section')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer group"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-white p-2.5 rounded-lg shadow-sm text-college-primary group-hover:text-blue-600">
+                      <PlayCircle size={20} />
+                    </div>
+                    <span className="text-lg font-bold text-gray-800 group-hover:text-college-dark">Videos</span>
                   </div>
                   <ChevronDown size={18} className="text-gray-400 group-hover:text-college-primary" />
                 </div>

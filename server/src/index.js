@@ -13,6 +13,7 @@ import courseRouter from "./route/course.route.js";
 import counsellingRouter from "./route/counselling.route.js";
 import universityRouter from "./route/university.route.js";
 import instituteRouter from "./route/institute.route.js";
+import updateRouter from "./route/update.route.js";
 
 dotenv.config({
     path: './.env'
@@ -43,6 +44,7 @@ app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/counselling", counsellingRouter);
 app.use("/api/v1/universities", universityRouter);
 app.use("/api/v1/institutes", instituteRouter);
+app.use("/api/v1/updates", updateRouter);
 
 
 connectDB()
