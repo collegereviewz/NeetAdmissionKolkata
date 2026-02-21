@@ -12,10 +12,10 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import axios from 'axios';
 
-
 // Configure axios defaults
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 axios.defaults.withCredentials = true;
+
 
 import ClosingRanks from './pages/ClosingRanks';
 import ClosingRankDetails from './pages/ClosingRankDetails';
@@ -126,7 +126,7 @@ function App() {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-college-bg">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-blue"></div>
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-college-primary"></div>
+
       </div>
     );
   }

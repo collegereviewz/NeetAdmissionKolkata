@@ -47,60 +47,60 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
       <div className="flex items-center space-x-3">
         {/* Dropdown */}
         <div className="relative" ref={dropdownRef}>
-            <div 
-                className="flex items-center bg-[#E5F7FF] text-[#002D62] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#D6F0FF] transition-colors border border-transparent"
-                onClick={() => setIsCourseDropdownOpen(!isCourseDropdownOpen)}
-            >
-                <svg className="w-4 h-4 mr-1.5 text-[#0096FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                <span className="font-bold text-xs tracking-wide">{selectedCourse}</span>
-                <ChevronDown size={14} className={`ml-1.5 text-[#0096FF] transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} strokeWidth={2.5} />
-            </div>
+          <div
+            className="flex items-center bg-[#E5F7FF] text-[#002D62] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#D6F0FF] transition-colors border border-transparent"
+            onClick={() => setIsCourseDropdownOpen(!isCourseDropdownOpen)}
+          >
+            <svg className="w-4 h-4 mr-1.5 text-[#0096FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+            <span className="font-bold text-xs tracking-wide">{selectedCourse}</span>
+            <ChevronDown size={14} className={`ml-1.5 text-[#0096FF] transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} strokeWidth={2.5} />
+          </div>
 
-            {/* Course Dropdown */}
-            {isCourseDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 z-50 max-h-[80vh] overflow-y-auto no-scrollbar p-2">
-                    {courseCategories.map((category, idx) => (
-                        <div key={idx} className="mb-2 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
-                             <div className="px-4 py-2 flex justify-between items-center bg-gray-100/50">
-                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{category.title}</span>
-                                <ChevronUp size={14} className="text-gray-400" />
-                             </div>
-                             <div className="p-2 space-y-1 bg-white">
-                                {category.courses.map((course) => (
-                                    <div 
-                                        key={course}
-                                        className={`flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors ${selectedCourse === course ? 'bg-blue-50' : 'hover:bg-gray-50'}`}
-                                        onClick={() => {
-                                            setSelectedCourse(course);
-                                            setIsCourseDropdownOpen(false);
-                                        }}
-                                    >
-                                        <span className={`font-bold text-sm ${selectedCourse === course ? 'text-college-primary' : 'text-gray-800'}`}>
-                                            {course}
-                                        </span>
-                                        {selectedCourse === course ? (
-                                            <div className="w-5 h-5 rounded-full bg-college-primary flex items-center justify-center">
-                                                <Check size={12} className="text-white bg-college-primary" strokeWidth={3} />
-                                            </div>
-                                        ) : (
-                                            <Circle size={20} className="text-gray-200 fill-transparent" />
-                                        )}
-                                    </div>
-                                ))}
-                             </div>
-                        </div>
+          {/* Course Dropdown */}
+          {isCourseDropdownOpen && (
+            <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 z-50 max-h-[80vh] overflow-y-auto no-scrollbar p-2">
+              {courseCategories.map((category, idx) => (
+                <div key={idx} className="mb-2 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                  <div className="px-4 py-2 flex justify-between items-center bg-gray-100/50">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{category.title}</span>
+                    <ChevronUp size={14} className="text-gray-400" />
+                  </div>
+                  <div className="p-2 space-y-1 bg-white">
+                    {category.courses.map((course) => (
+                      <div
+                        key={course}
+                        className={`flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors ${selectedCourse === course ? 'bg-blue-50' : 'hover:bg-gray-50'}`}
+                        onClick={() => {
+                          setSelectedCourse(course);
+                          setIsCourseDropdownOpen(false);
+                        }}
+                      >
+                        <span className={`font-bold text-sm ${selectedCourse === course ? 'text-college-primary' : 'text-gray-800'}`}>
+                          {course}
+                        </span>
+                        {selectedCourse === course ? (
+                          <div className="w-5 h-5 rounded-full bg-college-primary flex items-center justify-center">
+                            <Check size={12} className="text-white bg-college-primary" strokeWidth={3} />
+                          </div>
+                        ) : (
+                          <Circle size={20} className="text-gray-200 fill-transparent" />
+                        )}
+                      </div>
                     ))}
+                  </div>
                 </div>
-            )}
+              ))}
+            </div>
+          )}
         </div>
-        
+
         {/* My Choice Lists */}
-        <div 
-            onClick={onOpenChoiceList}
-            className="flex items-center bg-[#FFF1F2] text-[#FF3E55] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#FFD1D6] transition-colors border border-transparent"
+        <div
+          onClick={onOpenChoiceList}
+          className="flex items-center bg-[#FFF1F2] text-[#FF3E55] px-3 py-1.5 rounded-full cursor-pointer hover:bg-[#FFD1D6] transition-colors border border-transparent"
         >
-            <svg className="w-4 h-4 mr-1.5 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <span className="font-bold text-xs tracking-wide">My Choice Lists</span>
+          <svg className="w-4 h-4 mr-1.5 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+          <span className="font-bold text-xs tracking-wide">My Choice Lists</span>
         </div>
       </div>
 
@@ -116,9 +116,9 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
             placeholder="Search for colleges, exams, updates..."
           />
           <div className="absolute inset-y-0 right-0 pr-2 flex items-center">
-             <div className="border-l border-gray-300 h-6 mx-2"></div>
-             <span className="text-gray-500 text-sm cursor-pointer hover:text-gray-800">All</span>
-             <svg className="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            <div className="border-l border-gray-300 h-6 mx-2"></div>
+            <span className="text-gray-500 text-sm cursor-pointer hover:text-gray-800">All</span>
+            <svg className="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
           </div>
         </div>
       </div>
@@ -136,11 +136,11 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
         <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Blogs & News</a>
 
         <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Refer & Earn</a>
-        
+
         <a href="#" className="hidden lg:block text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">Packages</a>
 
         <div className="relative" ref={profileDropdownRef}>
-          <div 
+          <div
             onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             className="h-9 w-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:bg-opacity-90 transition-colors ring-2 ring-purple-100"
           >
@@ -163,7 +163,7 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
                 Feedback
               </button>
               <div className="h-px bg-gray-100 my-1 mx-4"></div>
-              <button 
+              <button
                 onClick={() => {
                   setIsProfileDropdownOpen(false);
                   setIsLogoutModalOpen(true);
@@ -182,14 +182,14 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
       <AnimatePresence>
         {isLogoutModalOpen && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsLogoutModalOpen(false)}
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 10 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 10 }}
@@ -201,20 +201,20 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
                 <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-50 mb-6">
                   <AlertTriangle className="h-10 w-10 text-red-500" />
                 </div>
-                
+
                 <h3 className="text-2xl font-black text-gray-900 mb-2">Confirm Logout</h3>
                 <p className="text-gray-500 font-bold mb-8">
                   Are you sure you want to sign out of your account?
                 </p>
-                
+
                 <div className="grid grid-cols-2 gap-4">
-                  <button 
+                  <button
                     onClick={() => setIsLogoutModalOpen(false)}
                     className="w-full py-4 text-base font-black text-gray-600 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-95"
                   >
                     Cancel
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       setIsLogoutModalOpen(false);
                       onLogout();

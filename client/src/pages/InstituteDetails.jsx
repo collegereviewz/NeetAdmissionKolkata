@@ -290,8 +290,8 @@ const InstituteDetails = () => {
                                                 key={course}
                                                 onClick={() => setSelectedCourse(course)}
                                                 className={`text-left px-3 py-2.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between group ${selectedCourse === course
-                                                        ? 'bg-white shadow-sm text-orange-600 border border-orange-100'
-                                                        : 'text-gray-600 hover:bg-white hover:text-gray-900'
+                                                    ? 'bg-white shadow-sm text-orange-600 border border-orange-100'
+                                                    : 'text-gray-600 hover:bg-white hover:text-gray-900'
                                                     }`}
                                             >
                                                 <span className="truncate mr-2" title={course}>{course}</span>

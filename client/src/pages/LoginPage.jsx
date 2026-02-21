@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ArrowLeft, MessageSquare, ShieldCheck, 
+import {
+  ArrowLeft, MessageSquare, ShieldCheck,
   Smartphone, ChevronDown, CheckCircle2,
   X, RefreshCw
 } from 'lucide-react';
@@ -94,20 +94,20 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
             transition={{ delay: 0.2 }}
             className="relative"
           >
-             <img 
-               src="https://img.freepik.com/free-vector/professional-doctor-surgeon-working-with-digital-screen-healthcare-innovation-technology_107791-16345.jpg?..." 
-               alt="Auth Illustration" 
-               className="w-full h-auto drop-shadow-2xl rounded-2xl"
-             />
-             {/* Carousel Dots */}
-             <div className="flex justify-center space-x-2 mt-8">
-               <div className="w-6 h-2 bg-college-primary rounded-full"></div>
-               <div className="w-2 h-2 bg-college-light rounded-full"></div>
-               <div className="w-2 h-2 bg-college-light rounded-full"></div>
-             </div>
+            <img
+              src="https://img.freepik.com/free-vector/professional-doctor-surgeon-working-with-digital-screen-healthcare-innovation-technology_107791-16345.jpg?..."
+              alt="Auth Illustration"
+              className="w-full h-auto drop-shadow-2xl rounded-2xl"
+            />
+            {/* Carousel Dots */}
+            <div className="flex justify-center space-x-2 mt-8">
+              <div className="w-6 h-2 bg-college-primary rounded-full"></div>
+              <div className="w-2 h-2 bg-college-light rounded-full"></div>
+              <div className="w-2 h-2 bg-college-light rounded-full"></div>
+            </div>
           </motion.div>
         </div>
-        
+
         {/* Background Decorative Shapes */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/30 rounded-full -mr-32 -mt-32 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-college-light/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
@@ -115,7 +115,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
 
       {/* Right Panel: Auth Form */}
       <div className="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-8 relative">
-        <button 
+        <button
           onClick={onBack}
           className="absolute top-8 left-8 p-2 hover:bg-gray-100 rounded-full transition-all text-gray-400 hover:text-gray-600"
         >
@@ -150,29 +150,29 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
               >
                 {/* Phone Input Card */}
                 <div className="relative group">
-                   <div className="absolute inset-y-0 left-0 flex items-center pl-4 pr-3 border-r border-gray-100">
-                      <div className="flex items-center space-x-2">
-                        <img 
-                          src="https://flagcdn.com/w20/in.png" 
-                          alt="India" 
-                          className="w-5 h-auto rounded-sm"
-                        />
-                        <span className="text-sm font-bold text-gray-800">+91</span>
-                        <ChevronDown size={14} className="text-gray-400" />
-                      </div>
-                   </div>
-                   <input 
-                     type="tel"
-                     placeholder="Enter your phone number"
-                     maxLength={10}
-                     value={phoneNumber}
-                     onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
-                     className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
-                   />
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pr-3 border-r border-gray-100">
+                    <div className="flex items-center space-x-2">
+                      <img
+                        src="https://flagcdn.com/w20/in.png"
+                        alt="India"
+                        className="w-5 h-auto rounded-sm"
+                      />
+                      <span className="text-sm font-bold text-gray-800">+91</span>
+                      <ChevronDown size={14} className="text-gray-400" />
+                    </div>
+                  </div>
+                  <input
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    maxLength={10}
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                    className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
+                  />
                 </div>
 
                 <div className="space-y-4">
-                  <motion.button 
+                  <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     disabled={phoneNumber.length < 10 || loading}
@@ -189,18 +189,18 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
                     )}
                   </motion.button>
 
-                  <motion.button 
+                  <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     disabled={phoneNumber.length < 10 || loading}
                     onClick={() => handleSendOtp('whatsapp')}
                     className="w-full bg-white border-2 border-[#25D366] text-[#25D366] py-4 rounded-2xl font-black flex items-center justify-center space-x-2 transition-all hover:bg-[#25D366]/5 disabled:opacity-50 disabled:cursor-not-allowed group"
                   >
-                     {loading && otpMethod === 'whatsapp' ? (
+                    {loading && otpMethod === 'whatsapp' ? (
                       <RefreshCw size={20} className="animate-spin" />
                     ) : (
                       <>
-                        <svg className="w-5 h-5 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.894-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.231 3.481 8.401 0 6.557-5.331 11.892-11.893 11.892-1.997 0-3.951-.5-5.688-1.448l-6.306 1.668zm6.29-4.103c1.733 1.017 3.305 1.592 5.303 1.592 5.456 0 9.894-4.437 9.894-9.892 0-2.64-1.029-5.122-2.895-6.989-1.868-1.866-4.349-2.894-6.988-2.894-5.458 0-9.894 4.438-9.894 9.892 0 2.129.581 3.73 1.68 5.464l-.994 3.633 3.894-.996zm10.32-6.524c-.112-.112-.132-.128-.21-.132-.078-.004-.339-.144-.725-.336-.387-.192-2.288-1.129-2.646-1.258-.358-.129-.619-.193-.878.193s-1.002 1.258-1.229 1.516c-.227.258-.454.29-.841.096-.387-.193-1.636-.603-3.116-1.919-1.152-1.027-1.929-2.296-2.156-2.682-.227-.387-.024-.596.17-.79.174-.174.387-.451.581-.677.193-.226.258-.387.387-.645.129-.258.064-.484-.032-.677-.096-.193-.878-2.115-1.201-2.891-.314-.755-.634-.652-.878-.664-.227-.011-.486-.011-.745-.011-.258 0-.678.096-1.032.484-.354.387-1.354 1.323-1.354 3.226 0 1.903 1.387 3.742 1.581 4.001.193.258 2.73 4.168 6.613 5.849.924.4 1.644.64 2.206.818.928.293 1.772.251 2.441.151.745-.112 2.288-.936 2.61-1.839.323-.903.323-1.677.226-1.838z"/></svg>
+                        <svg className="w-5 h-5 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.894-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.231 3.481 8.401 0 6.557-5.331 11.892-11.893 11.892-1.997 0-3.951-.5-5.688-1.448l-6.306 1.668zm6.29-4.103c1.733 1.017 3.305 1.592 5.303 1.592 5.456 0 9.894-4.437 9.894-9.892 0-2.64-1.029-5.122-2.895-6.989-1.868-1.866-4.349-2.894-6.988-2.894-5.458 0-9.894 4.438-9.894 9.892 0 2.129.581 3.73 1.68 5.464l-.994 3.633 3.894-.996zm10.32-6.524c-.112-.112-.132-.128-.21-.132-.078-.004-.339-.144-.725-.336-.387-.192-2.288-1.129-2.646-1.258-.358-.129-.619-.193-.878.193s-1.002 1.258-1.229 1.516c-.227.258-.454.29-.841.096-.387-.193-1.636-.603-3.116-1.919-1.152-1.027-1.929-2.296-2.156-2.682-.227-.387-.024-.596.17-.79.174-.174.387-.451.581-.677.193-.226.258-.387.387-.645.129-.258.064-.484-.032-.677-.096-.193-.878-2.115-1.201-2.891-.314-.755-.634-.652-.878-.664-.227-.011-.486-.011-.745-.011-.258 0-.678.096-1.032.484-.354.387-1.354 1.323-1.354 3.226 0 1.903 1.387 3.742 1.581 4.001.193.258 2.73 4.168 6.613 5.849.924.4 1.644.64 2.206.818.928.293 1.772.251 2.441.151.745-.112 2.288-.936 2.61-1.839.323-.903.323-1.677.226-1.838z" /></svg>
                         <span>Get OTP to WhatsApp</span>
                       </>
                     )}
@@ -217,25 +217,25 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
               >
                 <div className="flex justify-between gap-2">
                   {otp.map((digit, index) => (
-                      <input
-                        key={index}
-                        id={`otp-${index}`}
-                        type="text"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleOtpChange(index, e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Backspace' && !otp[index] && index > 0) {
-                            document.getElementById(`otp-${index - 1}`).focus();
-                          }
-                        }}
-                        className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-college-primary focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
-                      />
+                    <input
+                      key={index}
+                      id={`otp-${index}`}
+                      type="text"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleOtpChange(index, e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Backspace' && !otp[index] && index > 0) {
+                          document.getElementById(`otp-${index - 1}`).focus();
+                        }
+                      }}
+                      className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-college-primary focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
+                    />
                   ))}
                 </div>
 
                 <div className="space-y-4">
-                  <motion.button 
+                  <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleVerifyOtp}
@@ -252,7 +252,7 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
                     )}
                   </motion.button>
 
-                  <button 
+                  <button
                     onClick={() => timer === 0 && handleSendOtp(otpMethod)}
                     disabled={timer > 0}
                     className={`w-full py-2 text-sm font-bold transition-colors ${timer > 0 ? 'text-gray-300' : 'text-gray-500 hover:text-gray-800'}`}
@@ -265,9 +265,9 @@ const LoginPage = ({ onLoginSuccess, onBack }) => {
           </AnimatePresence>
 
           <div className="mt-12 text-center">
-             <p className="text-gray-400 text-sm font-bold">
-               Trouble signing in? <a href="#" className="text-blue-600 hover:underline">Get Help</a>
-             </p>
+            <p className="text-gray-400 text-sm font-bold">
+              Trouble signing in? <a href="#" className="text-blue-600 hover:underline">Get Help</a>
+            </p>
           </div>
         </div>
       </div>
