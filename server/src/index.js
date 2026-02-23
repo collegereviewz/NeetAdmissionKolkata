@@ -1,10 +1,13 @@
-import express from "express"
 import dotenv from "dotenv"
+dotenv.config({
+    path: './.env'
+})
+
+import express from "express"
 import cors from "cors"
 import connectDB from "./db/db.js"
 import cookieParser from "cookie-parser"
 import seatMatrixRouter from './route/seatMatrix.route.js'
-
 import userRouter from './route/user.route.js'
 import closingRankRouter from './route/closingRank.route.js'
 import allotmentRouter from "./route/allotment.route.js";
@@ -14,11 +17,6 @@ import courseRouter from "./route/course.route.js";
 import counsellingRouter from "./route/counselling.route.js";
 import universityRouter from "./route/university.route.js";
 import instituteRouter from "./route/institute.route.js";
-
-
-dotenv.config({
-    path: './.env'
-})
 
 const app = express()
 
@@ -36,7 +34,6 @@ app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 
 app.use("/api/v1/seat-matrix", seatMatrixRouter)
-
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/closing-rank", closingRankRouter)
 app.use("/api/v1/allotment", allotmentRouter);
@@ -51,7 +48,7 @@ app.use("/api/v1/institutes", instituteRouter);
 connectDB()
     .then(() => {
         app.listen(process.env.PORT || 8000, () => {
-            console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+            console.log(`⚙️ Server is running at port : ${process.env.PORT || 5000}`);
         })
     })
     .catch((err) => {

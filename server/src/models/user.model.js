@@ -25,6 +25,23 @@ const userSchema = new Schema(
             sparse: true,
             index: true
         },
+        fullName: {
+            type: String,
+            trim: true
+        },
+        isProfileComplete: {
+            type: Boolean,
+            default: false
+        },
+        subscriptionType: {
+            type: String,
+            enum: ['Free', 'Paid', 'none'],
+            default: 'none'
+        },
+        isPaid: {
+            type: Boolean,
+            default: false
+        },
         password: {
             type: String,
             required: [true, 'Password is required']

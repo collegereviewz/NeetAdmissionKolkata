@@ -38,7 +38,7 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: bouncy } 
 };
 
-const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }) => {
+const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, user }) => {
   const navigate = useNavigate();
   const [itemToDelete, setItemToDelete] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
@@ -158,13 +158,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
 
 
   return (
-    <div className="min-h-screen p-4 md:p-6 pt-3 md:pt-4 space-y-4 relative pb-10 md:pb-6 overflow-x-hidden bg-[#fdfeff]" style={{
-      backgroundImage: `
-        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
-        linear-gradient(to bottom, #fdfeff, #f8fafc)
-      `
-    }}>
+    <div className="min-h-screen p-4 lg:p-4 space-y-2 relative overflow-x-hidden">
+      {/* Dynamic Grid Background */}
+      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{ 
+        backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', 
+        backgroundSize: '24px 24px' 
+      }} />
+
       {/* Educational Professional Grid (Graph Paper Style) - STATIC (Immediate visibility) */}
       <div className="absolute inset-0 pointer-events-none" style={{ 
         backgroundImage: `
@@ -188,10 +188,10 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative z-0 space-y-4"
+        className="relative z-0 lg:space-y-2 space-y-4"
       >
         {/* Quick Navigation Tabs */}
-      <div className="relative group/nav mb-6">
+      <div className="relative group/nav lg:mb-2 mb-6">
         {/* Scroll Buttons */}
         {showLeftArrow && (
           <motion.button 
@@ -210,7 +210,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="flex overflow-x-auto space-x-4 py-3 md:py-4 scrollbar-hide scroll-smooth no-scrollbar"
+          className="flex overflow-x-auto space-x-4 py-3 md:py-4 lg:py-2 scrollbar-hide scroll-smooth no-scrollbar"
         >
           <style dangerouslySetInnerHTML={{ __html: `
             .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -654,11 +654,16 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
               {/* Left Column: Info & Banner */}
-              <div className="lg:col-span-5 space-y-4">
+              <div className="lg:col-span-5 lg:space-y-2 space-y-4">
                 {/* Profile Message */}
                 <motion.div variants={fadeUp} className="mb-2">
-                  <h2 className="text-gray-500 text-base font-medium">Hello Anish</h2>
-                  <h1 className="text-2xl font-bold text-gray-800 mt-1 leading-tight">
+                  <h2 className="text-sm lg:text-xs font-bold flex items-center gap-1.5">
+                    <span className="text-slate-400 uppercase tracking-widest">Hello</span>
+                    <span className="bg-gradient-to-r from-blue-600 to-blue-200 bg-clip-text text-transparent font-black uppercase tracking-tight">
+                      {user?.fullName || user?.username || 'Anish Jana'}
+                    </span>
+                  </h2>
+                  <h1 className="text-2xl lg:text-xl font-bold text-gray-800 lg:mt-0 mt-1 leading-tight">
                     Get all your <br />
                     <span className="text-college-primary font-extrabold">Counselling Updates</span> <br />
                     at one place!

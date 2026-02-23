@@ -57,10 +57,10 @@ const LandingPage = ({ onGetStarted, onFeatureClick }) => {
             variants={staggerContainer}
             className="z-10 text-center lg:text-left"
           >
-            <motion.h1 variants={fadeIn} className="text-2xl md:text-4xl font-black text-gray-900 leading-tight mb-4">
-              Get real insights <br />
-              before you fill your <br />
-              <span className="text-college-primary">NEET PG choice list</span>
+            <motion.h1 variants={fadeIn} className="text-4xl md:text-6xl lg:text-7xl font-black leading-[0.9] mb-8 tracking-tighter uppercase italic">
+              Level Up <br />
+              <span className="text-blue-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]">Your Insights</span> <br />
+              <span className="text-white">NEET PG 2026</span>
             </motion.h1>
             
             <motion.div variants={fadeIn} className="flex items-center justify-center lg:justify-start space-x-2 text-gray-500 font-bold mb-5">
