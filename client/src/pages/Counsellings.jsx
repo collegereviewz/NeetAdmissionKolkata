@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getFeatureConfig } from '../config/examConfig';
 import ComingSoon from '../components/shared/ComingSoon';
+import { API_BASE_URL } from '../apiConfig';
 
 const Counsellings = ({ selectedCourse }) => {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Counsellings = ({ selectedCourse }) => {
 
     const fetchFilters = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/v1/counselling/filters');
+            const response = await fetch(`${API_BASE_URL}/counselling/filters`);
             const data = await response.json();
             if (data.success) {
                 setFilters(data.filters);
@@ -74,7 +75,7 @@ const Counsellings = ({ selectedCourse }) => {
                 if (!value) queryParams.delete(key);
             }
 
-            const response = await fetch(`http://localhost:5000/api/v1/counselling?${queryParams}`);
+            const response = await fetch(`${API_BASE_URL}/counselling?${queryParams}`);
             const result = await response.json();
             if (result.success) {
                 setCounsellings(result.data);

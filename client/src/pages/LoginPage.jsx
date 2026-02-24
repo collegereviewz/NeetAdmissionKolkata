@@ -15,10 +15,10 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
   const [redirectCount, setRedirectCount] = useState(5);
   const [loading, setLoading] = useState(false);
   const [tempUser, setTempUser] = useState(user || null);
-  const [registrationData, setRegistrationData] = useState({ 
-    fullName: user?.fullName || '', 
-    email: (user?.email && !user?.email.includes('@otp.user')) ? user.email : '', 
-    plan: user?.subscriptionType || 'Free' 
+  const [registrationData, setRegistrationData] = useState({
+    fullName: user?.fullName || '',
+    email: (user?.email && !user?.email.includes('@otp.user')) ? user.email : '',
+    plan: user?.subscriptionType || 'Free'
   });
 
   React.useEffect(() => {
@@ -77,7 +77,7 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
     try {
       const response = await axios.post('/users/verify-otp', { phoneNumber, otp: otpString });
       const user = response.data.user;
-      
+
       if (!user.isProfileComplete) {
         setTempUser(user);
         setStage('plan');
@@ -169,7 +169,7 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
         const rzp = new window.Razorpay(options);
         rzp.open();
       };
-      
+
       script.onerror = () => {
         alert("Failed to load Razorpay SDK.");
         setLoading(false);
@@ -214,15 +214,15 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
   };
 
   const handleLogoutInReg = async () => {
-     try {
-       await axios.post('/users/logout');
-       setTempUser(null);
-       setStage('phone');
-       setPhoneNumber('');
-       onBack(); 
-     } catch (err) {
-       console.error("Logout during reg failed:", err);
-     }
+    try {
+      await axios.post('/users/logout');
+      setTempUser(null);
+      setStage('phone');
+      setPhoneNumber('');
+      onBack();
+    } catch (err) {
+      console.error("Logout during reg failed:", err);
+    }
   };
 
   return (
@@ -249,9 +249,9 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
             transition={{ delay: 0.2 }}
             className="relative"
           >
-            <img 
-              src="https://img.freepik.com/free-vector/professional-doctor-surgeon-working-with-digital-screen-healthcare-innovation-technology_107791-16345.jpg" 
-              alt="Auth Illustration" 
+            <img
+              src="https://img.freepik.com/free-vector/professional-doctor-surgeon-working-with-digital-screen-healthcare-innovation-technology_107791-16345.jpg"
+              alt="Auth Illustration"
               className="w-full h-auto drop-shadow-2xl rounded-2xl"
             />
             {/* Carousel Dots */}
@@ -266,15 +266,14 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
         {/* Background Decorative Shapes */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/30 rounded-full -mr-32 -mt-32 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-college-light/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
-
       </div>
 
       {/* Right Panel: Auth Form */}
       <div className="w-full md:w-1/2 bg-white flex flex-col items-center justify-center p-8 relative">
-        <button 
+        <button
           onClick={() => {
             if (stage === 'plan' && tempUser) {
-               handleLogoutInReg();
+              handleLogoutInReg();
             } else if (stage === 'registration') {
               setStage('plan');
             } else if (stage === 'payment') {
@@ -290,9 +289,12 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
           className="absolute top-8 left-8 p-2 hover:bg-gray-100 rounded-full transition-all text-gray-400 hover:text-gray-600 flex items-center gap-1 group"
         >
           <ArrowLeft size={24} />
-          {stage === 'plan' && tempUser && <span className="text-[10px] font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">Logout</span>}
+          {stage === 'plan' && tempUser && (
+            <span className="text-[10px] font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              Logout
+            </span>
+          )}
         </button>
-
 
         <div className="w-full max-w-sm">
           <div className="flex flex-col items-center mb-10 text-center">
@@ -303,7 +305,7 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
                 <span className="text-college-gold">Genie</span>
               </span>
             </div>
-            
+
             {stage === 'phone' && (
               <>
                 <h2 className="text-2xl font-black text-gray-900 mb-1">Start your journey</h2>
@@ -313,7 +315,9 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
             {stage === 'otp' && (
               <>
                 <h2 className="text-2xl font-black text-gray-900 mb-1">Verify Mobile</h2>
-                <p className="text-gray-500 font-bold text-sm">Enter the 6-digit code sent to +91 {phoneNumber}</p>
+                <p className="text-gray-500 font-bold text-sm">
+                  Enter the 6-digit code sent to +91 {phoneNumber}
+                </p>
               </>
             )}
             {stage === 'plan' && (
@@ -347,61 +351,89 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
 
           <AnimatePresence mode="wait">
             {stage === 'phone' && (
-              <motion.div key="phone" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+              <motion.div
+                key="phone"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="space-y-6"
+              >
                 <div className="relative group">
-                   <div className="absolute inset-y-0 left-0 flex items-center pl-4 pr-3 border-r border-gray-100">
-                      <div className="flex items-center space-x-2">
-                        <img 
-                          src="https://flagcdn.com/w20/in.png" 
-                          alt="India" 
-                          className="w-5 h-auto rounded-sm"
-                        />
-                        <span className="text-sm font-bold text-gray-800">+91</span>
-                        <ChevronDown size={14} className="text-gray-400" />
-                      </div>
-                   </div>
-                   <input 
-                     type="tel" maxLength={10} value={phoneNumber}
-                     onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
-                     placeholder="Enter phone number"
-                     className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
-                   />
-
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pr-3 border-r border-gray-100">
+                    <div className="flex items-center space-x-2">
+                      <img
+                        src="https://flagcdn.com/w20/in.png"
+                        alt="India"
+                        className="w-5 h-auto rounded-sm"
+                      />
+                      <span className="text-sm font-bold text-gray-800">+91</span>
+                      <ChevronDown size={14} className="text-gray-400" />
+                    </div>
+                  </div>
+                  <input
+                    type="tel"
+                    maxLength={10}
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                    placeholder="Enter phone number"
+                    className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
+                  />
                 </div>
                 <div className="space-y-4">
-                  <motion.button 
-                    whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     disabled={phoneNumber.length < 10 || loading}
                     onClick={handleSendOtp}
                     className="w-full bg-college-primary text-white py-4 rounded-2xl font-black shadow-xl shadow-college-primary/20 flex items-center justify-center space-x-2 transition-all disabled:opacity-50"
                   >
-                    {loading ? <RefreshCw className="animate-spin" /> : <span>Continue & Get OTP</span>}
+                    {loading ? (
+                      <RefreshCw className="animate-spin" />
+                    ) : (
+                      <span>Continue & Get OTP</span>
+                    )}
                   </motion.button>
                 </div>
               </motion.div>
             )}
 
             {stage === 'otp' && (
-              <motion.div key="otp" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
+              <motion.div
+                key="otp"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="space-y-8"
+              >
                 <div className="flex justify-between gap-2">
                   {otp.map((digit, index) => (
                     <input
-                      key={index} id={`otp-${index}`} type="text" maxLength={1} value={digit}
+                      key={index}
+                      id={`otp-${index}`}
+                      type="text"
+                      maxLength={1}
+                      value={digit}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => {
-                        if (e.key === 'Backspace' && !otp[index] && index > 0) document.getElementById(`otp-${index - 1}`).focus();
+                        if (e.key === 'Backspace' && !otp[index] && index > 0) {
+                          document.getElementById(`otp-${index - 1}`).focus();
+                        }
                       }}
                       className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-college-primary focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
                     />
                   ))}
-
                 </div>
-                <button onClick={handleVerifyOtp} disabled={otp.join('').length < 6 || loading} className="w-full bg-college-primary text-white py-4 rounded-2xl font-black transition-all disabled:opacity-50">
-                   {loading ? <RefreshCw className="animate-spin mx-auto" /> : "Verify OTP"}
+                <button
+                  onClick={handleVerifyOtp}
+                  disabled={otp.join('').length < 6 || loading}
+                  className="w-full bg-college-primary text-white py-4 rounded-2xl font-black transition-all disabled:opacity-50"
+                >
+                  {loading ? <RefreshCw className="animate-spin mx-auto" /> : "Verify OTP"}
                 </button>
-                <button 
+                <button
                   onClick={() => timer === 0 && handleSendOtp()}
-                  className={`w-full py-2 text-sm font-bold ${timer > 0 ? 'text-gray-300' : 'text-blue-500'}`}
+                  className={`w-full py-2 text-sm font-bold ${timer > 0 ? 'text-gray-300' : 'text-blue-500'
+                    }`}
                 >
                   {timer > 0 ? `Resend code in ${timer}s` : "Resend code"}
                 </button>
@@ -409,41 +441,82 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
             )}
 
             {stage === 'plan' && (
-              <motion.div key="plan" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4">
-                <button onClick={() => handleSelectPlan('Free')} className="w-full p-6 bg-gray-50 border-2 border-gray-100 rounded-2xl text-left hover:border-college-primary hover:bg-white transition-all group">
-                   <h3 className="font-bold text-gray-900 mb-1">Free Version</h3>
-                   <p className="text-xs text-gray-500 font-medium">Access basic tracking and allotments</p>
+              <motion.div
+                key="plan"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="space-y-4"
+              >
+                <button
+                  onClick={() => handleSelectPlan('Free')}
+                  className="w-full p-6 bg-gray-50 border-2 border-gray-100 rounded-2xl text-left hover:border-college-primary hover:bg-white transition-all group"
+                >
+                  <h3 className="font-bold text-gray-900 mb-1">Free Version</h3>
+                  <p className="text-xs text-gray-500 font-medium">
+                    Access basic tracking and allotments
+                  </p>
                 </button>
-                <button onClick={() => handleSelectPlan('Paid')} className="w-full p-6 bg-white border-2 border-college-gold/20 rounded-2xl text-left hover:border-college-gold hover:shadow-lg transition-all relative overflow-hidden">
-                   <div className="absolute top-0 right-0 bg-college-gold text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest">Premium</div>
-                   <h3 className="font-bold text-gray-900 mb-1 text-college-gold">Paid Version</h3>
-                   <p className="text-xs text-gray-500 font-medium font-bold">Priority alerts, seat-mapping & 1v1 Expert help</p>
+                <button
+                  onClick={() => handleSelectPlan('Paid')}
+                  className="w-full p-6 bg-white border-2 border-college-gold/20 rounded-2xl text-left hover:border-college-gold hover:shadow-lg transition-all relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 bg-college-gold text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest">
+                    Premium
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1 text-college-gold">Paid Version</h3>
+                  <p className="text-xs text-gray-500 font-medium font-bold">
+                    Priority alerts, seat-mapping & 1v1 Expert help
+                  </p>
                 </button>
               </motion.div>
             )}
 
             {stage === 'registration' && (
-              <motion.div key="reg" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4">
+              <motion.div
+                key="reg"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="space-y-4"
+              >
                 <form onSubmit={handleRegistrationSubmit} className="space-y-4">
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input 
-                      required type="text" placeholder="Full Name"
+                    <User
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                      size={18}
+                    />
+                    <input
+                      required
+                      type="text"
+                      placeholder="Full Name"
                       value={registrationData.fullName}
-                      onChange={(e) => setRegistrationData(prev => ({ ...prev, fullName: e.target.value }))}
+                      onChange={(e) =>
+                        setRegistrationData((prev) => ({ ...prev, fullName: e.target.value }))
+                      }
                       className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:border-college-primary focus:bg-white outline-none transition-all font-bold"
                     />
                   </div>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input 
-                      required type="email" placeholder="Email Address"
+                    <Mail
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                      size={18}
+                    />
+                    <input
+                      required
+                      type="email"
+                      placeholder="Email Address"
                       value={registrationData.email}
-                      onChange={(e) => setRegistrationData(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={(e) =>
+                        setRegistrationData((prev) => ({ ...prev, email: e.target.value }))
+                      }
                       className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:border-college-primary focus:bg-white outline-none transition-all font-bold"
                     />
                   </div>
-                  <button type="submit" className="w-full bg-college-primary text-white py-4 rounded-2xl font-black mt-4 shadow-lg">
+                  <button
+                    type="submit"
+                    className="w-full bg-college-primary text-white py-4 rounded-2xl font-black mt-4 shadow-lg"
+                  >
                     {registrationData.plan === 'Paid' ? "Proceed to Payment" : "Start Tracking"}
                   </button>
                 </form>
@@ -451,56 +524,76 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
             )}
 
             {stage === 'payment' && (
-              <motion.div key="pay" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
+              <motion.div
+                key="pay"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="space-y-6"
+              >
                 <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-4 text-center">
-                   <div className="flex justify-center mb-3 text-college-primary"><CreditCard size={48} /></div>
-                   <p className="text-sm font-bold text-gray-700">Scan QR or enter card details to unlock Premium privileges.</p>
+                  <div className="flex justify-center mb-3 text-college-primary">
+                    <CreditCard size={48} />
+                  </div>
+                  <p className="text-sm font-bold text-gray-700">
+                    Scan QR or enter card details to unlock Premium privileges.
+                  </p>
                 </div>
                 <div className="space-y-3">
-                   <div className="flex items-center space-x-2 text-blue-500 justify-center font-bold mb-4 italic">
-                      <ShieldCheck size={18} />
-                      <span>Razorpay Secure Connection</span>
-                   </div>
-                   <button 
-                     disabled={loading}
-                     onClick={handleRazorpayPayment} 
-                     className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-xl flex items-center justify-center space-x-2 active:scale-95 transition-all disabled:opacity-50"
-                   >
-                     {loading ? (
-                       <RefreshCw className="animate-spin" />
-                     ) : (
-                       <>
-                         <Lock size={18} />
-                         <span>Pay Now & Unlock Premium</span>
-                       </>
-                     )}
-                   </button>
+                  <div className="flex items-center space-x-2 text-blue-500 justify-center font-bold mb-4 italic">
+                    <ShieldCheck size={18} />
+                    <span>Razorpay Secure Connection</span>
+                  </div>
+                  <button
+                    disabled={loading}
+                    onClick={handleRazorpayPayment}
+                    className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-xl flex items-center justify-center space-x-2 active:scale-95 transition-all disabled:opacity-50"
+                  >
+                    {loading ? (
+                      <RefreshCw className="animate-spin" />
+                    ) : (
+                      <>
+                        <Lock size={18} />
+                        <span>Pay Now & Unlock Premium</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </motion.div>
             )}
 
             {stage === 'success' && (
-              <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center space-y-6">
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center space-y-6"
+              >
                 <div className="bg-green-50 border border-green-100 rounded-2xl p-8 shadow-sm">
-                   <p className="text-lg font-black text-gray-900 mb-2">Go To your Home Page</p>
-                   <p className="text-sm text-gray-500 font-bold mb-6">You will be redirected automatically in <span className="text-green-600">{redirectCount}s</span></p>
-                   
-                   <button 
-                     onClick={() => onLoginSuccess(tempUser)}
-                     className="w-full bg-gray-900 text-white py-4 rounded-2xl font-black flex items-center justify-center space-x-2 active:scale-95 transition-all"
-                   >
-                     <span>Enter Dashboard Now</span>
-                   </button>
+                  <p className="text-lg font-black text-gray-900 mb-2">Go To your Home Page</p>
+                  <p className="text-sm text-gray-500 font-bold mb-6">
+                    You will be redirected automatically in{" "}
+                    <span className="text-green-600">{redirectCount}s</span>
+                  </p>
+
+                  <button
+                    onClick={() => onLoginSuccess(tempUser)}
+                    className="w-full bg-gray-900 text-white py-4 rounded-2xl font-black flex items-center justify-center space-x-2 active:scale-95 transition-all"
+                  >
+                    <span>Enter Dashboard Now</span>
+                  </button>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
           <div className="mt-12 text-center">
             <p className="text-gray-400 text-sm font-bold">
-              Trouble signing in? <a href="#" className="text-blue-600 hover:underline">Get Help</a>
+              Trouble signing in?{" "}
+              <a href="#" className="text-blue-600 hover:underline">
+                Get Help
+              </a>
             </p>
           </div>
-
         </div>
       </div>
     </div>

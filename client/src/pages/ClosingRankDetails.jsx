@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { getFeatureConfig } from '../config/examConfig';
 import ComingSoon from '../components/shared/ComingSoon';
+import { API_BASE_URL } from '../apiConfig';
 
 const ClosingRankDetails = ({ selectedCourse }) => {
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ const ClosingRankDetails = ({ selectedCourse }) => {
     const fetchData = async (page = 1) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/v1/closing-rank?page=${page}&limit=${pagination.limit}`);
+            const response = await fetch(`${API_BASE_URL}/closing-rank?page=${page}&limit=${pagination.limit}`);
             const result = await response.json();
             if (result.success) {
                 setData(result.data);

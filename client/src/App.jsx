@@ -20,9 +20,13 @@ import {
 } from 'lucide-react';
 import logo from './assets/logo6.png';
 
+import { API_BASE_URL } from './apiConfig';
+
 // Configure axios defaults
-axios.defaults.baseURL = '/api/v1';
+axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.withCredentials = true;
+
+console.log('🚀 API Config:', { baseURL: API_BASE_URL });
 
 
 import ClosingRanks from './pages/ClosingRanks';
