@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import logo from './assets/logo6.png';
 
-
 // Configure axios defaults
 axios.defaults.baseURL = '/api/v1';
 axios.defaults.withCredentials = true;
