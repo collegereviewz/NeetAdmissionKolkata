@@ -16,6 +16,7 @@ import { featureCardsMap, quotasMap, defaultQuotas } from '../data/featureData.j
 import { counsellingWebsites, registrationLinks, prospectusLinks } from '../data/counselingWebsites';
 import { roadmapDataMap, defaultRoadmap } from '../data/roadmapData';
 import VideosSection from '../components/VideosSection';
+import { API_BASE_URL } from '../apiConfig';
 
 
 // Sophisticated & Fluid Transitions (Reduced jitter)
@@ -63,7 +64,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
     setIsLoadingUpdates(true);
     try {
       const { name, field, level } = selectedCourse;
-      const response = await fetch(`http://localhost:5000/api/v1/updates?field=${field}&level=${level}`);
+      const response = await fetch(`${API_BASE_URL}/updates?field=${field}&level=${level}`);
       const data = await response.json();
       if (data.success) {
         setCollegeUpdates(data.data);
@@ -105,7 +106,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
           };
 
           const subCategory = subCategoryMap[activeSubTab] || 'Announcements & Events';
-          let url = `http://localhost:5000/api/v1/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`;
+          let url = `${API_BASE_URL}/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`;
 
           if (activeSubTab === 'Quotas' && selectedQuota !== 'ALL') {
             url += `&quotaType=${encodeURIComponent(selectedQuota)}`;
@@ -507,7 +508,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                             onClick={async () => {
                               setIsLoadingAnnouncements(true);
                               try {
-                                await fetch(`http://localhost:5000/api/v1/updates/sync?type=${encodeURIComponent(activeTab)}`, { method: 'POST' });
+                                await fetch(`${API_BASE_URL}/updates/sync?type=${encodeURIComponent(activeTab)}`, { method: 'POST' });
                                 // Refetch logic is handled by dependency on announcements or manual trigger
                                 // but easiest is to just call the fetchAnnouncements logic again
                                 const subCategoryMap = {
@@ -517,7 +518,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                                   'Prospectus': 'Prospectus'
                                 };
                                 const subCategory = subCategoryMap[activeSubTab] || 'Announcements & Events';
-                                let url = `http://localhost:5000/api/v1/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`;
+                                let url = `${API_BASE_URL}/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`;
                                 if (activeSubTab === 'Quotas') url += `&quotaType=${encodeURIComponent(selectedQuota)}`;
                                 const response = await fetch(url);
                                 const data = await response.json();

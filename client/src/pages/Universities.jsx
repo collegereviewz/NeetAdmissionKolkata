@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getFeatureConfig } from '../config/examConfig';
 import ComingSoon from '../components/shared/ComingSoon';
+import { API_BASE_URL } from '../apiConfig';
 
 const Universities = ({ selectedCourse }) => {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Universities = ({ selectedCourse }) => {
 
     const fetchFilters = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/v1/universities/filters');
+            const response = await fetch(`${API_BASE_URL}/universities/filters`);
             const data = await response.json();
             if (data.success) {
                 setFilters(data.filters);
@@ -74,7 +75,7 @@ const Universities = ({ selectedCourse }) => {
                 if (!value) queryParams.delete(key);
             }
 
-            const response = await fetch(`http://localhost:5000/api/v1/universities?${queryParams}`);
+            const response = await fetch(`${API_BASE_URL}/universities?${queryParams}`);
             const result = await response.json();
             if (result.success) {
                 setUniversities(result.data);

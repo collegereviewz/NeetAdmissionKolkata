@@ -4,6 +4,7 @@ import { ArrowLeft, MapPin, Bed, BookOpen, DollarSign, Award, Clock, AlertCircle
 import { motion, AnimatePresence } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
+import { API_BASE_URL } from '../apiConfig';
 
 import { getFeatureConfig } from '../config/examConfig';
 import ComingSoon from '../components/shared/ComingSoon';
@@ -41,7 +42,7 @@ const InstituteDetails = ({ selectedCourse }) => {
     useEffect(() => {
         const fetchInstituteDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/v1/institutes/${id}`);
+                const response = await axios.get(`${API_BASE_URL}/institutes/${id}`);
                 if (response.data.success) {
                     setInstitute(response.data.data);
                     // Fetch closing ranks for this institute
@@ -65,7 +66,7 @@ const InstituteDetails = ({ selectedCourse }) => {
         try {
             // Encode the institute name for the URL query
             const encodedName = encodeURIComponent(instituteName);
-            const response = await axios.get(`http://localhost:5000/api/v1/closing-rank?institute=${encodedName}&limit=1000`);
+            const response = await axios.get(`${API_BASE_URL}/closing-rank?institute=${encodedName}&limit=1000`);
             if (response.data.success) {
                 setClosingRanks(response.data.data);
 

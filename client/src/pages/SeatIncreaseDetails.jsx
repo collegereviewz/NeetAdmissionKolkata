@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getFeatureConfig } from '../config/examConfig';
 import ComingSoon from '../components/shared/ComingSoon';
+import { API_BASE_URL } from '../apiConfig';
 
 const SeatIncreaseDetails = ({ selectedCourse }) => {
     const navigate = useNavigate();
@@ -53,7 +54,7 @@ const SeatIncreaseDetails = ({ selectedCourse }) => {
     const fetchData = async (page = 1) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/v1/seat-increase?page=${page}&limit=${pagination.limit}`);
+            const response = await fetch(`${API_BASE_URL}/seat-increase?page=${page}&limit=${pagination.limit}`);
             const result = await response.json();
             if (result.success) {
                 setData(result.data);
