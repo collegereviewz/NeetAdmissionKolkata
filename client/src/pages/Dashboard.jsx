@@ -7,11 +7,14 @@ import {
   ExternalLink, Calendar, Globe, Users, FileText,
   BookOpen, Bell, LayoutGrid, BarChart3, Grid3X3,
   Receipt, Heart, ChevronRight, ChevronLeft, CheckCircle2, Clock, Circle,
-  PlayCircle, RefreshCw, UserPlus, MapPin, List, Info, PlusCircle, MoreHorizontal
+  PlayCircle, RefreshCw, UserPlus, MapPin, List, Info, PlusCircle, MoreHorizontal,
+  GitMerge, Award, TrendingUp, Building2, Landmark, GraduationCap
 } from 'lucide-react';
 import logo from '../assets/logo6.png';
 import { counselingOptions } from '../data/counselingData';
+import { featureCardsMap, quotasMap, defaultQuotas } from '../data/featureData.jsx';
 import { counsellingWebsites, registrationLinks, prospectusLinks } from '../data/counselingWebsites';
+import { roadmapDataMap, defaultRoadmap } from '../data/roadmapData';
 import VideosSection from '../components/VideosSection';
 
 
@@ -38,7 +41,7 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: bouncy }
 };
 
-const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, selectedCourse }) => {
+const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, selectedCourse, user }) => {
   const navigate = useNavigate();
   const [itemToDelete, setItemToDelete] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
@@ -54,9 +57,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
   const [selectedQuota, setSelectedQuota] = useState('AIQ');
   const scrollRef = useRef(null);
 
-  const quotas = [
-    'AIQ', 'DNB Post MBBS', 'NBE Diploma', 'MNG', 'MM', 'JM', 'NRI', 'DU', 'IP', 'BHU', 'AMU', 'CIQ', 'AFMS', 'AFMS-DNB'
-  ];
+  const quotas = quotasMap[selectedCourse?.field] || quotasMap['Medicine'];
 
   const fetchUpdates = async () => {
     setIsLoadingUpdates(true);
@@ -129,70 +130,21 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
     if (link) window.open(link, '_blank', 'noopener,noreferrer');
   };
 
-  const roadmapData = {
-    'ROUND 1': [
-      { date: 'OCT 17, 2025', title: 'Round 1 Online Application Starts', status: 'COMPLETED' },
-      { date: 'OCT 28, 2025', title: 'Round 1 Choice Filling Starts', status: 'COMPLETED' },
-      { date: 'NOV 5, 2025, 12:00 PM', title: 'Round 1 Online Application Ends', status: 'COMPLETED' },
-      { date: 'NOV 15, 2025', title: 'Round 1 Choice Filling Ends', status: 'COMPLETED' },
-      { date: 'NOV 17, 2025 (Re-Open)', title: 'Round 1 Choice Filling Starts', status: 'COMPLETED' },
-      { date: 'NOV 20, 2025, 05:00 PM', title: 'Round 1 Choice Locking Starts', status: 'COMPLETED' },
-      { date: 'NOV 21, 2025, 12:00 PM', title: 'Round 1 Choice Locking Ends', status: 'COMPLETED' },
-      { date: '21st Nov 2025 (Re-Open)', title: 'Round 1 Choice Filling Ends', status: 'COMPLETED' },
-      { date: 'NOV 22, 2025', title: 'Round 1 Result', status: 'COMPLETED' },
-      { date: 'NOV 23, 2025', title: 'Round 1 Joining Starts', status: 'COMPLETED' },
-      { date: 'DEC 1, 2025', title: 'Round 1 Joining Ends', status: 'COMPLETED' },
-      { date: 'DEC 1, 2025', title: 'Round 1 Resignation Starts', status: 'COMPLETED' },
-      { date: 'DEC 3, 2025, 11:00 AM', title: 'Round 1 Resignation Ends', status: 'COMPLETED' },
-      { date: '8th Dec 2025 (Re-Open)', title: 'Round 1 Resignation Starts', status: 'COMPLETED' },
-      { date: '10th Dec 2025 (Re-Open)', title: 'Round 1 Resignation Ends', status: 'COMPLETED' },
-      { date: 'JAN 12, 2026, 05:00 PM', title: 'Round 1 & Round 2 Resignation Starts (Reopen)', status: 'COMPLETED' },
-      { date: 'JAN 15, 2026, 05:00 PM', title: 'Round 1 & Round 2 Resignation Ends (Reopen)', status: 'COMPLETED' },
-      { date: 'JAN 21, 2026', title: 'Round 1 & Round 2 Resignation Starts (Reopen)', status: 'COMPLETED' },
-      { date: 'JAN 22, 2026, 05:00 PM', title: 'Round 1 & Round 2 Resignation Ends (Reopen)', status: 'COMPLETED' },
-    ],
-    'ROUND 2': [
-      { date: '5th Dec 2025 (Revised)', title: 'Round 2 Registration Starts', status: 'COMPLETED' },
-      { date: 'DEC 6, 2025', title: 'Round 2 Choice Filling Starts', status: 'COMPLETED' },
-      { date: '9th Dec 2025, 12:00 Noon (Revised)', title: 'Round 2 Registration Ends', status: 'COMPLETED' },
-      { date: '13th Dec 2025, 06:00 PM (Revised)', title: 'Round 2 Choice Locking Starts', status: 'COMPLETED' },
-      { date: 'DEC 14, 2025, 10:00 AM', title: 'Round 2 Choice Filling Ends (Extended)', status: 'COMPLETED' },
-      { date: '14th Dec 2025, 10.00 AM (Revised)', title: 'Round 2 Choice Locking Ends', status: 'COMPLETED' },
-      { date: 'DEC 17, 2025', title: 'Round 2 Result', status: 'COMPLETED' },
-      { date: 'DEC 17, 2025', title: 'Round 2 Joining Starts', status: 'COMPLETED' },
-      { date: 'DEC 17, 2025', title: 'Resignation With Forfeiture of Security Deposit Starts', status: 'COMPLETED' },
-      { date: 'DEC 20, 2025, 04:00 PM', title: 'Resignation With Forfeiture of Security Deposit Ends', status: 'COMPLETED' },
-      { date: 'DEC 22, 2025, 02:00 PM', title: 'Round 1 & 2 Resignation With Forfeiture of Security Deposit Starts (Re-open)', status: 'COMPLETED' },
-      { date: 'DEC 29, 2025, 04:00 PM', title: 'Round 2 Joining Ends (Extended)', status: 'COMPLETED' },
-      { date: 'DEC 29, 2025, 04:00 PM', title: 'Round 1 & 2 Resignation With Forfeiture of Security Deposit Ends (Reopen - Extended)', status: 'COMPLETED' },
-      { date: 'DEC 30, 2025, 01:00 PM', title: 'Round 2 Resignation Ends (Extended)', status: 'COMPLETED' },
-    ],
-    'ROUND 3': [
-      { date: 'JAN 15, 2026 (After Reduction Cut-Off)', title: 'Round 3 Registration Starts', status: 'COMPLETED' },
-      { date: 'JAN 16, 2026', title: 'Round 3 Choice Filling Starts', status: 'COMPLETED' },
-      { date: 'JAN 26, 2026, 12:00 PM', title: 'Round 3 Registration Ends', status: 'COMPLETED' },
-      { date: 'JAN 30, 2026, 12:00 PM', title: 'Round 3 Fresh Registration Starts (Re-open)', status: 'COMPLETED' },
-      { date: 'JAN 31, 2026', title: 'Round 3 Choice Filling Starts (Newly Registered)', status: 'COMPLETED' },
-      { date: 'JAN 31, 2026, 02:00 PM', title: 'Round 3 Fresh Registration Ends (Re-Open)', status: 'COMPLETED' },
-      { date: 'FEB 1, 2026, 08:00 PM', title: 'Round 3 Choice Locking Starts', status: 'COMPLETED' },
-      { date: 'FEB 2, 2026, 11:55 AM', title: 'Round 3 Choice Filling Ends (Extended)', status: 'COMPLETED' },
-      { date: 'FEB 2, 2026, 11:55 AM', title: 'Round 3 Choice Locking Ends', status: 'COMPLETED' },
-      { date: 'FEB 6, 2026', title: 'Round 3 Final Result', status: 'COMPLETED' },
-      { date: 'FEB 6, 2026, 12:00 PM', title: 'Round 3 Reporting Starts', status: 'COMPLETED' },
-      { date: 'FEB 13, 2026', title: 'Round 3 Reporting Ends', status: 'COMPLETED' },
-    ],
-    'STRAY ROUND': [
-      { date: 'FEB 16, 2026', title: 'Stray Vacancy Round Registration Starts', status: 'COMPLETED' },
-      { date: 'FEB 16, 2026', title: 'Stray Vacancy Round Choice Filling Starts', status: 'COMPLETED' },
-      { date: 'FEB 18, 2026, 12:00 PM', title: 'Stray Vacancy Round Registration Ends', status: 'IN PROGRESS' },
-      { date: 'FEB 19, 2026, 04:00 PM', title: 'Stray Vacancy Round Choice Locking Starts', status: 'UPCOMING' },
-      { date: 'FEB 19, 2026, 11:55 PM', title: 'Stray Vacancy Round Choice Locking Ends', status: 'UPCOMING' },
-      { date: 'FEB 19, 2026, 11:55 PM', title: 'Stray Vacancy Round Choice Filling Ends', status: 'UPCOMING' },
-      { date: 'FEB 21, 2026', title: 'Stray Vacancy Round Result', status: 'UPCOMING' },
-      { date: 'FEB 22, 2026', title: 'Stray Vacancy Round Joining Starts', status: 'UPCOMING' },
-      { date: 'FEB 28, 2026', title: 'Stray Vacancy Round Joining Ends', status: 'UPCOMING' },
-    ]
-  };
+  const roadmapData = roadmapDataMap[selectedCourse?.name] || defaultRoadmap;
+
+  useEffect(() => {
+    // Reset selected round when course changes
+    const rounds = Object.keys(roadmapData);
+    if (rounds.length > 0) {
+      setSelectedRound(rounds[0]);
+    }
+
+    // Reset selected quota when course changes
+    const currentQuotas = quotasMap[selectedCourse?.field] || quotasMap['Medicine'];
+    if (currentQuotas.length > 0) {
+      setSelectedQuota(currentQuotas[0]);
+    }
+  }, [selectedCourse]);
 
   const checkScroll = () => {
     if (scrollRef.current) {
@@ -238,13 +190,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
 
 
   return (
-    <div className="min-h-screen p-4 md:p-6 pt-3 md:pt-4 space-y-4 relative pb-10 md:pb-6 overflow-x-hidden bg-[#fdfeff]" style={{
-      backgroundImage: `
-        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
-        linear-gradient(to bottom, #fdfeff, #f8fafc)
-      `
-    }}>
+    <div className="min-h-screen p-4 lg:p-4 space-y-2 relative overflow-x-hidden">
+      {/* Dynamic Grid Background */}
+      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
+      }} />
+
       {/* Educational Professional Grid (Graph Paper Style) - STATIC (Immediate visibility) */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `
@@ -268,10 +220,10 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative z-0 space-y-4"
+        className="relative z-0 lg:space-y-2 space-y-4"
       >
         {/* Quick Navigation Tabs */}
-        <div className="relative group/nav mb-6">
+        <div className="relative group/nav lg:mb-2 mb-6">
           {/* Scroll Buttons */}
           {showLeftArrow && (
             <motion.button
@@ -290,10 +242,11 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="flex overflow-x-auto space-x-4 py-3 md:py-4 scrollbar-hide scroll-smooth no-scrollbar"
+            className="flex overflow-x-auto space-x-4 py-3 md:py-4 lg:py-2 scrollbar-hide scroll-smooth no-scrollbar"
           >
             <style dangerouslySetInnerHTML={{
               __html: `
+
             .no-scrollbar::-webkit-scrollbar { display: none; }
             .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
           `}} />
@@ -315,6 +268,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
               <motion.div
                 key={item}
                 variants={fadeUp}
+                initial="hidden"
+                animate="visible"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`relative group flex items-center px-4 py-2 border rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${activeTab === item
@@ -433,6 +388,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
         )}
 
 
+
         {/* Animate View Transitions */}
         <AnimatePresence mode="wait">
           {/* ===== COUNSELLING DETAIL VIEW ===== */}
@@ -453,7 +409,9 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                     <FileDown size={16} />
                   </div>
                 </div>
-                <p className="text-sm text-gray-500 font-medium tracking-wider">CENTRAL • ALL INDIA</p>
+                <p className="text-sm text-gray-500 font-medium tracking-wider">
+                  {selectedCourse?.field === 'Engineering' ? 'CENTRAL • JOINT ENTRANCE' : 'CENTRAL • ALL INDIA'}
+                </p>
 
                 {/* Sub Navigation Tabs */}
                 <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
@@ -504,13 +462,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                     >
                       {/* Feature Cards Grid (Default view for Website tab) */}
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        {[
-                          { title: 'Videos', icon: <PlayCircle size={24} className="text-college-primary" />, years: 'Latest Updates', path: '/videos' },
-                          { title: 'Allotments', icon: <LayoutGrid size={24} className="text-college-primary" />, years: '2023, 2024, 2025', path: '/allotments' },
-                          { title: 'Closing Ranks', icon: <BarChart3 size={24} className="text-college-primary" />, years: '2023, 2024, 2025', path: '/closing-ranks' },
-                          { title: 'Seat Matrix', icon: <Grid3X3 size={24} className="text-college-primary" />, years: '2023, 2024, 2025', path: '/seat-matrix' },
-                          { title: 'Fee, Stipend & Bond', icon: <Receipt size={24} className="text-college-primary" />, years: '2025, 2023, 2024', path: '/fee-stipend-bond' },
-                        ].map((card) => (
+                        {(featureCardsMap[selectedCourse?.field] || featureCardsMap['Medicine']).map((card) => (
                           <motion.div
                             key={card.title}
                             variants={scaleIn}
@@ -854,8 +806,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                 <div className="lg:col-span-5 space-y-4">
                   {/* Profile Message */}
                   <motion.div variants={fadeUp} className="mb-2">
-                    <h2 className="text-gray-500 text-base font-medium">Hello Anish</h2>
-                    <h1 className="text-2xl font-bold text-gray-800 mt-1 leading-tight">
+                    <h2 className="text-sm lg:text-xs font-bold flex items-center gap-1.5">
+                      <span className="text-slate-400 uppercase tracking-widest">Hello</span>
+                      <span className="bg-gradient-to-r from-blue-600 to-blue-200 bg-clip-text text-transparent font-black uppercase tracking-tight">
+                        {user?.fullName || user?.username || 'Anish'}
+                      </span>
+                    </h2>
+                    <h1 className="text-2xl lg:text-xl font-bold text-gray-800 lg:mt-0 mt-1 leading-tight">
                       Get all your <br />
                       <span className="text-college-primary font-extrabold">Counselling Updates</span> <br />
                       at one place!
@@ -955,74 +912,82 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                           <p className="text-xs font-medium">Fetching latest updates...</p>
                         </div>
                       ) : collegeUpdates.length > 0 ? (
-                        collegeUpdates.map((update, index) => {
-                          const colorMap = {
-                            alert: {
-                              bg: 'bg-red-50',
-                              border: 'border-red-200',
-                              iconBg: 'bg-red-500',
-                              text: 'text-red-600',
-                              dateBorder: 'border-red-200',
-                              icon: <AlertTriangle size={14} />,
-                            },
-                            note: {
-                              bg: 'bg-yellow-50',
-                              border: 'border-yellow-200',
-                              iconBg: 'bg-yellow-600',
-                              text: 'text-yellow-700',
-                              dateBorder: 'border-yellow-200',
-                              icon: <Calendar size={14} />,
-                            },
-                          };
-                          const c = colorMap[update.type] || colorMap.alert;
+                        <motion.div
+                          key={`updates-${collegeUpdates.length}`}
+                          initial="hidden"
+                          animate="visible"
+                          variants={staggerContainer}
+                          className="space-y-3"
+                        >
+                          {collegeUpdates.map((update, index) => {
+                            const colorMap = {
+                              alert: {
+                                bg: 'bg-red-50',
+                                border: 'border-red-200',
+                                iconBg: 'bg-red-500',
+                                text: 'text-red-600',
+                                dateBorder: 'border-red-200',
+                                icon: <AlertTriangle size={14} />,
+                              },
+                              note: {
+                                bg: 'bg-yellow-50',
+                                border: 'border-yellow-200',
+                                iconBg: 'bg-yellow-600',
+                                text: 'text-yellow-700',
+                                dateBorder: 'border-yellow-200',
+                                icon: <Calendar size={14} />,
+                              },
+                            };
+                            const c = colorMap[update.type] || colorMap.alert;
 
-                          return (
-                            <motion.div
-                              key={update._id || index}
-                              variants={fadeUp}
-                              whileHover={{ x: 5 }}
-                              onClick={() => openUpdateLink(update.link)}
-                              className={`${c.bg} rounded-xl p-4 border ${c.border} hover:shadow-md transition-all cursor-pointer ${update.hasDownload ? 'relative' : ''}`}
-                            >
-                              {update.hasDownload && (
-                                <div className="absolute top-4 right-4">
-                                  <button className="p-1.5 bg-black text-white rounded-full hover:bg-gray-800 transition-colors">
-                                    <FileDown size={14} />
-                                  </button>
-                                </div>
-                              )}
-                              <div className={`flex items-start justify-between mb-2 ${update.hasDownload ? 'pr-8' : ''}`}>
-                                <div className="flex items-center space-x-2 flex-wrap">
-                                  <div className={`${c.iconBg} text-white p-1 rounded-full`}>
-                                    {c.icon}
+                            return (
+                              <motion.div
+                                key={update._id || index}
+                                variants={fadeUp}
+                                whileHover={{ x: 5 }}
+                                onClick={() => openUpdateLink(update.link)}
+                                className={`${c.bg} rounded-xl p-4 border ${c.border} hover:shadow-md transition-all cursor-pointer ${update.hasDownload ? 'relative' : ''}`}
+                              >
+                                {update.hasDownload && (
+                                  <div className="absolute top-4 right-4">
+                                    <button className="p-1.5 bg-black text-white rounded-full hover:bg-gray-800 transition-colors">
+                                      <FileDown size={14} />
+                                    </button>
                                   </div>
-                                  <span className={`${c.text} font-semibold text-xs bg-white px-2 py-0.5 rounded border ${c.dateBorder}`}>
-                                    {update.date}
-                                  </span>
-                                  <span className={`${c.text} font-bold text-xs`}>
-                                    {update.category}
-                                  </span>
+                                )}
+                                <div className={`flex items-start justify-between mb-2 ${update.hasDownload ? 'pr-8' : ''}`}>
+                                  <div className="flex items-center space-x-2 flex-wrap">
+                                    <div className={`${c.iconBg} text-white p-1 rounded-full`}>
+                                      {c.icon}
+                                    </div>
+                                    <span className={`${c.text} font-semibold text-xs bg-white px-2 py-0.5 rounded border ${c.dateBorder}`}>
+                                      {update.date}
+                                    </span>
+                                    <span className={`${c.text} font-bold text-xs`}>
+                                      {update.category}
+                                    </span>
+                                  </div>
                                 </div>
-                              </div>
-                              <h4 className="text-gray-900 font-bold text-base mb-1 leading-snug">{update.title}</h4>
-                              {update.subtitle && (
-                                <p className={`${update.type === 'note' ? c.text + ' font-medium' : 'text-gray-600'} text-xs mb-3`}>
-                                  {update.subtitle}
-                                </p>
-                              )}
-                              {update.hasVideo && (
-                                <div className="flex space-x-2">
-                                  <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                                    <Play size={12} className="mr-1.5 fill-current" /> English
-                                  </button>
-                                  <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                                    <Play size={12} className="mr-1.5 fill-current" /> Malayalam
-                                  </button>
-                                </div>
-                              )}
-                            </motion.div>
-                          );
-                        })
+                                <h4 className="text-gray-900 font-bold text-base mb-1 leading-snug">{update.title}</h4>
+                                {update.subtitle && (
+                                  <p className={`${update.type === 'note' ? c.text + ' font-medium' : 'text-gray-600'} text-xs mb-3`}>
+                                    {update.subtitle}
+                                  </p>
+                                )}
+                                {update.hasVideo && (
+                                  <div className="flex space-x-2">
+                                    <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                                      <Play size={12} className="mr-1.5 fill-current" /> English
+                                    </button>
+                                    <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                                      <Play size={12} className="mr-1.5 fill-current" /> Malayalam
+                                    </button>
+                                  </div>
+                                )}
+                              </motion.div>
+                            );
+                          })}
+                        </motion.div>
                       ) : (
                         <div className="text-center p-8 border-2 border-dashed border-gray-100 rounded-xl">
                           <p className="text-gray-400 text-sm">No recent updates found.</p>
@@ -1090,6 +1055,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                     <motion.div
                       key={idx}
                       variants={scaleIn}
+                      initial="hidden"
+                      animate="visible"
                       whileHover={{ scale: 1.02 }}
                       className={`bg-${item.color}-50 border border-${item.color}-200 rounded-lg p-4 hover:shadow-md transition-all cursor-pointer`}
                     >
@@ -1144,6 +1111,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, 
                     <motion.div
                       key={idx}
                       variants={scaleIn}
+                      initial="hidden"
+                      animate="visible"
                       whileHover={{ scale: 1.02 }}
                       className={`border-l-4 border-l-${event.color}-500 bg-${event.color}-50 rounded-r-lg p-4 hover:shadow-md transition-all cursor-pointer`}
                     >

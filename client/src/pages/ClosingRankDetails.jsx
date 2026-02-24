@@ -4,11 +4,29 @@ import { ChevronLeft, ChevronRight, Filter, ArrowUpDown, Info, AlertTriangle, Ex
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const ClosingRankDetails = () => {
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
+
+const ClosingRankDetails = ({ selectedCourse }) => {
     const navigate = useNavigate();
     const { type } = useParams();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'closingRanks');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+                backPath="/closing-ranks"
+                backText="Back to Closing Ranks"
+            />
+        );
+    }
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 50,

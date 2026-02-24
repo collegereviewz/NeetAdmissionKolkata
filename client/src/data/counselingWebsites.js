@@ -1,16 +1,17 @@
 export const counsellingWebsites = {
+    // Medicine
     'All India Counseling - PG Medical': 'https://mcc.nic.in/',
-    'Andaman & Nicobar Islands - PG Medical': 'https://mcc.nic.in/', // Through MCC
+    'Andaman & Nicobar Islands - PG Medical': 'https://mcc.nic.in/',
     'Andhra Pradesh Government Quota - PG Medical': 'https://dme.ap.nic.in/',
     'Andhra Pradesh Management Quota - PG Medical': 'https://dme.ap.nic.in/',
     'Armed Forces Medical Services - AFMS (through MCC) - PG Medical': 'https://mcc.nic.in/',
     'Arunachal Pradesh - PG Medical': 'https://dme.arunachal.gov.in/',
-    'Assam - PG Medical': 'https://dme.assam.gov.in/',
+    'Assam - PG Medical': 'https://dme.assam.gov.in/latest',
     'Bihar - PG Medical': 'https://bceceboard.bihar.gov.in/',
     'Chandigarh - PG Medical': 'https://gmch.gov.in/',
     'Chhattisgarh - PG Medical': 'https://cgdme.in/',
     'Dadra and Nagar Haveli - PG Medical': 'https://www.namomeriadmission.in/',
-    'Delhi - PG Medical': 'https://mcc.nic.in/', // IPU/DU through MCC
+    'Delhi - PG Medical': 'https://mcc.nic.in/',
     'DNB - Inservice Seats - PG Medical': 'https://natboard.edu.in/',
     'DNB - PDCET - PG Medical': 'https://natboard.edu.in/',
     'DNB Sponsored - PG Medical (Govt or PSU Inservice Candidates)': 'https://natboard.edu.in/',
@@ -43,11 +44,24 @@ export const counsellingWebsites = {
     'Uttarakhand - PG Medical': 'https://hnbumu.ac.in/',
     'Uttar Pradesh - PG Medical': 'https://upneet.gov.in/',
     'West Bengal - PG Medical': 'https://wbmcc.nic.in/',
+
+    // Engineering
+    'JoSAA (Joint Seat Allocation Authority)': 'https://josaa.nic.in/',
+    'CSAB (Central Seat Allocation Board)': 'https://csab.nic.in/',
+    'JAC Delhi': 'https://jacdelhi.admissions.nic.in/',
+    'WBJEE Counselling': 'https://wbjeeb.nic.in/',
+    'COMEDK Counselling': 'https://www.comedk.org/',
+    'MHT CET Counselling': 'https://cetcell.mahacet.org/',
+    'TNEA Counselling': 'https://www.tneaonline.org/',
+    'UPTAC Counselling': 'https://uptac.admissions.nic.in/',
+    'REAP Rajasthan': 'https://reap2024.com/',
+    'HSTES Haryana': 'https://hstes.org.in/',
     'JEE Mains': 'https://jeemain.nta.nic.in/',
     'JEE Advanced': 'https://jeeadv.ac.in/'
 };
 
 export const registrationLinks = {
+    // Medicine
     'All India Counseling - PG Medical': 'https://mcc.admissions.nic.in/Counseling/Root/Home.aspx?enc=89xw0ctRCXfaXHy3CACizMGeESUPc92SoSpzB/gzd/wSY6DDua8cQKQ+HT29rjmu4znCkHRYT1SL3S0YANwInA==',
     'Andaman & Nicobar Islands - PG Medical': 'https://mcc.nic.in/registration/candidate-login',
     'Andhra Pradesh Government Quota - PG Medical': 'https://apuhs-pgadmissions.aptonline.in/pgmedcq',
@@ -91,10 +105,17 @@ export const registrationLinks = {
     'Tripura - PG Medical': 'https://trmcc.admissions.nic.in/pg-counselling/',
     'Uttarakhand - PG Medical': 'https://meta-secure.com/HNBUMU_MDMS',
     'Uttar Pradesh - PG Medical': 'https://upneet.gov.in/Registration/candidateLogin.aspx',
-    'West Bengal - PG Medical': 'https://wbmcc.nic.in/pg-medical-counselling/'
+    'West Bengal - PG Medical': 'https://wbmcc.nic.in/pg-medical-counselling/',
+
+    // Engineering
+    'JoSAA (Joint Seat Allocation Authority)': 'https://josaa.admissions.nic.in/Applicant/Root/Home.aspx',
+    'CSAB (Central Seat Allocation Board)': 'https://csab.nic.in/',
+    'JAC Delhi': 'https://jacdelhi.admissions.nic.in/',
+    'WBJEE Counselling': 'https://wbjeeb.nic.in/'
 };
 
 export const prospectusLinks = {
+    // Medicine
     'All India Counseling - PG Medical': 'https://cdnbbsr.s3waas.gov.in/s3e0f7a4d0ef9b84b83b693bbf3feb8e6e/uploads/2025/10/20251127310534165.pdf',
     'Andaman & Nicobar Islands - PG Medical': 'http://andssw1.and.nic.in/ANIIMS/student/PGProspectus.pdf',
     'Andhra Pradesh Government Quota - PG Medical': 'https://drntr.uhsap.in/index/notification/20250918184114153.pdf',
@@ -138,5 +159,9 @@ export const prospectusLinks = {
     'Tripura - PG Medical': 'https://cdnbbsr.s3waas.gov.in/s337e3ca9768a106f686626a07db6facff/uploads/2025/11/202511071736707248.pdf',
     'Uttarakhand - PG Medical': 'https://meta-secure.com/MDMS2024/UploadDocs/informationbulletin.pdf',
     'Uttar Pradesh - PG Medical': 'https://upneet.gov.in/PDFFile/NEETPG-2025Brochure.pdf',
-    'West Bengal - PG Medical': 'https://cdnbbsr.s3waas.gov.in/s3aae8d1e00b15a30e5901227e97ffbef7/uploads/2025/11/20251103730738682.pdf'
+    'West Bengal - PG Medical': 'https://cdnbbsr.s3waas.gov.in/s3aae8d1e00b15a30e5901227e97ffbef7/uploads/2025/11/20251103730738682.pdf',
+
+    // Engineering
+    'JoSAA (Joint Seat Allocation Authority)': 'https://josaa.nic.in/information-bulletin/',
+    'CSAB (Central Seat Allocation Board)': 'https://csab.nic.in/information-bulletin/'
 };

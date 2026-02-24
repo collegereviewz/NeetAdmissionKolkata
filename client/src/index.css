@@ -8,6 +8,13 @@
   --color-college-gold: #F59E0B;
 }
 
+.header-gradient {
+  background: linear-gradient(90deg, #FFFFFF 0%, #EBF5FF 50%, #FFFFFF 100%);
+  border: 1px solid rgba(0, 150, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 45, 98, 0.05);
+}
+
 body {
   background-color: var(--color-college-bg);
   font-family: 'Inter', sans-serif;

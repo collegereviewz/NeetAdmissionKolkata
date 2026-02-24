@@ -4,11 +4,29 @@ import { ChevronLeft, ChevronRight, Filter, ArrowUpDown, Info, AlertTriangle, Ex
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FeeStipendBondDetails = () => {
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
+
+const FeeStipendBondDetails = ({ selectedCourse }) => {
     const navigate = useNavigate();
     const { type } = useParams();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'feeStipendBond');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+                backPath="/fee-stipend-bond"
+                backText="Back to Fees"
+            />
+        );
+    }
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 50,

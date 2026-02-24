@@ -2,9 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ChevronLeft, ChevronRight, Filter, ArrowUpDown, Info, AlertTriangle, ExternalLink, ChevronDown, Heart, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 
-const SeatMatrix = () => {
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
+
+const SeatMatrix = ({ selectedCourse }) => {
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'seatMatrix');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+            />
+        );
+    }
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pagination, setPagination] = useState({
@@ -128,7 +144,7 @@ const SeatMatrix = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
-                    <motion.button 
+                    <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-orange-500 font-medium hover:bg-gray-50 shadow-sm"
@@ -136,8 +152,8 @@ const SeatMatrix = () => {
                         All India Counseling - PG Medical
                         <ChevronDown size={14} className='text-gray-400' />
                     </motion.button>
-                    <motion.a 
-                        href="#" 
+                    <motion.a
+                        href="#"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className="flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50 shadow-sm"
@@ -171,14 +187,14 @@ const SeatMatrix = () => {
                         </div>
 
                         <div className="flex items-center bg-white border border-orange-200 rounded-full px-1 py-0.5">
-                            <motion.button 
+                            <motion.button
                                 whileTap={{ scale: 0.95 }}
                                 className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-orange-500 border-r border-orange-200"
                             >
                                 <Heart size={12} fill="currentColor" />
                                 Choice List
                             </motion.button>
-                            <motion.button 
+                            <motion.button
                                 whileTap={{ scale: 0.95 }}
                                 className="px-3 py-1 text-xs font-medium text-gray-500"
                             >
@@ -186,7 +202,7 @@ const SeatMatrix = () => {
                             </motion.button>
                         </div>
 
-                        <motion.button 
+                        <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-xs text-gray-700 hover:bg-gray-50 shadow-sm"
@@ -194,7 +210,7 @@ const SeatMatrix = () => {
                             <ArrowUpDown size={12} />
                             Sort
                         </motion.button>
-                        <motion.button 
+                        <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-xs text-gray-700 hover:bg-gray-50 shadow-sm"
@@ -239,7 +255,7 @@ const SeatMatrix = () => {
                             >
                                 <ChevronRight size={14} />
                             </motion.button>
-                            <motion.button 
+                            <motion.button
                                 whileTap={{ scale: 0.9, rotate: -180 }}
                                 className="p-1 rounded hover:bg-gray-100 text-gray-400"
                             >

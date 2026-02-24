@@ -31,10 +31,11 @@ const categorizeLink = (text, href) => {
 const detectQuotaType = (text) => {
     const lowerText = text.toLowerCase();
 
+    // Medical Quotas
     if (lowerText.includes("afms-dnb")) return "AFMS-DNB";
     if (lowerText.includes("afms")) return "AFMS";
     if (lowerText.includes("dnb") && lowerText.includes("post mbbs")) return "DNB Post MBBS";
-    if (lowerText.includes("dnb")) return "DNB Post MBBS"; // Default DNB to Post MBBS if not specified
+    if (lowerText.includes("dnb")) return "DNB Post MBBS";
     if (lowerText.includes("nbe diploma") || lowerText.includes("diploma")) return "NBE Diploma";
     if (lowerText.includes("aiq") || lowerText.includes("all india quota")) return "AIQ";
     if (lowerText.includes("mng") || lowerText.includes("management")) return "MNG";
@@ -46,6 +47,16 @@ const detectQuotaType = (text) => {
     if (lowerText.includes("bhu") || lowerText.includes("banaras")) return "BHU";
     if (lowerText.includes("amu") || lowerText.includes("aligarh")) return "AMU";
     if (lowerText.includes("ciq") || lowerText.includes("central institute quota")) return "CIQ";
+
+    // Engineering Quotas
+    if (lowerText.includes("home state")) return "Home State";
+    if (lowerText.includes("other state")) return "Other State";
+    if (lowerText.includes("all india")) return "All India";
+    if (lowerText.includes("female")) return "Female-only";
+    if (lowerText.includes("ews") || lowerText.includes("economically weaker")) return "EWS";
+    if (lowerText.includes("obc-ncl") || lowerText.includes("obc ncl") || lowerText.includes("other backward")) return "OBC-NCL";
+    if (lowerText.includes("sc") || lowerText.includes("scheduled caste")) return "SC";
+    if (lowerText.includes("st") || lowerText.includes("scheduled tribe")) return "ST";
 
     return null;
 };
@@ -73,10 +84,11 @@ export const scrapeSource = async (source) => {
         }
 
         // Upsert updates to DB
+        const { field, level } = source;
         for (const update of updates.slice(0, 10)) {
             await CounsellingUpdate.findOneAndUpdate(
                 { externalId: update.externalId, counsellingType: source.name },
-                { ...update, counsellingType: source.name },
+                { ...update, counsellingType: source.name, field, level },
                 { upsert: true, new: true }
             );
         }

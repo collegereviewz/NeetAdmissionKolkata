@@ -1,36 +1,43 @@
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Search, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { counselingOptions } from '../data/counselingData';
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
 
-const ClosingRanks = () => {
+const ClosingRanks = ({ selectedCourse }) => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
 
-    const counsellingTypes = [
-        { id: 1, name: 'All India Counseling - PG Medical', active: true },
-        { id: 2, name: 'Armed Forces Medical Services - AFMS (through MCC) - PG Medical', active: false },
-        { id: 3, name: 'Open States (Private Institute seats available for all candidates)', active: false },
-        { id: 4, name: 'Andhra Pradesh Government Quota - PG Medical', active: false },
-        { id: 5, name: 'Andhra Pradesh Management Quota PG Medical', active: false },
-        { id: 6, name: 'Assam - PG Medical', active: false },
-        { id: 7, name: 'Bihar - PG Medical', active: false },
-        { id: 8, name: 'Chandigarh - PG Medical', active: false },
-        { id: 9, name: 'Chhattisgarh - PG Medical', active: false },
-        { id: 10, name: 'Dadra and Nagar Haveli - PG Medical', active: false },
-        { id: 11, name: 'Delhi - PG Medical', active: false },
-        { id: 12, name: 'DNB Sponsored - PG Medical (Govt or PSU Inservice Candidates)', active: false },
-    ];
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'closingRanks');
 
-    const filteredCounsellings = counsellingTypes.filter(type =>
-        type.name.toLowerCase().includes(searchTerm.toLowerCase())
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+            />
+        );
+    }
+
+    const fieldOptions = counselingOptions[currentField] || { Central: [], State: [] };
+
+    // Flatten the categorized options for the list view
+    const allOptions = [
+        ...(fieldOptions.Central || []),
+        ...(fieldOptions.State || [])
+    ].map((name, index) => ({ id: index, name }));
+
+    const filteredCounsellings = allOptions.filter(c =>
+        c.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleSelect = (counselling) => {
         if (counselling.name === 'All India Counseling - PG Medical') {
             navigate('/closing-ranks/details/all-india-pg-medical');
         } else {
-            // Placeholder for inactive links or future implementation
             alert("Data coming soon for " + counselling.name);
         }
     };
@@ -64,7 +71,8 @@ const ClosingRanks = () => {
                                 className={`flex items-center justify-between p-4 rounded-lg border border-gray-100 cursor-pointer transition-colors duration-150 relative overflow-hidden group hover:bg-gray-50 hover:border-blue-200 ${counselling.name === 'Chhattisgarh - PG Medical' ? 'bg-gray-100' : 'bg-white'}`}
                             >
                                 <span className="text-gray-700 font-medium z-10 relative">{counselling.name}</span>
-                                <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                                <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors z-10 relative" />
+                                <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-20 transition-opacity duration-200"></div>
                             </div>
                         ))}
                     </div>

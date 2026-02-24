@@ -2,8 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Scale, ChevronDown, Landmark } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-const Counsellings = () => {
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
+
+const Counsellings = ({ selectedCourse }) => {
+    const navigate = useNavigate();
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'counsellings');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+            />
+        );
+    }
     const [counsellings, setCounsellings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState({
