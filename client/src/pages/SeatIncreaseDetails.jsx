@@ -3,12 +3,29 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Filter, ArrowUpDown, Info, AlertTriangle, ExternalLink, ChevronDown, RotateCcw, ArrowLeft, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
 
-const SeatIncreaseDetails = () => {
+const SeatIncreaseDetails = ({ selectedCourse }) => {
     const navigate = useNavigate();
     const { type } = useParams();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'seatIncrease');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+                backPath="/seat-increase"
+                backText="Back to Seat Increase"
+            />
+        );
+    }
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 50,

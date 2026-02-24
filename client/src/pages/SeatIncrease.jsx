@@ -1,12 +1,27 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ChevronRight } from 'lucide-react';
+import { Search, ChevronRight, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
 
-const SeatIncrease = () => {
+const SeatIncrease = ({ selectedCourse }) => {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
+
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'seatIncrease');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+            />
+        );
+    }
 
     const counsellingTypes = [
         { title: 'All India Counseling - PG Medical', type: 'all-india-pg-medical', count: 450, active: true },
@@ -24,7 +39,9 @@ const SeatIncrease = () => {
             <div className="max-w-6xl mx-auto">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Seat Increase</h1>
-                    <p className="text-gray-500">Select a counselling type to view seat increase details.</p>
+                    <p className="text-gray-500">
+                        Select a counselling type to view seat increase details.
+                    </p>
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">

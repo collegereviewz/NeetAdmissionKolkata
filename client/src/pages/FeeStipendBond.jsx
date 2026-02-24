@@ -1,28 +1,36 @@
-
 import React, { useState } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { counselingOptions } from '../data/counselingData';
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
 
-const FeeStipendBond = () => {
+const FeeStipendBond = ({ selectedCourse }) => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
 
-    const counsellings = [
-        { id: 1, name: 'All India Counseling - PG Medical', active: true },
-        { id: 2, name: 'Armed Forces Medical Services - AFMS (through MCC) - PG Medical', active: false },
-        { id: 3, name: 'Open States (Private Institute seats available for all candidates)', active: false },
-        { id: 4, name: 'Andhra Pradesh Government Quota - PG Medical', active: false },
-        { id: 5, name: 'Andhra Pradesh Management Quota - PG Medical', active: false },
-        { id: 6, name: 'Assam - PG Medical', active: false },
-        { id: 7, name: 'Bihar - PG Medical', active: false },
-        { id: 8, name: 'Chandigarh - PG Medical', active: false },
-        { id: 9, name: 'Chhattisgarh - PG Medical', active: false },
-        { id: 10, name: 'Dadra and Nagar Haveli - PG Medical', active: false },
-        { id: 11, name: 'Delhi - PG Medical', active: false },
-        { id: 12, name: 'DNB Sponsored - PG Medical (Govt or PSU Inservice Candidates)', active: false },
-    ];
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'feeStipendBond');
 
-    const filteredCounsellings = counsellings.filter(c =>
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+            />
+        );
+    }
+
+    const fieldOptions = counselingOptions[currentField] || { Central: [], State: [] };
+
+    // Flatten the categorized options for the list view
+    const allOptions = [
+        ...(fieldOptions.Central || []),
+        ...(fieldOptions.State || [])
+    ].map((name, index) => ({ id: index, name }));
+
+    const filteredCounsellings = allOptions.filter(c =>
         c.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -38,7 +46,9 @@ const FeeStipendBond = () => {
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-white sticky top-0 z-10">
-                    <h1 className="text-xl font-bold text-gray-800">Fee, Stipend and Bond</h1>
+                    <h1 className="text-xl font-bold text-gray-800">
+                        {currentField === 'Engineering' ? 'Fee' : 'Fee, Stipend and Bond'}
+                    </h1>
                 </div>
 
                 <div className="p-4">

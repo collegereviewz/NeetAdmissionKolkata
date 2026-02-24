@@ -5,8 +5,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { useNavigate } from 'react-router-dom';
 
-const Institutes = () => {
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
+
+const Institutes = ({ selectedCourse }) => {
     const navigate = useNavigate();
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'institutes');
+
+    if (!config.enabled) {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+            />
+        );
+    }
     const [institutes, setInstitutes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState({

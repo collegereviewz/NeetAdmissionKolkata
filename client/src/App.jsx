@@ -13,9 +13,9 @@ import PinModal from './components/PinModal';
 import Profile from './pages/Profile';
 import axios from 'axios';
 import AuroraBackground from './components/AuroraBackground';
-import { 
-  Menu, X, LayoutDashboard, PlayCircle, Database, Compass, User, Share2, 
-  ChevronDown, GitMerge, Award, Grid3x3, ReceiptIndianRupee, TrendingUp, 
+import {
+  Menu, X, LayoutDashboard, PlayCircle, Database, Compass, User, Share2,
+  ChevronDown, GitMerge, Award, Grid3x3, ReceiptIndianRupee, TrendingUp,
   Building2, Landmark, Users, GraduationCap, Gift, Newspaper, Package
 } from 'lucide-react';
 import logo from './assets/logo6.png';
@@ -58,6 +58,12 @@ function App() {
     'West Bengal - PG Medical',
     'Assam - PG Medical'
   ]);
+
+  const [selectedCourse, setSelectedCourse] = useState({
+    name: 'NEET PG',
+    field: 'Medicine',
+    level: 'PG'
+  });
 
   const mobileMenuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
@@ -207,14 +213,14 @@ function App() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
               className="fixed inset-0 bg-ocean-deep/60 backdrop-blur-md z-[60] md:hidden"
             />
-            <motion.div 
+            <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
@@ -230,13 +236,13 @@ function App() {
               <nav className="flex-1 space-y-2">
                 {mobileMenuItems.map((item) => (
                   <div key={item.name} className="space-y-1">
-                    <div 
-                      onClick={() => { 
+                    <div
+                      onClick={() => {
                         if (item.hasDropdown) {
                           setMobileExpandedItem(mobileExpandedItem === item.name ? null : item.name);
                         } else {
-                          navigate(item.path); 
-                          setIsMobileMenuOpen(false); 
+                          navigate(item.path);
+                          setIsMobileMenuOpen(false);
                         }
                       }}
                       className="flex items-center justify-between p-4 rounded-2xl text-slate-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer transition-all font-bold"
@@ -249,41 +255,40 @@ function App() {
                         <ChevronDown size={18} className={`transition-transform duration-300 ${mobileExpandedItem === item.name ? 'rotate-180' : ''}`} />
                       )}
                     </div>
-                    
+
                     <AnimatePresence>
                       {item.hasDropdown && mobileExpandedItem === item.name && (
-                         <motion.div
-                           initial={{ height: 0, opacity: 0 }}
-                           animate={{ height: 'auto', opacity: 1 }}
-                           exit={{ height: 0, opacity: 0 }}
-                           className="overflow-hidden pl-12 space-y-1"
-                         >
-                           {item.subItems.map((sub) => (
-                             <div
-                               key={sub.name}
-                               onClick={() => {
-                                 if (!sub.isSoon) {
-                                   navigate(sub.path);
-                                   setIsMobileMenuOpen(false);
-                                   setMobileExpandedItem(null);
-                                 }
-                               }}
-                               className={`flex items-center justify-between p-3 rounded-xl transition-all text-sm font-semibold ${
-                                 sub.isSoon 
-                                   ? 'text-slate-400 cursor-not-allowed opacity-60' 
-                                   : 'text-slate-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer'
-                               }`}
-                             >
-                               <div className="flex items-center gap-3">
-                                 <sub.icon size={16} />
-                                 {sub.name}
-                               </div>
-                               {sub.isSoon && (
-                                 <span className="bg-blue-50 text-blue-500 text-[8px] px-1.5 py-0.5 rounded font-black uppercase tracking-tighter">Soon</span>
-                               )}
-                             </div>
-                           ))}
-                         </motion.div>
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden pl-12 space-y-1"
+                        >
+                          {item.subItems.map((sub) => (
+                            <div
+                              key={sub.name}
+                              onClick={() => {
+                                if (!sub.isSoon) {
+                                  navigate(sub.path);
+                                  setIsMobileMenuOpen(false);
+                                  setMobileExpandedItem(null);
+                                }
+                              }}
+                              className={`flex items-center justify-between p-3 rounded-xl transition-all text-sm font-semibold ${sub.isSoon
+                                ? 'text-slate-400 cursor-not-allowed opacity-60'
+                                : 'text-slate-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer'
+                                }`}
+                            >
+                              <div className="flex items-center gap-3">
+                                <sub.icon size={16} />
+                                {sub.name}
+                              </div>
+                              {sub.isSoon && (
+                                <span className="bg-blue-50 text-blue-500 text-[8px] px-1.5 py-0.5 rounded font-black uppercase tracking-tighter">Soon</span>
+                              )}
+                            </div>
+                          ))}
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -296,10 +301,12 @@ function App() {
       </AnimatePresence>
 
       <div className="flex-1 flex flex-col ml-0 md:ml-24 transition-all duration-500 z-10 w-full overflow-hidden">
-        <Header 
-          onOpenChoiceList={openChoiceListModal} 
-          onLogout={handleLogout} 
+        <Header
+          onOpenChoiceList={openChoiceListModal}
+          onLogout={handleLogout}
           onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+          selectedCourse={selectedCourse}
+          setSelectedCourse={setSelectedCourse}
           user={user}
         />
         <main className="flex-1 overflow-y-auto custom-scrollbar">
@@ -312,6 +319,7 @@ function App() {
                   setIsPinModalOpen={setIsPinModalOpen}
                   pinnedItems={pinnedItems}
                   togglePin={togglePin}
+                  selectedCourse={selectedCourse}
                   user={user}
                 />
               }
@@ -321,19 +329,20 @@ function App() {
               element={<Resources />}
             />
             <Route path="/videos" element={<Videos />} />
-            <Route path="/seat-matrix" element={<SeatMatrix />} />
-            <Route path="/closing-ranks" element={<ClosingRanks />} />
-            <Route path="/closing-ranks/details/:type" element={<ClosingRankDetails />} />
-            <Route path="/allotments" element={<Allotments />} />
-            <Route path="/allotments/details/:type" element={<AllotmentDetails />} />
-            <Route path="/fee-stipend-bond" element={<FeeStipendBond />} />
-            <Route path="/fee-stipend-bond/details/:type" element={<FeeStipendBondDetails />} />
-            <Route path="/seat-increase" element={<SeatIncreaseDetails />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/counsellings" element={<Counsellings />} />
-            <Route path="/universities" element={<Universities />} />
-            <Route path="/institutes" element={<Institutes />} />
-            <Route path="/institutes/:id" element={<InstituteDetails />} />
+            <Route path="/seat-matrix" element={<SeatMatrix selectedCourse={selectedCourse} />} />
+            <Route path="/closing-ranks" element={<ClosingRanks selectedCourse={selectedCourse} />} />
+            <Route path="/closing-ranks/details/:type" element={<ClosingRankDetails selectedCourse={selectedCourse} />} />
+            <Route path="/allotments" element={<Allotments selectedCourse={selectedCourse} />} />
+            <Route path="/allotments/details/:type" element={<AllotmentDetails selectedCourse={selectedCourse} />} />
+            <Route path="/fee-stipend-bond" element={<FeeStipendBond selectedCourse={selectedCourse} />} />
+            <Route path="/fee-stipend-bond/details/:type" element={<FeeStipendBondDetails selectedCourse={selectedCourse} />} />
+            <Route path="/seat-increase" element={<SeatIncrease selectedCourse={selectedCourse} />} />
+            <Route path="/seat-increase/details/:type" element={<SeatIncreaseDetails selectedCourse={selectedCourse} />} />
+            <Route path="/courses" element={<Courses selectedCourse={selectedCourse} />} />
+            <Route path="/counsellings" element={<Counsellings selectedCourse={selectedCourse} />} />
+            <Route path="/universities" element={<Universities selectedCourse={selectedCourse} />} />
+            <Route path="/institutes" element={<Institutes selectedCourse={selectedCourse} />} />
+            <Route path="/institutes/:id" element={<InstituteDetails selectedCourse={selectedCourse} />} />
             <Route path="/profile" element={<Profile user={user} />} />
           </Routes>
         </main>
@@ -346,11 +355,12 @@ function App() {
         onCreateList={openPinModal}
       />
 
-      <PinModal 
-        isOpen={isPinModalOpen} 
-        onClose={closePinModal} 
-        pinnedItems={pinnedItems} 
-        togglePin={togglePin} 
+      <PinModal
+        isOpen={isPinModalOpen}
+        onClose={closePinModal}
+        pinnedItems={pinnedItems}
+        togglePin={togglePin}
+        selectedCourse={selectedCourse}
       />
     </div>
   );

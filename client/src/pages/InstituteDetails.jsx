@@ -5,14 +5,31 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
 
-const InstituteDetails = () => {
+import { getFeatureConfig } from '../config/examConfig';
+import ComingSoon from '../components/shared/ComingSoon';
+
+const InstituteDetails = ({ selectedCourse }) => {
+    const currentField = selectedCourse?.field || 'Medicine';
+    const config = getFeatureConfig(currentField, 'instituteDetails');
+
+    if (!config.enabled && currentField !== 'Medicine') {
+        return (
+            <ComingSoon
+                title={config.title}
+                description={config.description}
+                iconName={config.icon}
+                backPath="/institutes"
+                backText="Back to Institutes"
+            />
+        );
+    }
     const { id } = useParams();
     const navigate = useNavigate();
     const [institute, setInstitute] = useState(null);
     const [loading, setLoading] = useState(true);
     // Remove activeTab state, using refs for scroll
     const [closingRanks, setClosingRanks] = useState([]);
-    const [selectedCourse, setSelectedCourse] = useState(null);
+    const [selectedInstituteCourse, setSelectedInstituteCourse] = useState(null);
     const [courseList, setCourseList] = useState([]);
 
     const overviewRef = useRef(null);
@@ -56,7 +73,7 @@ const InstituteDetails = () => {
                 const courses = [...new Set(response.data.data.map(item => item.course))].sort();
                 setCourseList(courses);
                 if (courses.length > 0) {
-                    setSelectedCourse(courses[0]);
+                    setSelectedInstituteCourse(courses[0]);
                 }
             }
         } catch (error) {
@@ -65,9 +82,9 @@ const InstituteDetails = () => {
     };
 
     const getChartData = () => {
-        if (!selectedCourse || !closingRanks.length) return [];
+        if (!selectedInstituteCourse || !closingRanks.length) return [];
 
-        const courseData = closingRanks.filter(item => item.course === selectedCourse);
+        const courseData = closingRanks.filter(item => item.course === selectedInstituteCourse);
 
         // We want to graph Opening/Closing ranks across rounds for different years.
         // Structure: [{ name: 'Round 1', 2023: 1200, 2024: 1100, 2025: 1050 }, ...]
@@ -288,14 +305,14 @@ const InstituteDetails = () => {
                                         {courseList.map(course => (
                                             <button
                                                 key={course}
-                                                onClick={() => setSelectedCourse(course)}
-                                                className={`text-left px-3 py-2.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between group ${selectedCourse === course
+                                                onClick={() => setSelectedInstituteCourse(course)}
+                                                className={`text-left px-3 py-2.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between group ${selectedInstituteCourse === course
                                                     ? 'bg-white shadow-sm text-orange-600 border border-orange-100'
                                                     : 'text-gray-600 hover:bg-white hover:text-gray-900'
                                                     }`}
                                             >
                                                 <span className="truncate mr-2" title={course}>{course}</span>
-                                                {selectedCourse === course && <ChevronRight size={14} className="shrink-0" />}
+                                                {selectedInstituteCourse === course && <ChevronRight size={14} className="shrink-0" />}
                                             </button>
                                         ))}
                                     </div>
@@ -311,7 +328,7 @@ const InstituteDetails = () => {
                                         <BookOpen size={20} className="text-gray-600" />
                                     </div>
                                     <div>
-                                        <h2 className="text-lg font-bold text-gray-900">{selectedCourse}</h2>
+                                        <h2 className="text-lg font-bold text-gray-900">{selectedInstituteCourse}</h2>
                                         <p className="text-xs text-gray-500 flex items-center gap-1">
                                             {institute.type} • Degree • 3 years
                                         </p>
