@@ -20,9 +20,11 @@ import {
 } from 'lucide-react';
 import logo from './assets/logo6.png';
 
+
 // Configure axios defaults
-axios.defaults.baseURL = 'http://localhost:5000/api/v1';
+axios.defaults.baseURL = '/api/v1';
 axios.defaults.withCredentials = true;
+
 
 import ClosingRanks from './pages/ClosingRanks';
 import ClosingRankDetails from './pages/ClosingRankDetails';
@@ -37,6 +39,7 @@ import Counsellings from './pages/Counsellings';
 import Universities from './pages/Universities';
 import Institutes from './pages/Institutes';
 import InstituteDetails from './pages/InstituteDetails';
+import Resources from './pages/Resources';
 
 
 function App() {
@@ -183,6 +186,7 @@ function App() {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-ocean-deep">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+
       </div>
     );
   }
@@ -286,12 +290,7 @@ function App() {
                   </div>
                 ))}
               </nav>
-              <div className="mt-auto pt-8 border-t border-white/10">
-                <button className="w-full flex items-center justify-center gap-2 p-4 frosted-glass rounded-2xl font-black text-blue-400">
-                  <Share2 size={20} />
-                  Share CRZ
-                </button>
-              </div>
+
             </motion.div>
           </>
         )}
@@ -317,6 +316,10 @@ function App() {
                   user={user}
                 />
               }
+            />
+            <Route
+              path="/resources"
+              element={<Resources />}
             />
             <Route path="/videos" element={<Videos />} />
             <Route path="/seat-matrix" element={<SeatMatrix />} />

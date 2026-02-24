@@ -241,7 +241,10 @@ const completeProfile = async (req, res) => {
         user.fullName = fullName;
         user.email = email;
         user.subscriptionType = subscriptionType;
-        user.isPaid = subscriptionType === 'Paid';
+        // Only set isPaid here if it's Free. Paid is handled by the payment controller.
+        if (subscriptionType === 'Free') {
+            user.isPaid = false;
+        }
         user.isProfileComplete = true;
 
         await user.save({ validateBeforeSave: false });

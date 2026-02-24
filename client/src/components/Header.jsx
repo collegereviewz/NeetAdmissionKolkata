@@ -62,6 +62,7 @@ const Header = ({ onOpenChoiceList, onLogout, onOpenMobileMenu, user }) => {
   }, []);
 
   return (
+    <>
     <header className="header-gradient mx-4 md:mx-6 mb-4 md:mb-4 mt-4 md:mt-3 rounded-3xl px-4 md:px-8 py-3 md:py-2 flex items-center sticky top-4 md:top-3 z-40 gap-2 md:gap-4 lg:gap-6">
       {/* 1. Mobile Logo */}
       <img 
@@ -142,6 +143,7 @@ const Header = ({ onOpenChoiceList, onLogout, onOpenMobileMenu, user }) => {
           <span className="font-bold text-[10px] md:text-xs tracking-wide">
             <span className="md:inline hidden">My Choice Lists</span>
             <span className="md:hidden">My Choice</span>
+
           </span>
       </div>
 
@@ -164,6 +166,7 @@ const Header = ({ onOpenChoiceList, onLogout, onOpenMobileMenu, user }) => {
         <div className="absolute -top-2 -right-1 px-1.5 py-0.5 bg-blue-600 text-white text-[8px] font-black rounded-full border border-white shadow-sm">New</div>
       </button>
 
+
       {/* 6. Promotional Links */}
       <div className="hidden lg:flex items-center gap-4 shrink-0">
           <div className="relative group opacity-60 cursor-not-allowed">
@@ -185,7 +188,7 @@ const Header = ({ onOpenChoiceList, onLogout, onOpenMobileMenu, user }) => {
       {/* 7. Profile Section */}
       <div className="flex items-center gap-2 md:gap-4 ml-auto shrink-0">
         <div className="relative" ref={profileDropdownRef}>
-          <div 
+          <div
             onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             className="h-8 w-8 md:h-9 md:w-9 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-md cursor-pointer hover:bg-opacity-90 transition-colors ring-2 ring-purple-100"
           >
@@ -218,7 +221,7 @@ const Header = ({ onOpenChoiceList, onLogout, onOpenMobileMenu, user }) => {
                 Feedback
               </button>
               <div className="h-px bg-gray-100 my-1 mx-4"></div>
-              <button 
+              <button
                 onClick={() => {
                   setIsProfileDropdownOpen(false);
                   setIsLogoutModalOpen(true);
@@ -241,59 +244,61 @@ const Header = ({ onOpenChoiceList, onLogout, onOpenMobileMenu, user }) => {
         </div>
       </div>
 
-      {/* Logout Confirmation Modal */}
-      <AnimatePresence>
-        {isLogoutModalOpen && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsLogoutModalOpen(false)}
-              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            />
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0, y: 10 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 10 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 400 }}
-              className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-8 text-center">
-                <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-50 mb-6">
-                  <AlertTriangle className="h-10 w-10 text-red-500" />
-                </div>
-                
-                <h3 className="text-2xl font-black text-gray-900 mb-2">Confirm Logout</h3>
-                <p className="text-gray-500 font-bold mb-8">
-                  Are you sure you want to sign out of your account?
-                </p>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <button 
-                    onClick={() => setIsLogoutModalOpen(false)}
-                    className="w-full py-4 text-base font-black text-gray-600 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-95"
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setIsLogoutModalOpen(false);
-                      onLogout();
-                    }}
-                    className="w-full flex items-center justify-center gap-2 py-4 text-base font-black text-white bg-red-500 rounded-2xl hover:bg-red-600 transition-all shadow-xl shadow-red-500/20 active:scale-95"
-                  >
-                    <LogOut size={20} />
-                    Logout
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </header>
+
+    {/* Logout Confirmation Modal */}
+    <AnimatePresence>
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsLogoutModalOpen(false)}
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 10 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 10 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 400 }}
+            className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-8 text-center">
+              <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-red-50 mb-6">
+                <AlertTriangle className="h-10 w-10 text-red-500" />
+              </div>
+
+              <h3 className="text-2xl font-black text-gray-900 mb-2">Confirm Logout</h3>
+              <p className="text-gray-500 font-bold mb-8">
+                Are you sure you want to sign out of your account?
+              </p>
+
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  onClick={() => setIsLogoutModalOpen(false)}
+                  className="w-full py-4 text-base font-black text-gray-600 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-95"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    setIsLogoutModalOpen(false);
+                    onLogout();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-4 text-base font-black text-white bg-red-500 rounded-2xl hover:bg-red-600 transition-all shadow-xl shadow-red-500/20 active:scale-95"
+                >
+                  <LogOut size={20} />
+                  Logout
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+    </>
   );
 };
 

@@ -83,7 +83,7 @@ const Sidebar = () => {
         { name: 'Courses', icon: GraduationCap, path: '/courses' },
       ]
     },
-    { name: 'Resources', icon: FileText, path: '/resources', isSoon: true },
+    { name: 'Resources', icon: FileText, path: '/resources' },
   ];
 
   return (

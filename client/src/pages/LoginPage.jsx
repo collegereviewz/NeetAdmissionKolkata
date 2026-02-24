@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ArrowLeft, MessageSquare, ShieldCheck, 
+import {
+  ArrowLeft, MessageSquare, ShieldCheck,
   Smartphone, ChevronDown, CheckCircle2,
   X, RefreshCw, User, Mail, CreditCard, Lock
 } from 'lucide-react';
@@ -11,7 +11,8 @@ import axios from 'axios';
 const LoginPage = ({ user, onLoginSuccess, onBack }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [stage, setStage] = useState('phone'); // 'phone', 'otp', 'plan', 'registration', 'payment'
+  const [stage, setStage] = useState('phone'); // 'phone', 'otp', 'plan', 'registration', 'payment', 'success'
+  const [redirectCount, setRedirectCount] = useState(5);
   const [loading, setLoading] = useState(false);
   const [tempUser, setTempUser] = useState(user || null);
   const [registrationData, setRegistrationData] = useState({ 
@@ -105,6 +106,85 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
     }
   };
 
+  const handleRazorpayPayment = async () => {
+    setLoading(true);
+    try {
+      // 1. Create order on backend
+      const orderResponse = await axios.post('/payments/create-order', {
+        amount: 1, // Example premium amount
+        currency: 'INR',
+        receipt: `receipt_${tempUser?._id}`
+      });
+
+      const orderData = orderResponse.data;
+
+      // 2. Load Razorpay script
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => {
+        // 3. Open Razorpay modal
+        const options = {
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID || '', // Ensure VITE_RAZORPAY_KEY_ID is in client/.env
+          amount: orderData.amount,
+          currency: orderData.currency,
+          name: 'CRZGenie Premium',
+          description: 'Unlock Elite Tracker Privileges',
+          order_id: orderData.id,
+          handler: async (response) => {
+            // 4. Verify payment on backend
+            try {
+              const verifyResponse = await axios.post('/payments/verify-payment', {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: tempUser?._id
+              });
+
+              if (verifyResponse.data.success) {
+                finalizeRegistration();
+              } else {
+                alert("Payment verification failed.");
+                setLoading(false);
+              }
+            } catch (err) {
+              console.error("Verification error:", err);
+              alert("Error verifying payment.");
+              setLoading(false);
+            }
+          },
+          prefill: {
+            name: registrationData.fullName,
+            email: registrationData.email,
+            contact: phoneNumber
+          },
+          theme: {
+            color: '#3B82F6'
+          },
+          modal: {
+            ondismiss: () => setLoading(false)
+          }
+        };
+
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+      };
+      
+      script.onerror = () => {
+        alert("Failed to load Razorpay SDK.");
+        setLoading(false);
+      };
+
+      document.body.appendChild(script);
+
+    } catch (error) {
+      console.error("Payment initiation failed:", error);
+      const errorMsg = error.response?.data?.message || error.message || "Network Error";
+      alert(`Failed to initiate payment: ${errorMsg}. Please ensure the server is running and keys are configured.`);
+      setLoading(false);
+    }
+  };
+
   const finalizeRegistration = async () => {
     setLoading(true);
     try {
@@ -115,7 +195,17 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
         subscriptionType: registrationData.plan
       });
       setLoading(false);
-      onLoginSuccess(response.data.user);
+      setStage('success');
+      // Countdown for redirection
+      let count = 5;
+      const timer = setInterval(() => {
+        count -= 1;
+        setRedirectCount(count);
+        if (count === 0) {
+          clearInterval(timer);
+          onLoginSuccess(response.data.user);
+        }
+      }, 1000);
     } catch (error) {
       const errorMsg = error.response?.data?.message || "Failed to complete registration.";
       alert(errorMsg);
@@ -159,13 +249,24 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
             transition={{ delay: 0.2 }}
             className="relative"
           >
-             <img 
-               src="https://img.freepik.com/free-vector/professional-doctor-surgeon-working-with-digital-screen-healthcare-innovation-technology_107791-16345.jpg" 
-               alt="Auth Illustration" 
-               className="w-full h-auto drop-shadow-2xl rounded-2xl"
-             />
+            <img 
+              src="https://img.freepik.com/free-vector/professional-doctor-surgeon-working-with-digital-screen-healthcare-innovation-technology_107791-16345.jpg" 
+              alt="Auth Illustration" 
+              className="w-full h-auto drop-shadow-2xl rounded-2xl"
+            />
+            {/* Carousel Dots */}
+            <div className="flex justify-center space-x-2 mt-8">
+              <div className="w-6 h-2 bg-college-primary rounded-full"></div>
+              <div className="w-2 h-2 bg-college-light rounded-full"></div>
+              <div className="w-2 h-2 bg-college-light rounded-full"></div>
+            </div>
           </motion.div>
         </div>
+
+        {/* Background Decorative Shapes */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/30 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-college-light/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+
       </div>
 
       {/* Right Panel: Auth Form */}
@@ -191,6 +292,7 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
           <ArrowLeft size={24} />
           {stage === 'plan' && tempUser && <span className="text-[10px] font-bold uppercase opacity-0 group-hover:opacity-100 transition-opacity">Logout</span>}
         </button>
+
 
         <div className="w-full max-w-sm">
           <div className="flex flex-col items-center mb-10 text-center">
@@ -232,21 +334,39 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
                 <p className="text-gray-500 font-bold text-sm">Join the Elite tracker community</p>
               </>
             )}
+            {stage === 'success' && (
+              <>
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <CheckCircle2 size={48} className="text-green-500" />
+                </div>
+                <h2 className="text-2xl font-black text-gray-900 mb-1">Congratulations!</h2>
+                <p className="text-gray-500 font-bold text-sm">Payment Successfully</p>
+              </>
+            )}
           </div>
 
           <AnimatePresence mode="wait">
             {stage === 'phone' && (
               <motion.div key="phone" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
-                <div className="relative">
+                <div className="relative group">
                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pr-3 border-r border-gray-100">
-                      <span className="text-sm font-bold text-gray-800">+91</span>
+                      <div className="flex items-center space-x-2">
+                        <img 
+                          src="https://flagcdn.com/w20/in.png" 
+                          alt="India" 
+                          className="w-5 h-auto rounded-sm"
+                        />
+                        <span className="text-sm font-bold text-gray-800">+91</span>
+                        <ChevronDown size={14} className="text-gray-400" />
+                      </div>
                    </div>
                    <input 
                      type="tel" maxLength={10} value={phoneNumber}
                      onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
                      placeholder="Enter phone number"
-                     className="w-full pl-20 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary transition-all"
+                     className="w-full pl-28 pr-4 py-4 bg-white border-2 border-gray-100 rounded-2xl text-lg font-bold placeholder-gray-300 focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
                    />
+
                 </div>
                 <div className="space-y-4">
                   <motion.button 
@@ -271,9 +391,10 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
                       onKeyDown={(e) => {
                         if (e.key === 'Backspace' && !otp[index] && index > 0) document.getElementById(`otp-${index - 1}`).focus();
                       }}
-                      className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-college-primary focus:outline-none focus:border-college-primary transition-all"
+                      className="w-12 h-14 bg-gray-50 border-2 border-gray-100 rounded-xl text-center text-xl font-black text-college-primary focus:outline-none focus:border-college-primary focus:ring-4 focus:ring-college-primary/10 transition-all"
                     />
                   ))}
+
                 </div>
                 <button onClick={handleVerifyOtp} disabled={otp.join('').length < 6 || loading} className="w-full bg-college-primary text-white py-4 rounded-2xl font-black transition-all disabled:opacity-50">
                    {loading ? <RefreshCw className="animate-spin mx-auto" /> : "Verify OTP"}
@@ -335,20 +456,51 @@ const LoginPage = ({ user, onLoginSuccess, onBack }) => {
                    <div className="flex justify-center mb-3 text-college-primary"><CreditCard size={48} /></div>
                    <p className="text-sm font-bold text-gray-700">Scan QR or enter card details to unlock Premium privileges.</p>
                 </div>
-                {/* Mock Payment Successful State */}
                 <div className="space-y-3">
-                   <div className="flex items-center space-x-2 text-green-500 justify-center font-bold mb-4">
-                      <CheckCircle2 size={18} />
-                      <span>Payment Gateway Connected (MOCK)</span>
+                   <div className="flex items-center space-x-2 text-blue-500 justify-center font-bold mb-4 italic">
+                      <ShieldCheck size={18} />
+                      <span>Razorpay Secure Connection</span>
                    </div>
-                   <button onClick={finalizeRegistration} className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-xl flex items-center justify-center space-x-2">
-                     <Lock size={18} />
-                     <span>Submit & Unlock Dashboard</span>
+                   <button 
+                     disabled={loading}
+                     onClick={handleRazorpayPayment} 
+                     className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-xl flex items-center justify-center space-x-2 active:scale-95 transition-all disabled:opacity-50"
+                   >
+                     {loading ? (
+                       <RefreshCw className="animate-spin" />
+                     ) : (
+                       <>
+                         <Lock size={18} />
+                         <span>Pay Now & Unlock Premium</span>
+                       </>
+                     )}
+                   </button>
+                </div>
+              </motion.div>
+            )}
+
+            {stage === 'success' && (
+              <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center space-y-6">
+                <div className="bg-green-50 border border-green-100 rounded-2xl p-8 shadow-sm">
+                   <p className="text-lg font-black text-gray-900 mb-2">Go To your Home Page</p>
+                   <p className="text-sm text-gray-500 font-bold mb-6">You will be redirected automatically in <span className="text-green-600">{redirectCount}s</span></p>
+                   
+                   <button 
+                     onClick={() => onLoginSuccess(tempUser)}
+                     className="w-full bg-gray-900 text-white py-4 rounded-2xl font-black flex items-center justify-center space-x-2 active:scale-95 transition-all"
+                   >
+                     <span>Enter Dashboard Now</span>
                    </button>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
+          <div className="mt-12 text-center">
+            <p className="text-gray-400 text-sm font-bold">
+              Trouble signing in? <a href="#" className="text-blue-600 hover:underline">Get Help</a>
+            </p>
+          </div>
+
         </div>
       </div>
     </div>

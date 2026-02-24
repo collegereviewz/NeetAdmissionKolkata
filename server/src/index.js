@@ -17,6 +17,9 @@ import courseRouter from "./route/course.route.js";
 import counsellingRouter from "./route/counselling.route.js";
 import universityRouter from "./route/university.route.js";
 import instituteRouter from "./route/institute.route.js";
+import updateRouter from "./route/update.route.js";
+import paymentRouter from "./route/payment.route.js";
+
 
 const app = express()
 
@@ -33,6 +36,12 @@ app.use(cookieParser())
 app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 
+// Request Logger Middleware
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
 app.use("/api/v1/seat-matrix", seatMatrixRouter)
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/closing-rank", closingRankRouter)
@@ -43,6 +52,8 @@ app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/counselling", counsellingRouter);
 app.use("/api/v1/universities", universityRouter);
 app.use("/api/v1/institutes", instituteRouter);
+app.use("/api/v1/updates", updateRouter);
+app.use("/api/v1/payments", paymentRouter);
 
 
 connectDB()
