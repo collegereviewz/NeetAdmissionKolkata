@@ -7,11 +7,11 @@ import {
   ExternalLink, Calendar, Globe, Users, FileText,
   BookOpen, Bell, LayoutGrid, BarChart3, Grid3X3,
   Receipt, Heart, ChevronRight, ChevronLeft, CheckCircle2, Clock, Circle,
-  PlayCircle
+  PlayCircle, RefreshCw, UserPlus, MapPin, List, Info, PlusCircle, MoreHorizontal
 } from 'lucide-react';
 import logo from '../assets/logo6.png';
 import { counselingOptions } from '../data/counselingData';
-import { counsellingWebsites } from '../data/counselingWebsites';
+import { counsellingWebsites, registrationLinks, prospectusLinks } from '../data/counselingWebsites';
 import VideosSection from '../components/VideosSection';
 
 
@@ -38,7 +38,7 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: bouncy }
 };
 
-const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }) => {
+const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, selectedCourse }) => {
   const navigate = useNavigate();
   const [itemToDelete, setItemToDelete] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
@@ -51,28 +51,47 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
   const [announcements, setAnnouncements] = useState([]); // Specific counselling updates
   const [isLoadingUpdates, setIsLoadingUpdates] = useState(true);
   const [isLoadingAnnouncements, setIsLoadingAnnouncements] = useState(false);
+  const [selectedQuota, setSelectedQuota] = useState('AIQ');
   const scrollRef = useRef(null);
 
-  useEffect(() => {
-    const fetchUpdates = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/v1/updates');
-        const data = await response.json();
-        if (data.success) {
-          setCollegeUpdates(data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching updates:", error);
-      } finally {
-        setIsLoadingUpdates(false);
-      }
-    };
+  const quotas = [
+    'AIQ', 'DNB Post MBBS', 'NBE Diploma', 'MNG', 'MM', 'JM', 'NRI', 'DU', 'IP', 'BHU', 'AMU', 'CIQ', 'AFMS', 'AFMS-DNB'
+  ];
 
+  const fetchUpdates = async () => {
+    setIsLoadingUpdates(true);
+    try {
+      const { name, field, level } = selectedCourse;
+      const response = await fetch(`http://localhost:5000/api/v1/updates?field=${field}&level=${level}`);
+      const data = await response.json();
+      if (data.success) {
+        setCollegeUpdates(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updates:", error);
+    } finally {
+      setIsLoadingUpdates(false);
+    }
+  };
+
+  useEffect(() => {
     fetchUpdates();
-  }, []);
+  }, [selectedCourse]);
 
   useEffect(() => {
     if (activeTab !== 'home') {
+      // Auto-redirect for Registration and Prospectus
+      if (activeSubTab === 'Registration' && registrationLinks[activeTab]) {
+        window.open(registrationLinks[activeTab], '_blank', 'noopener,noreferrer');
+        setActiveSubTab('Website'); // Reset to website or stay on registration but show minimal
+        return;
+      }
+      if (activeSubTab === 'Prospectus' && prospectusLinks[activeTab]) {
+        window.open(prospectusLinks[activeTab], '_blank', 'noopener,noreferrer');
+        setActiveSubTab('Website');
+        return;
+      }
+
       const fetchAnnouncements = async () => {
         setIsLoadingAnnouncements(true);
         try {
@@ -85,7 +104,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
           };
 
           const subCategory = subCategoryMap[activeSubTab] || 'Announcements & Events';
-          const response = await fetch(`http://localhost:5000/api/v1/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`);
+          let url = `http://localhost:5000/api/v1/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`;
+
+          if (activeSubTab === 'Quotas' && selectedQuota !== 'ALL') {
+            url += `&quotaType=${encodeURIComponent(selectedQuota)}`;
+          }
+
+          const response = await fetch(url);
           const data = await response.json();
           if (data.success) {
             setAnnouncements(data.data);
@@ -98,7 +123,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
       };
       fetchAnnouncements();
     }
-  }, [activeTab, activeSubTab]);
+  }, [activeTab, activeSubTab, selectedQuota]);
 
   const openUpdateLink = (link) => {
     if (link) window.open(link, '_blank', 'noopener,noreferrer');
@@ -520,20 +545,85 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                       exit={{ opacity: 0, y: -5, transition: { duration: 0.2 } }}
                       className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
                     >
-                      <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-bold text-gray-800 flex items-center">
                           <Bell className="mr-2 text-college-primary" size={20} />
                           {activeSubTab}
                         </h3>
-                        <button
-                          onClick={() => {
-                            // Logic to trigger individual sync could be added here
-                          }}
-                          className="text-xs font-semibold text-college-primary hover:underline"
-                        >
-                          Refresh Data
-                        </button>
+                        {activeSubTab !== 'Quotas' && (
+                          <button
+                            onClick={async () => {
+                              setIsLoadingAnnouncements(true);
+                              try {
+                                await fetch(`http://localhost:5000/api/v1/updates/sync?type=${encodeURIComponent(activeTab)}`, { method: 'POST' });
+                                // Refetch logic is handled by dependency on announcements or manual trigger
+                                // but easiest is to just call the fetchAnnouncements logic again
+                                const subCategoryMap = {
+                                  'Announcements & Events': 'Announcements & Events',
+                                  'Quotas': 'Quotas',
+                                  'Registration': 'Registration',
+                                  'Prospectus': 'Prospectus'
+                                };
+                                const subCategory = subCategoryMap[activeSubTab] || 'Announcements & Events';
+                                let url = `http://localhost:5000/api/v1/updates?type=${encodeURIComponent(activeTab)}&subCategory=${encodeURIComponent(subCategory)}`;
+                                if (activeSubTab === 'Quotas') url += `&quotaType=${encodeURIComponent(selectedQuota)}`;
+                                const response = await fetch(url);
+                                const data = await response.json();
+                                if (data.success) setAnnouncements(data.data);
+                              } catch (e) {
+                                console.error("Sync failed:", e);
+                              } finally {
+                                setIsLoadingAnnouncements(false);
+                              }
+                            }}
+                            className="text-xs font-semibold text-college-primary hover:underline flex items-center"
+                          >
+                            <RefreshCw size={12} className={`mr-1 ${isLoadingAnnouncements ? 'animate-spin' : ''}`} />
+                            Refresh Data
+                          </button>
+                        )}
                       </div>
+
+                      {/* Quota Filter Chips */}
+                      {activeSubTab === 'Quotas' && activeTab === 'All India Counseling - PG Medical' && (
+                        <div className="flex overflow-x-auto space-x-2 pb-6 no-scrollbar">
+                          {quotas.map((quota) => (
+                            <motion.button
+                              key={quota}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => setSelectedQuota(quota)}
+                              className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${selectedQuota === quota
+                                ? 'bg-college-primary text-white border-college-primary shadow-sm'
+                                : 'bg-white text-gray-500 border-gray-200 hover:border-blue-200 hover:text-college-primary'
+                                }`}
+                            >
+                              {quota}
+                            </motion.button>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Registration / Prospectus Redirect UI (Safe fallback) */}
+                      {(activeSubTab === 'Registration' || activeSubTab === 'Prospectus') && (
+                        <div className="py-20 text-center bg-blue-50/30 rounded-3xl border border-blue-100/50">
+                          <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-6">
+                            <RefreshCw size={32} className="text-college-primary animate-spin" />
+                          </div>
+                          <h4 className="text-xl font-bold text-gray-800 mb-2">Redirecting to Official Portal...</h4>
+                          <p className="text-gray-500 mb-8 max-w-sm mx-auto">We are taking you directly to the {activeSubTab.toLowerCase()} page for {activeTab}.</p>
+                          <button
+                            onClick={() => {
+                              const link = activeSubTab === 'Registration' ? registrationLinks[activeTab] : prospectusLinks[activeTab];
+                              if (link) window.open(link, '_blank', 'noopener,noreferrer');
+                            }}
+                            className="px-8 py-3 bg-college-primary text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center mx-auto"
+                          >
+                            Click here if not redirected
+                            <ExternalLink size={18} className="ml-2" />
+                          </button>
+                        </div>
+                      )}
 
                       <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar text-left">
                         {isLoadingAnnouncements ? (
@@ -541,7 +631,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                             <div className="w-10 h-10 border-4 border-blue-50 border-t-college-primary rounded-full animate-spin mb-4"></div>
                             <p className="text-sm">Fetching real-time updates for {activeTab}...</p>
                           </div>
-                        ) : announcements.length > 0 ? (
+                        ) : (activeSubTab !== 'Registration' && activeSubTab !== 'Prospectus' && announcements.length > 0) ? (
                           announcements.map((item, idx) => (
                             <motion.div
                               key={item._id || idx}
@@ -572,11 +662,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                             </motion.div>
                           ))
                         ) : (
-                          <div className="text-center py-20 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-100">
-                            <Bell size={40} className="mx-auto text-gray-300 mb-4 opacity-50" />
-                            <p className="text-gray-500 font-medium">No recent {activeSubTab.toLowerCase()} found for {activeTab}.</p>
-                            <p className="text-xs text-gray-400 mt-1">Updates will appear here as soon as they are released officialy.</p>
-                          </div>
+                          activeSubTab !== 'Quotas' && activeSubTab !== 'Registration' && activeSubTab !== 'Prospectus' && (
+                            <div className="text-center py-20 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-100">
+                              <Bell size={40} className="mx-auto text-gray-300 mb-4 opacity-50" />
+                              <p className="text-gray-500 font-medium">No recent {activeSubTab.toLowerCase()} found for {activeTab}.</p>
+                              <p className="text-xs text-gray-400 mt-1">Updates will appear here as soon as they are released officialy.</p>
+                            </div>
+                          )
                         )}
                       </div>
 
@@ -842,9 +934,19 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                 {/* Right Column: College Updates */}
                 <motion.div variants={fadeUp} className="lg:col-span-7">
                   <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 h-full flex flex-col max-h-[480px]">
-                    <h3 className="text-gray-800 font-bold mb-4 flex items-center">
-                      College Updates
-                    </h3>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-gray-800 font-bold flex items-center">
+                        College Updates
+                      </h3>
+                      <button
+                        onClick={fetchUpdates}
+                        disabled={isLoadingUpdates}
+                        className="p-1.5 text-gray-400 hover:text-college-primary hover:bg-blue-50 rounded-lg transition-all disabled:opacity-50"
+                        title="Refresh Updates"
+                      >
+                        <RefreshCw size={16} className={isLoadingUpdates ? "animate-spin" : ""} />
+                      </button>
+                    </div>
 
                     <div className="space-y-3 flex-1 overflow-y-auto pr-2 custom-scrollbar">
                       {isLoadingUpdates ? (
@@ -940,7 +1042,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                       <img src={logo} alt="CRZTales" className="w-12 h-12 object-contain" />
                     </div>
                     <div>
-                      <h3 className="text-white text-xl font-bold mb-1">Where Medical Journeys Come Together</h3>
+                      <h3 className="text-white text-xl font-bold mb-1">Where Academic Journeys Come Together</h3>
                       <p className="text-blue-200 text-sm max-w-lg">
                         Built for conversations that matter at every stage of medicine, CRZTales is a place to think out loud, learn from others and share what you know.
                       </p>
@@ -970,7 +1072,12 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {[
+                  {(selectedCourse.name.includes('JEE') ? [
+                    { color: 'blue', cat: 'Registration', title: 'JEE Mains 2026', desc: 'Session 1 Registration Starts from November 2025' },
+                    { color: 'orange', cat: 'Exam Date', title: 'JEE Advanced 2026', desc: 'Official Exam Date Announced: May 17, 2026' },
+                    { color: 'green', cat: 'Admit Card', title: 'JEE Mains Session 2', desc: 'Admit Card is now available for download' },
+                    { color: 'purple', cat: 'Syllabus', title: 'JEE Advanced', desc: 'No major changes in syllabus for 2026 session' },
+                  ] : [
                     { color: 'orange', cat: 'Allotment', title: 'Telangana Management Quota - PG Medical', desc: 'Mop Up Round Allotment (Joining till 19.02.2026 (2 PM))' },
                     { color: 'blue', cat: 'Web Options', title: 'Andhra Pradesh Government Quota - PG Medical', desc: 'DNB Phase 1 Web Options For Inservice Candidates (Web Options Starts from 18th Feb...)' },
                     { color: 'orange', cat: 'Allotment', title: 'Tripura - PG Medical', desc: 'Round 3 Provisional Allotment, Round 3 Joining Starts from 17.02.2026 (05:00 PM)' },
@@ -979,7 +1086,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                     { color: 'red', cat: 'Result Delayed', title: 'Bihar - PG Medical', desc: 'Due to Unavoidable Reasons, the Round 3 Result has been Delayed' },
                     { color: 'green', cat: 'Document Verification', title: 'Haryana - PG Medical', desc: 'Round 3 Physical Document Verification Schedule, Fee Deposition is Extended till 19.02.2026 (8:00 PM)' },
                     { color: 'blue', cat: 'Provisional Selection List', title: 'Jharkhand - PG Medical', desc: 'Round 3 Provisional Selection List' },
-                  ].map((item, idx) => (
+                  ]).map((item, idx) => (
                     <motion.div
                       key={idx}
                       variants={scaleIn}
@@ -988,7 +1095,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                     >
                       <div className="flex items-start space-x-3">
                         <div className={`text-${item.color}-600 font-bold text-xs text-center leading-tight whitespace-pre-line min-w-[35px]`}>
-                          FEB{'\n'}17
+                          {selectedCourse.name.includes('JEE') ? 'FEB\n24' : 'FEB\n17'}
                         </div>
                         <div className="flex-1">
                           <div className={`text-xs font-semibold text-${item.color}-600 mb-1`}>{item.cat}</div>
@@ -1022,14 +1129,18 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[
+                  {(selectedCourse.name.includes('JEE') ? [
+                    { color: 'blue', date: 'FEB 24 — MAR 05', cat: 'Session 2 Registration', title: 'JEE Mains 2026' },
+                    { color: 'orange', date: 'APR 15 — APR 20', cat: 'Correction Window', title: 'JEE Mains 2026' },
+                    { color: 'green', date: 'MAY 17', cat: 'Examination', title: 'JEE Advanced 2026' },
+                  ] : [
                     { color: 'orange', date: 'FEB 06 — FEB 17', cat: 'Joining & Document Verification', title: 'Manipur-JNIMS - PG Medical' },
                     { color: 'blue', date: 'FEB 18 — FEB 19', cat: 'Reporting', title: 'Andhra Pradesh Government Quota - PG Medical' },
                     { color: 'green', date: 'FEB 18 — FEB 19', cat: 'Online Payment', title: 'Chhattisgarh - PG Medical' },
                     { color: 'red', date: 'FEB 19 — FEB 19', cat: 'Admission Cancelled', title: 'Maharashtra - PG Medical' },
                     { color: 'blue', date: 'FEB 06 — FEB 17', cat: 'Reporting', title: 'Sikkim - PG Medical' },
                     { color: 'purple', date: 'FEB 18 — FEB 19', cat: 'Scrutiny', title: 'Chhattisgarh - PG Medical' },
-                  ].map((event, idx) => (
+                  ]).map((event, idx) => (
                     <motion.div
                       key={idx}
                       variants={scaleIn}

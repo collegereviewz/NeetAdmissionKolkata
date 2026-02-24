@@ -4,13 +4,26 @@ import { counsellingSources } from "../config/counsellingSource.config.js";
 
 export const getUpdates = async (req, res) => {
     try {
-        const { type, subCategory } = req.query;
+        const { type, subCategory, field, level } = req.query;
         const filter = {};
-        if (type && type !== 'total') {
+
+        if (field) {
+            filter.field = field;
+        }
+        if (level) {
+            filter.level = level;
+        }
+        if (type && type !== 'total' && type !== 'ALL') {
             filter.counsellingType = type;
         }
         if (subCategory) {
             filter.subCategory = subCategory;
+            if (subCategory === 'Quotas' && (!req.query.quotaType || req.query.quotaType === 'ALL')) {
+                filter.quotaType = { $ne: null };
+            }
+        }
+        if (req.query.quotaType && req.query.quotaType !== 'ALL') {
+            filter.quotaType = req.query.quotaType;
         }
 
         const updates = await CounsellingUpdate.find(filter).sort({ createdAt: -1 }).limit(20);

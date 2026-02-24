@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search, Bell, Menu, User, ChevronDown, Check, ChevronUp, Circle, Package, MessageSquare, LogOut, X, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Header = ({ onOpenChoiceList, onLogout }) => {
+const Header = ({ onOpenChoiceList, onLogout, selectedCourse, setSelectedCourse }) => {
   const [isCourseDropdownOpen, setIsCourseDropdownOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState('NEET PG');
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -13,17 +12,34 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
   const courseCategories = [
     {
       title: 'Under Graduation - Medicine',
-      courses: ['NEET UG']
+      courses: ['NEET UG'],
+      field: 'Medicine',
+      level: 'UG'
     },
     {
       title: 'Post Graduation - Medicine',
-      courses: ['NEET PG', 'INICET', 'NEET MDS', 'DNB PDCET']
+      courses: ['NEET PG', 'INICET', 'NEET MDS', 'DNB PDCET'],
+      field: 'Medicine',
+      level: 'PG'
     },
     {
       title: 'Super Speciality - Medicine',
-      courses: ['NEET SS']
+      courses: ['NEET SS'],
+      field: 'Medicine',
+      level: 'SS'
+    },
+    {
+      title: 'Under Graduation - Engineering',
+      courses: ['JEE Mains', 'JEE Advanced'],
+      field: 'Engineering',
+      level: 'UG'
     }
   ];
+
+  const handleCourseSelect = (course, field, level) => {
+    setSelectedCourse({ name: course, field, level });
+    setIsCourseDropdownOpen(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -52,7 +68,7 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
             onClick={() => setIsCourseDropdownOpen(!isCourseDropdownOpen)}
           >
             <svg className="w-4 h-4 mr-1.5 text-[#0096FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-            <span className="font-bold text-xs tracking-wide">{selectedCourse}</span>
+            <span className="font-bold text-xs tracking-wide">{selectedCourse.name}</span>
             <ChevronDown size={14} className={`ml-1.5 text-[#0096FF] transition-transform ${isCourseDropdownOpen ? 'rotate-180' : ''}`} strokeWidth={2.5} />
           </div>
 
@@ -67,25 +83,30 @@ const Header = ({ onOpenChoiceList, onLogout }) => {
                   </div>
                   <div className="p-2 space-y-1 bg-white">
                     {category.courses.map((course) => (
-                      <div
+                      <button
                         key={course}
-                        className={`flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors ${selectedCourse === course ? 'bg-blue-50' : 'hover:bg-gray-50'}`}
-                        onClick={() => {
-                          setSelectedCourse(course);
-                          setIsCourseDropdownOpen(false);
-                        }}
+                        onClick={() => handleCourseSelect(course, category.field, category.level)}
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-all flex items-center justify-between group ${selectedCourse.name === course
+                          ? 'bg-blue-50 text-college-primary font-bold'
+                          : 'text-gray-600 hover:bg-gray-50'
+                          }`}
                       >
-                        <span className={`font-bold text-sm ${selectedCourse === course ? 'text-college-primary' : 'text-gray-800'}`}>
+                        <div className="flex items-center">
+                          <Circle
+                            size={8}
+                            className={`mr-3 transition-all ${selectedCourse.name === course
+                              ? 'fill-college-primary text-college-primary scale-125'
+                              : 'text-gray-300 group-hover:text-gray-400'
+                              }`}
+                          />
                           {course}
-                        </span>
-                        {selectedCourse === course ? (
-                          <div className="w-5 h-5 rounded-full bg-college-primary flex items-center justify-center">
-                            <Check size={12} className="text-white bg-college-primary" strokeWidth={3} />
+                        </div>
+                        {selectedCourse.name === course && (
+                          <div className="bg-blue-100 text-college-primary p-1 rounded-full">
+                            <Check size={12} strokeWidth={3} />
                           </div>
-                        ) : (
-                          <Circle size={20} className="text-gray-200 fill-transparent" />
                         )}
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>

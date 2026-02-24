@@ -54,6 +54,19 @@ const updateSchema = new mongoose.Schema(
             default: "Announcements & Events",
             index: true,
         },
+        quotaType: {
+            type: String,
+            index: true,
+        },
+        field: {
+            type: String,
+            index: true,
+            default: "Medicine", // Default to Medicine for existing data
+        },
+        level: {
+            type: String,
+            index: true,
+        },
     },
     { timestamps: true }
 );

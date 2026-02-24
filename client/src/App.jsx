@@ -48,6 +48,12 @@ function App() {
     'Assam - PG Medical'
   ]);
 
+  const [selectedCourse, setSelectedCourse] = useState({
+    name: 'NEET PG',
+    field: 'Medicine',
+    level: 'PG'
+  });
+
   // Check login status on mount
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -144,7 +150,12 @@ function App() {
       <Sidebar />
 
       <div className="flex-1 flex flex-col ml-20 md:ml-24 transition-all duration-300 overflow-hidden">
-        <Header onOpenChoiceList={openChoiceListModal} onLogout={handleLogout} />
+        <Header
+          onOpenChoiceList={openChoiceListModal}
+          onLogout={handleLogout}
+          selectedCourse={selectedCourse}
+          setSelectedCourse={setSelectedCourse}
+        />
         <main className="flex-1 overflow-y-auto custom-scrollbar">
           <Routes>
             <Route
@@ -155,6 +166,7 @@ function App() {
                   setIsPinModalOpen={setIsPinModalOpen}
                   pinnedItems={pinnedItems}
                   togglePin={togglePin}
+                  selectedCourse={selectedCourse}
                 />
               }
             />
@@ -183,11 +195,11 @@ function App() {
         onCreateList={openPinModal}
       />
 
-      <PinModal 
-        isOpen={isPinModalOpen} 
-        onClose={closePinModal} 
-        pinnedItems={pinnedItems} 
-        togglePin={togglePin} 
+      <PinModal
+        isOpen={isPinModalOpen}
+        onClose={closePinModal}
+        pinnedItems={pinnedItems}
+        togglePin={togglePin}
       />
     </div>
   );

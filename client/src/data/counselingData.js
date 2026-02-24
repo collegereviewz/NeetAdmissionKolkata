@@ -42,5 +42,7 @@ export const counselingOptions = [
     'Tripura - PG Medical',
     'Uttarakhand - PG Medical',
     'Uttar Pradesh - PG Medical',
-    'West Bengal - PG Medical'
+    'West Bengal - PG Medical',
+    'JEE Mains',
+    'JEE Advanced'
 ];

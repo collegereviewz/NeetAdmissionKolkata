@@ -25,6 +25,31 @@ const categorizeLink = (text, href) => {
     return "Announcements & Events";
 };
 
+/**
+ * Detect specific quota type based on text
+ */
+const detectQuotaType = (text) => {
+    const lowerText = text.toLowerCase();
+
+    if (lowerText.includes("afms-dnb")) return "AFMS-DNB";
+    if (lowerText.includes("afms")) return "AFMS";
+    if (lowerText.includes("dnb") && lowerText.includes("post mbbs")) return "DNB Post MBBS";
+    if (lowerText.includes("dnb")) return "DNB Post MBBS"; // Default DNB to Post MBBS if not specified
+    if (lowerText.includes("nbe diploma") || lowerText.includes("diploma")) return "NBE Diploma";
+    if (lowerText.includes("aiq") || lowerText.includes("all india quota")) return "AIQ";
+    if (lowerText.includes("mng") || lowerText.includes("management")) return "MNG";
+    if (lowerText.includes("muslim minority") || lowerText.includes("mm")) return "MM";
+    if (lowerText.includes("jain minority") || lowerText.includes("jm")) return "JM";
+    if (lowerText.includes("nri")) return "NRI";
+    if (lowerText.includes("du") || lowerText.includes("delhi university")) return "DU";
+    if (lowerText.includes("ip") || lowerText.includes("indraprastha")) return "IP";
+    if (lowerText.includes("bhu") || lowerText.includes("banaras")) return "BHU";
+    if (lowerText.includes("amu") || lowerText.includes("aligarh")) return "AMU";
+    if (lowerText.includes("ciq") || lowerText.includes("central institute quota")) return "CIQ";
+
+    return null;
+};
+
 export const scrapeSource = async (source) => {
     try {
         const { data } = await axios.get(source.url, {
@@ -92,7 +117,8 @@ const parseNICPortal = ($, source) => {
                     type: text.toLowerCase().includes("notice") ? "alert" : "note",
                     externalId: href,
                     hasDownload: href.toLowerCase().endsWith(".pdf"),
-                    subCategory: categorizeLink(text, href)
+                    subCategory: categorizeLink(text, href),
+                    quotaType: detectQuotaType(text)
                 });
             }
         }
@@ -117,7 +143,8 @@ const parseTamilNadu = ($, source) => {
                 type: "alert",
                 externalId: href,
                 hasDownload: href.endsWith(".pdf"),
-                subCategory: categorizeLink(text, href)
+                subCategory: categorizeLink(text, href),
+                quotaType: detectQuotaType(text)
             });
         }
     });
@@ -140,7 +167,8 @@ const parseGenericList = ($, source) => {
                 type: "note",
                 externalId: href,
                 hasDownload: href.endsWith(".pdf"),
-                subCategory: categorizeLink(text, href)
+                subCategory: categorizeLink(text, href),
+                quotaType: detectQuotaType(text)
             });
         }
     });
