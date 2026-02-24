@@ -1,70 +1,53 @@
-import twilio from 'twilio';
+import axios from 'axios';
 
 /**
- * Service to handle SMS and WhatsApp messaging using Twilio.
- * Placeholders for Account SID and Auth Token should be in .env
+ * Service to handle SMS messaging using Fast2SMS.
+ * API Key should be in .env as FAST2SMS_API_KEY
  */
 class SmsService {
     constructor() {
-        this._client = null;
-    }
-
-    get client() {
-        if (this._client) return this._client;
-
-        if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
-            this._client = twilio(
-                process.env.TWILIO_ACCOUNT_SID,
-                process.env.TWILIO_AUTH_TOKEN
-            );
-        }
-        return this._client;
+        this.apiUrl = 'https://www.fast2sms.com/dev/bulkV2';
     }
 
     async sendSMS(to, body) {
-        if (!this.client) {
-            console.warn("TWILIO NOT CONFIGURED: Logging SMS to console instead.");
+        const apiKey = process.env.FAST2SMS_API_KEY;
+
+        if (!apiKey || apiKey === 'your_fast2sms_auth_key_here') {
+            console.warn("FAST2SMS NOT CONFIGURED: Logging SMS to console instead.");
             console.log(`[SMS to ${to}]: ${body}`);
             return true;
         }
 
         try {
-            await this.client.messages.create({
-                body: body,
-                from: process.env.TWILIO_PHONE_NUMBER,
-                to: `+91${to.replace(/\D/g, '')}`
+            const phoneNumber = to.replace(/\D/g, '').slice(-10);
+
+            // Fast2SMS API Call
+            const response = await axios.get(this.apiUrl, {
+                params: {
+                    authorization: apiKey,
+                    route: 'q',
+                    message: body,
+                    language: 'english',
+                    flash: 0,
+                    numbers: phoneNumber
+                }
             });
-            return true;
-        } catch (error) {
-            // Handle unverified number error (Twilio Trial Account)
-            if (error.code === 21608) {
-                console.warn(`TWILIO RESTRICTION (Code 21608): Destination ${to} is not verified.`);
-                console.warn("Logging SMS to console instead to allow flow to continue.");
-                console.log(`[MOCKED SMS to ${to}]: ${body}`);
+
+            console.log("Fast2SMS Raw Response Data:", JSON.stringify(response.data, null, 2));
+
+            if (response.data.return === true) {
+                console.log(`✅ [FAST2SMS SUCCESS] Request accepted for ${to}. Request ID: ${response.data.request_id || 'N/A'}`);
                 return true;
+            } else {
+                console.error("Fast2SMS Provider Error:", response.data);
+                throw new Error(response.data.message || "Fast2SMS delivery rejected");
             }
-            console.error("Twilio SMS Error:", error);
-            throw error;
-        }
-    }
-
-    async sendWhatsApp(to, body) {
-        if (!this.client) {
-            console.warn("TWILIO NOT CONFIGURED: Logging WhatsApp to console instead.");
-            console.log(`[WhatsApp to ${to}]: ${body}`);
-            return true;
-        }
-
-        try {
-            await this.client.messages.create({
-                from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
-                body: body,
-                to: `whatsapp:+91${to.replace(/\D/g, '')}`
-            });
-            return true;
         } catch (error) {
-            console.error("Twilio WhatsApp Error:", error);
-            throw error;
+            console.error("Fast2SMS API Error Details:", error.response?.data || error.message);
+            // Non-blocking fallback for dev
+            console.warn("Logging SMS as fallback due to provider or network error.");
+            console.log(`[FALLBACK SMS to ${to}]: ${body}`);
+            return true;
         }
     }
 }

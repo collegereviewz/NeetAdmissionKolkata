@@ -7,7 +7,7 @@ import {
   ExternalLink, Calendar, Globe, Users, FileText,
   BookOpen, Bell, LayoutGrid, BarChart3, Grid3X3,
   Receipt, Heart, ChevronRight, ChevronLeft, CheckCircle2, Clock, Circle,
-  PlayCircle
+  PlayCircle, GitMerge, Award, TrendingUp, Building2, Landmark, GraduationCap
 } from 'lucide-react';
 import logo from '../assets/logo6.png';
 import { counselingOptions } from '../data/counselingData';
@@ -38,7 +38,7 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: bouncy }
 };
 
-const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }) => {
+const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin, user }) => {
   const navigate = useNavigate();
   const [itemToDelete, setItemToDelete] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
@@ -213,13 +213,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
 
 
   return (
-    <div className="min-h-screen p-4 md:p-6 pt-3 md:pt-4 space-y-4 relative pb-10 md:pb-6 overflow-x-hidden bg-[#fdfeff]" style={{
-      backgroundImage: `
-        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
-        linear-gradient(to bottom, #fdfeff, #f8fafc)
-      `
-    }}>
+    <div className="min-h-screen p-4 lg:p-4 space-y-2 relative overflow-x-hidden">
+      {/* Dynamic Grid Background */}
+      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" style={{ 
+        backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', 
+        backgroundSize: '24px 24px' 
+      }} />
+
       {/* Educational Professional Grid (Graph Paper Style) - STATIC (Immediate visibility) */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `
@@ -243,32 +243,32 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative z-0 space-y-4"
+        className="relative z-0 lg:space-y-2 space-y-4"
       >
         {/* Quick Navigation Tabs */}
-        <div className="relative group/nav mb-6">
-          {/* Scroll Buttons */}
-          {showLeftArrow && (
-            <motion.button
-              whileHover={{ scale: 1.1, backgroundColor: '#f0f7ff' }}
-              whileTap={{ scale: 0.9 }}
-              transition={bouncy}
-              onClick={() => scroll('left')}
-              className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-400 hover:text-college-primary hover:border-blue-100 transition-all opacity-0 group-hover/nav:opacity-100 hidden md:flex cursor-pointer"
-            >
-              <ChevronLeft size={16} />
-            </motion.button>
-          )}
-
-          <motion.div
-            ref={scrollRef}
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="flex overflow-x-auto space-x-4 py-3 md:py-4 scrollbar-hide scroll-smooth no-scrollbar"
+      <div className="relative group/nav lg:mb-2 mb-6">
+        {/* Scroll Buttons */}
+        {showLeftArrow && (
+          <motion.button 
+            whileHover={{ scale: 1.1, backgroundColor: '#f0f7ff' }}
+            whileTap={{ scale: 0.9 }}
+            transition={bouncy}
+            onClick={() => scroll('left')}
+            className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-400 hover:text-college-primary hover:border-blue-100 transition-all opacity-0 group-hover/nav:opacity-100 hidden md:flex cursor-pointer"
           >
-            <style dangerouslySetInnerHTML={{
-              __html: `
+            <ChevronLeft size={16} />
+          </motion.button>
+        )}
+
+        <motion.div 
+          ref={scrollRef}
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="flex overflow-x-auto space-x-4 py-3 md:py-4 lg:py-2 scrollbar-hide scroll-smooth no-scrollbar"
+        >
+          <style dangerouslySetInnerHTML={{ __html: `
+
             .no-scrollbar::-webkit-scrollbar { display: none; }
             .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
           `}} />
@@ -290,6 +290,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
               <motion.div
                 key={item}
                 variants={fadeUp}
+                initial="hidden"
+                animate="visible"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={`relative group flex items-center px-4 py-2 border rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${activeTab === item
@@ -406,6 +408,7 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
             </motion.div>
           </div>
         )}
+
 
 
         {/* Animate View Transitions */}
@@ -762,8 +765,13 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                 <div className="lg:col-span-5 space-y-4">
                   {/* Profile Message */}
                   <motion.div variants={fadeUp} className="mb-2">
-                    <h2 className="text-gray-500 text-base font-medium">Hello Anish</h2>
-                    <h1 className="text-2xl font-bold text-gray-800 mt-1 leading-tight">
+                    <h2 className="text-sm lg:text-xs font-bold flex items-center gap-1.5">
+                      <span className="text-slate-400 uppercase tracking-widest">Hello</span>
+                      <span className="bg-gradient-to-r from-blue-600 to-blue-200 bg-clip-text text-transparent font-black uppercase tracking-tight">
+                        {user?.fullName || user?.username || 'Anish'}
+                      </span>
+                    </h2>
+                    <h1 className="text-2xl lg:text-xl font-bold text-gray-800 lg:mt-0 mt-1 leading-tight">
                       Get all your <br />
                       <span className="text-college-primary font-extrabold">Counselling Updates</span> <br />
                       at one place!
@@ -853,74 +861,82 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                           <p className="text-xs font-medium">Fetching latest updates...</p>
                         </div>
                       ) : collegeUpdates.length > 0 ? (
-                        collegeUpdates.map((update, index) => {
-                          const colorMap = {
-                            alert: {
-                              bg: 'bg-red-50',
-                              border: 'border-red-200',
-                              iconBg: 'bg-red-500',
-                              text: 'text-red-600',
-                              dateBorder: 'border-red-200',
-                              icon: <AlertTriangle size={14} />,
-                            },
-                            note: {
-                              bg: 'bg-yellow-50',
-                              border: 'border-yellow-200',
-                              iconBg: 'bg-yellow-600',
-                              text: 'text-yellow-700',
-                              dateBorder: 'border-yellow-200',
-                              icon: <Calendar size={14} />,
-                            },
-                          };
-                          const c = colorMap[update.type] || colorMap.alert;
+                        <motion.div
+                          key={`updates-${collegeUpdates.length}`}
+                          initial="hidden"
+                          animate="visible"
+                          variants={staggerContainer}
+                          className="space-y-3"
+                        >
+                          {collegeUpdates.map((update, index) => {
+                            const colorMap = {
+                              alert: {
+                                bg: 'bg-red-50',
+                                border: 'border-red-200',
+                                iconBg: 'bg-red-500',
+                                text: 'text-red-600',
+                                dateBorder: 'border-red-200',
+                                icon: <AlertTriangle size={14} />,
+                              },
+                              note: {
+                                bg: 'bg-yellow-50',
+                                border: 'border-yellow-200',
+                                iconBg: 'bg-yellow-600',
+                                text: 'text-yellow-700',
+                                dateBorder: 'border-yellow-200',
+                                icon: <Calendar size={14} />,
+                              },
+                            };
+                            const c = colorMap[update.type] || colorMap.alert;
 
-                          return (
-                            <motion.div
-                              key={update._id || index}
-                              variants={fadeUp}
-                              whileHover={{ x: 5 }}
-                              onClick={() => openUpdateLink(update.link)}
-                              className={`${c.bg} rounded-xl p-4 border ${c.border} hover:shadow-md transition-all cursor-pointer ${update.hasDownload ? 'relative' : ''}`}
-                            >
-                              {update.hasDownload && (
-                                <div className="absolute top-4 right-4">
-                                  <button className="p-1.5 bg-black text-white rounded-full hover:bg-gray-800 transition-colors">
-                                    <FileDown size={14} />
-                                  </button>
-                                </div>
-                              )}
-                              <div className={`flex items-start justify-between mb-2 ${update.hasDownload ? 'pr-8' : ''}`}>
-                                <div className="flex items-center space-x-2 flex-wrap">
-                                  <div className={`${c.iconBg} text-white p-1 rounded-full`}>
-                                    {c.icon}
+                            return (
+                              <motion.div
+                                key={update._id || index}
+                                variants={fadeUp}
+                                whileHover={{ x: 5 }}
+                                onClick={() => openUpdateLink(update.link)}
+                                className={`${c.bg} rounded-xl p-4 border ${c.border} hover:shadow-md transition-all cursor-pointer ${update.hasDownload ? 'relative' : ''}`}
+                              >
+                                {update.hasDownload && (
+                                  <div className="absolute top-4 right-4">
+                                    <button className="p-1.5 bg-black text-white rounded-full hover:bg-gray-800 transition-colors">
+                                      <FileDown size={14} />
+                                    </button>
                                   </div>
-                                  <span className={`${c.text} font-semibold text-xs bg-white px-2 py-0.5 rounded border ${c.dateBorder}`}>
-                                    {update.date}
-                                  </span>
-                                  <span className={`${c.text} font-bold text-xs`}>
-                                    {update.category}
-                                  </span>
+                                )}
+                                <div className={`flex items-start justify-between mb-2 ${update.hasDownload ? 'pr-8' : ''}`}>
+                                  <div className="flex items-center space-x-2 flex-wrap">
+                                    <div className={`${c.iconBg} text-white p-1 rounded-full`}>
+                                      {c.icon}
+                                    </div>
+                                    <span className={`${c.text} font-semibold text-xs bg-white px-2 py-0.5 rounded border ${c.dateBorder}`}>
+                                      {update.date}
+                                    </span>
+                                    <span className={`${c.text} font-bold text-xs`}>
+                                      {update.category}
+                                    </span>
+                                  </div>
                                 </div>
-                              </div>
-                              <h4 className="text-gray-900 font-bold text-base mb-1 leading-snug">{update.title}</h4>
-                              {update.subtitle && (
-                                <p className={`${update.type === 'note' ? c.text + ' font-medium' : 'text-gray-600'} text-xs mb-3`}>
-                                  {update.subtitle}
-                                </p>
-                              )}
-                              {update.hasVideo && (
-                                <div className="flex space-x-2">
-                                  <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                                    <Play size={12} className="mr-1.5 fill-current" /> English
-                                  </button>
-                                  <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
-                                    <Play size={12} className="mr-1.5 fill-current" /> Malayalam
-                                  </button>
-                                </div>
-                              )}
-                            </motion.div>
-                          );
-                        })
+                                <h4 className="text-gray-900 font-bold text-base mb-1 leading-snug">{update.title}</h4>
+                                {update.subtitle && (
+                                  <p className={`${update.type === 'note' ? c.text + ' font-medium' : 'text-gray-600'} text-xs mb-3`}>
+                                    {update.subtitle}
+                                  </p>
+                                )}
+                                {update.hasVideo && (
+                                  <div className="flex space-x-2">
+                                    <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                                      <Play size={12} className="mr-1.5 fill-current" /> English
+                                    </button>
+                                    <button className="flex items-center px-3 py-1 bg-white border border-gray-200 rounded text-xs text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                                      <Play size={12} className="mr-1.5 fill-current" /> Malayalam
+                                    </button>
+                                  </div>
+                                )}
+                              </motion.div>
+                            );
+                          })}
+                        </motion.div>
                       ) : (
                         <div className="text-center p-8 border-2 border-dashed border-gray-100 rounded-xl">
                           <p className="text-gray-400 text-sm">No recent updates found.</p>
@@ -983,6 +999,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                     <motion.div
                       key={idx}
                       variants={scaleIn}
+                      initial="hidden"
+                      animate="visible"
                       whileHover={{ scale: 1.02 }}
                       className={`bg-${item.color}-50 border border-${item.color}-200 rounded-lg p-4 hover:shadow-md transition-all cursor-pointer`}
                     >
@@ -1033,6 +1051,8 @@ const Dashboard = ({ isPinModalOpen, setIsPinModalOpen, pinnedItems, togglePin }
                     <motion.div
                       key={idx}
                       variants={scaleIn}
+                      initial="hidden"
+                      animate="visible"
                       whileHover={{ scale: 1.02 }}
                       className={`border-l-4 border-l-${event.color}-500 bg-${event.color}-50 rounded-r-lg p-4 hover:shadow-md transition-all cursor-pointer`}
                     >

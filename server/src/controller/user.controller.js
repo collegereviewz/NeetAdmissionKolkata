@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import { Otp } from "../models/otp.model.js";
 import { smsService } from "../utils/smsService.js";
+import jwt from "jsonwebtoken";
 
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
@@ -77,7 +78,6 @@ const loginUser = async (req, res) => {
 };
 
 const getMe = async (req, res) => {
-    // Check for the existence of the accessToken cookie
     const token = req.cookies?.accessToken;
 
     if (!token) {
@@ -85,11 +85,15 @@ const getMe = async (req, res) => {
     }
 
     try {
-        // In a real implementation with middleware, req.user would be attached.
-        // For now, we'll try to find a user if we can decode the token or just return a mock
-        // but it MUST be a successful response only if the token exists.
+        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const user = await User.findById(decodedToken?._id).select("-password -refreshToken");
+
+        if (!user) {
+            return res.status(401).json({ message: "User not found" });
+        }
+
         return res.status(200).json({
-            user: { username: "Anish", email: "anish@example.com" },
+            user,
             message: "Session is active"
         });
     } catch (error) {
@@ -98,7 +102,7 @@ const getMe = async (req, res) => {
 };
 
 const sendOtp = async (req, res) => {
-    const { phoneNumber, method } = req.body;
+    const { phoneNumber } = req.body;
 
     if (!phoneNumber) {
         return res.status(400).json({ message: "Phone number is required" });
@@ -109,27 +113,23 @@ const sendOtp = async (req, res) => {
 
     try {
         // Save OTP to database (TTL will handle expiry)
-        await Otp.create({ phoneNumber, otp, method });
+        // We still keep the method in schema for compatibility but default it
+        await Otp.create({ phoneNumber, otp, method: 'sms' });
 
         const message = `${otp} is your verification code. Valid for 10 minutes.`;
 
-        // Send via SMS or WhatsApp
-        if (method === 'whatsapp') {
-            await smsService.sendWhatsApp(phoneNumber, message);
-        } else {
-            await smsService.sendSMS(phoneNumber, message);
-        }
+        // Send via Fast2SMS
+        await smsService.sendSMS(phoneNumber, message);
 
         console.log("\n" + "=".repeat(30));
         console.log(`🚀 [OTP SENT REAL-TIME]`);
         console.log(`📱 Phone: ${phoneNumber}`);
-        console.log(`💬 Method: ${method}`);
         console.log(`🔑 OTP: ${otp} (Logged for dev)`);
         console.log("=".repeat(30) + "\n");
 
         return res.status(200).json({
             success: true,
-            message: `OTP sent via ${method}.`
+            message: `OTP sent successfully via SMS.`
         });
     } catch (error) {
         console.error("OTP sending failed:", error);
@@ -202,7 +202,8 @@ const verifyOtp = async (req, res) => {
                             _id: user._id,
                             username: user.username,
                             email: user.email,
-                            phoneNumber: user.phoneNumber
+                            phoneNumber: user.phoneNumber,
+                            isProfileComplete: user.isProfileComplete
                         }
                     });
             } catch (tokenError) {
@@ -222,8 +223,55 @@ const verifyOtp = async (req, res) => {
     }
 };
 
+const completeProfile = async (req, res) => {
+    try {
+        const { fullName, email, subscriptionType } = req.body;
+        const user = await User.findById(req.user?._id || req.body.userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Check if email is already taken by another user
+        const existingEmailUser = await User.findOne({ email, _id: { $ne: user._id } });
+        if (existingEmailUser) {
+            return res.status(400).json({ message: "Email is already in use" });
+        }
+
+        user.fullName = fullName;
+        user.email = email;
+        user.subscriptionType = subscriptionType;
+        // Only set isPaid here if it's Free. Paid is handled by the payment controller.
+        if (subscriptionType === 'Free') {
+            user.isPaid = false;
+        }
+        user.isProfileComplete = true;
+
+        await user.save({ validateBeforeSave: false });
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile completed and user registered",
+            user: {
+                _id: user._id,
+                username: user.username,
+                fullName: user.fullName,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                isProfileComplete: user.isProfileComplete,
+                subscriptionType: user.subscriptionType
+            }
+        });
+    } catch (error) {
+        console.error("Profile completion Error:", error);
+        return res.status(500).json({
+            message: "Internal server error during profile completion",
+            error: error.message
+        });
+    }
+};
+
 const logoutUser = async (req, res) => {
-    // For a simple implementation, we just clear the cookies
     const options = {
         httpOnly: true,
         secure: true
@@ -236,4 +284,4 @@ const logoutUser = async (req, res) => {
         .json({ message: "User logged out successfully" });
 };
 
-export { registerUser, loginUser, logoutUser, getMe, sendOtp, verifyOtp };
+export { registerUser, loginUser, logoutUser, getMe, sendOtp, verifyOtp, completeProfile };
